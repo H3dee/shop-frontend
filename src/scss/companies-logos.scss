@@ -1,0 +1,17 @@
+.logotips {
+  display: flex;
+  margin: 30px 0px 40px 0px;
+  .logotips__item {
+      padding: 25px 20px;
+    .item__image {
+      width: 131px;
+      height: 65px;
+      max-height: 150px;
+      max-width: 150px;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

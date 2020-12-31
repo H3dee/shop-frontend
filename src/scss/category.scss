@@ -1,0 +1,98 @@
+.category {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .category__selectors {
+    display: flex;
+    margin-bottom: 20px;
+    .selector__name {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      margin-right: 25px;
+      color: #838383;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.1s ease-in;
+      cursor: pointer;
+      &:hover {
+        color: #000000;
+        border-color: #cccccc;
+      }
+      &.active {
+        color: #000000;
+        border-color: #0156ff;
+      }
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+  .category__body {
+    display: flex;
+    .category__preview {
+      flex-shrink: 0;
+      position: relative;
+      width: 232px;
+      max-width: 232px;
+      height: 350px;
+      max-height: 350px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        .preview-title {
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .preview-title {
+        z-index: 100;
+        text-align: center;
+        max-width: 100px;
+        a {
+          color: #ffffff;
+          font-weight: bold;
+          font-size: 19px;
+          line-height: 29px;
+        }
+      }
+      .preview__see-all {
+        position: absolute;
+        bottom: 7%;
+        z-index: 100;
+        &:hover{
+          a{
+            opacity: 0.8;
+          }
+        }
+        a {
+          font-size: 11px;
+          line-height: 15px;
+          text-decoration: underline;
+          text-transform: capitalize;
+          font-weight: normal;
+          color: #ffffff;
+        }
+      }
+    }
+    .category__products {
+      display: flex;
+    }
+  }
+}

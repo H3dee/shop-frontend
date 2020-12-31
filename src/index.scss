@@ -1,0 +1,9 @@
+@import "./scss/_reseter";
+
+.App {
+  height: 100vh;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}

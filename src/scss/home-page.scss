@@ -1,0 +1,170 @@
+.content {
+  flex: 1 1 auto;
+  .container {
+    max-width: 1220px;
+    margin: 0 auto;
+    .content__row {
+      display: flex;
+      flex-direction: column;
+      .content__ad-banner {
+        width: 100%;
+        img {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+      .content__new-products {
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0px 20px 0px;
+        .new-products__head {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          .head__title {
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 33px;
+          }
+          .head__see-all {
+            align-self: flex-end;
+            &:hover {
+              opacity: 0.85;
+            }
+            a {
+              font-size: 13px;
+              line-height: 15px;
+              color: #000000;
+              text-transform: capitalize;
+              text-decoration: underline;
+            }
+          }
+        }
+        .new-products__list {
+          display: flex;
+        }
+      }
+      .content__sponsor-ad {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f7ff;
+        padding: 22px 0;
+        margin-bottom: 15px;
+        .sponsor-ad__placeholder {
+          display: flex;
+          align-items: center;
+          .sponsor-ad__logo {
+            margin-right: 12px;
+          }
+          .sponsor-ad__text {
+            border-left: 2px solid #00b6bd;
+            padding: 5px 0px 5px 12px;
+            font-size: 16px;
+            color: #272560;
+            .bold {
+              font-weight: 600;
+            }
+            a {
+              padding-left: 4px;
+              font-size: 13px;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .content__news {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .news__title {
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 33px;
+          color: #000000;
+          margin-bottom: 20px;
+        }
+        .news__cards-list {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+      .content__latest-reviews {
+        margin: 49px 0px 60px 0px;
+        padding: 0 15px;
+        .container {
+          max-width: 1000px;
+          margin: 0 auto;
+          padding: 50px 110px 64px 110px;
+          background: #f5f7ff;
+          .latest-reviews__row {
+            display: flex;
+            flex-direction: column;
+            .latest-reviews__text {
+              position: relative;
+              font-size: 15.5px;
+              line-height: 27px;
+              padding-left: 70px;
+              .symbol {
+                position: absolute;
+                top: 0;
+                left: 3px;
+                font-size: 96px;
+                line-height: 76px;
+              }
+            }
+            .latest-reviews__author {
+              display: flex;
+              justify-content: flex-end;
+              line-height: 21px;
+              margin: 7px 0px 30px 0px;
+            }
+            .latest-reviews__footer {
+              display: flex;
+              justify-content: space-between;
+              .latest-reviews__btn {
+                a {
+                  cursor: pointer;
+                  font-size: 13px;
+                  border: 2px solid #0156ff;
+                  border-radius: 24px;
+                  color: #0156ff;
+                  font-weight: 600;
+                  line-height: 21px;
+                  padding: 3px 11px;
+                  margin-left: 25px;
+                  transition: 0.15s ease-in;
+                  &:hover {
+                    color: #ffffff;
+                    background: #0156ff;
+                  }
+                }
+              }
+              .latest-reviews__selectors{
+                display: flex;
+                .selectors__item{
+                  height: 12px;
+                  width: 12px;
+                  margin-right: 9px;
+                  border-radius: 50%;
+                  background: #cccccc;
+                  cursor: pointer;
+                  &:hover{
+                    opacity: 0.7;
+                  }
+                  &.current{
+                    background: #0156FF;
+                    opacity: 1;
+                  }
+                  &:last-child{
+                    margin: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

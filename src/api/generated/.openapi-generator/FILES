@@ -1,0 +1,15 @@
+.openapi-generator-ignore
+apis/CategoryApi.ts
+apis/ProductApi.ts
+apis/PromotedCategoriesApi.ts
+apis/index.ts
+index.ts
+models/Category.ts
+models/ModelError.ts
+models/NewCategory.ts
+models/NewProduct.ts
+models/NewPromotedCategories.ts
+models/Product.ts
+models/PromotedCategories.ts
+models/index.ts
+runtime.ts
