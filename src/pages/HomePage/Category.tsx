@@ -1,7 +1,7 @@
 import React from "react";
-import ProductCard from "./ProductCard";
-import testImg from '../img/image 29.png'
-import "../scss/category.scss";
+import ProductCard from "../../components(shared)/ProductCard";
+import testImg from '../../img/image 29.png'
+import "../../scss/components/category.scss";
 
 const Category: React.FC = () => {
   return (

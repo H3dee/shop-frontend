@@ -1,9 +1,12 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import MainPage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage/index";
+import HomePage from "./pages/HomePage/index";
 
 export const routes = (
   <Switch>
-    <Route component={MainPage} path="/home" exact />
+    <Route component={HomePage} path="/home" exact />
+    {/* test version */}
+    <Route component={CategoryPage} path='/category'/>  
     <Redirect to="/home" />
   </Switch>
 );

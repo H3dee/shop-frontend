@@ -1,12 +1,12 @@
 import React from "react";
-import fbIcon from "../img/icons/fb-icon.svg";
-import instIcon from "../img/icons/inst_icon.svg";
-import paypalLogo from "../img/icons/paypalpaypal-logo.svg";
-import maestroLogo from "../img/icons/maestromaestro-logo.svg";
-import expressLogo from "../img/icons/american-expressexpress-logo.svg";
-import discoverLogo from "../img/icons/discoverdiscover-logo.svg";
-import visaLogo from "../img/icons/visavisa-logo.svg";
-import '../scss/footer.scss'
+import fbIcon from "../../img/icons/fb-icon.svg";
+import instIcon from "../../img/icons/inst_icon.svg";
+import paypalLogo from "../../img/icons/paypalpaypal-logo.svg";
+import maestroLogo from "../../img/icons/maestromaestro-logo.svg";
+import expressLogo from "../../img/icons/american-expressexpress-logo.svg";
+import discoverLogo from "../../img/icons/discoverdiscover-logo.svg";
+import visaLogo from "../../img/icons/visavisa-logo.svg";
+import '../../scss/components/footer.scss'
 
 const Footer: React.FC = () => {
   return (

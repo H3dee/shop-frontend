@@ -6,7 +6,7 @@ import thermaltakeLogo from "../img/image 33thermaltake.png";
 import adataLogo from "../img/image 33adata.png";
 import hpLogo from "../img/image 33hp.png";
 import gigabyteLogo from "../img/image 33gigabyte.png";
-import "../scss/companies-logos.scss";
+import "../scss/components/companies-logos.scss";
 
 const CompaniesLogos: React.FC = () => {
   return (

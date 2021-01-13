@@ -1,11 +1,10 @@
 import React from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "../../components(shared)/ProductCard";
 import Category from "./Category";
-import tempImg from '../img/image 29test.png'
-import zipLogo from "../img/icons/Asset 1zip-logo.svg";
+import tempImg from '../../img/image 29test.png'
+import zipLogo from "../../img/icons/Asset 1zip-logo.svg";
 
 const CategoriesList: React.FC = () => {
-  
   return (
     <>
       <div className="content__new-products">

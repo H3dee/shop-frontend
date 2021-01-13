@@ -1,6 +1,6 @@
 import React from "react";
-import { NewsCardProps } from "../interfaces/INewsCard";
-import "../scss/news-card.scss";
+import { NewsCardProps } from "../../interfaces/INewsCard";
+import "../../scss/components/news-card.scss";
 
 const NewsCard: React.FC<NewsCardProps> = (props) => {
   return (

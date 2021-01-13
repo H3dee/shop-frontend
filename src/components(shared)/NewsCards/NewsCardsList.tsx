@@ -1,14 +1,14 @@
 import React from "react";
 import NewsCard from "./NewsCard";
-import firstCardImg from "../img/news_images/image 29.png";
-import secondCardImg from "../img/news_images/image 29 (1).png";
-import thirdCardImg from "../img/news_images/image 29 (2).png";
-import fourthCardImg from "../img/news_images/image 29 (3).png";
-import fifthCardImg from "../img/news_images/image 29 (4).png";
-import sixthCardImg from "../img/news_images/image 29 (5).png";
-import seventhCardImg from "../img/news_images/image 29 (6).png";
-import eighthCardImg from "../img/news_images/image 29 (7).png";
-import ninthCardImg from "../img/news_images/image 29 (8).png";
+import firstCardImg from "../../img/news_images/image 29.png";
+import secondCardImg from "../../img/news_images/image 29 (1).png";
+import thirdCardImg from "../../img/news_images/image 29 (2).png";
+import fourthCardImg from "../../img/news_images/image 29 (3).png";
+import fifthCardImg from "../../img/news_images/image 29 (4).png";
+import sixthCardImg from "../../img/news_images/image 29 (5).png";
+import seventhCardImg from "../../img/news_images/image 29 (6).png";
+import eighthCardImg from "../../img/news_images/image 29 (7).png";
+import ninthCardImg from "../../img/news_images/image 29 (8).png";
 
 const NewsCardsList: React.FC = () => {
   const images = [

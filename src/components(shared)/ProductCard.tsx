@@ -3,7 +3,7 @@ import { ProductCardProps } from "../interfaces/IProductCard";
 import stockIcon from "../img/icons/Group 132stock-icon.svg";
 // import checkIcon from "../img/icons/Group 135check-icon.svg";
 import star from '../img/icons/Star 1star.svg'
-import "../scss/product-card.scss";
+import "../scss/components/product-card.scss";
 
 const ProductCard: React.FC<ProductCardProps> = (props) => {
   return (
