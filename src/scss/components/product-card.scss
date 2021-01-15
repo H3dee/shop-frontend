@@ -8,6 +8,7 @@
 .product-card {
   position: relative;
   display: flex;
+  max-width: 235px;
   flex-direction: column;
   padding: 7px 25px 25px 25px;
   border-radius: 6px;

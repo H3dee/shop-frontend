@@ -2,8 +2,8 @@ import React from "react";
 import gridIcon from "../../img/icons/Group 201grid-icon.svg";
 import lineIcon from "../../img/icons/Frame 50line-type.svg";
 import rightArrow from "../../img/icons/Vector 13right-pointer.svg";
-import cancelIcon from '../../img/icons/Group 108cancel.svg'
-import tempImg from '../../img/image 29test.png'
+import cancelIcon from "../../img/icons/Group 108cancel.svg";
+import tempImg from "../../img/image 29test.png";
 import ProductCard from "../../components(shared)/ProductCard";
 
 const ListSection: React.FC = () => {
@@ -65,11 +65,62 @@ const ListSection: React.FC = () => {
             </div>
           </div>
           <div className="body__products">
-            <ProductCard imageUrl={tempImg}/>
-            <ProductCard imageUrl={tempImg}/>
-            <ProductCard imageUrl={tempImg}/>
-            <ProductCard imageUrl={tempImg}/>
-            <ProductCard imageUrl={tempImg}/>
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+
             {/* <ProductCard imageUrl={tempImg}/> */}
           </div>
         </div>

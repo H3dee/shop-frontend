@@ -27,10 +27,26 @@ const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
             ))}
           </div>
           <div className="menu__products">
-            <ProductCard imageUrl={tempImg} />
-            <ProductCard imageUrl={tempImg} />
-            <ProductCard imageUrl={tempImg} />
-            <ProductCard imageUrl={tempImg} />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
+            <ProductCard
+              imageUrl={tempImg}
+              price="255"
+              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+            />
           </div>
         </div>
       )}

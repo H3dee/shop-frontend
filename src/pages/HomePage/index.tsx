@@ -1,5 +1,5 @@
 import React from "react";
-import PromotedCategoriesList from "./PromotedCategoriesList";
+import PromotedCategoriesSection from "./PromotedCategoriesSection";
 import BenefitsList from "../../components(shared)/BenefitsCards/BenefitsList";
 import Footer from "../../components(shared)/Footer/Footer";
 import Header from "../../components(shared)/Header/Header";
@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
         <div className="container">
           <div className="content__row">
             <AdBanner imageUrl={adBannerImg} />
-            <PromotedCategoriesList />
+            <PromotedCategoriesSection />
             <CompaniesLogos />
             <div className="content__news">
               <div className="news__title">

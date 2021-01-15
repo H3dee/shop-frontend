@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useHttp } from "../../hooks/useHttp";
+import { useHttp } from "../../hooks/http.hook";
 import { MenuCategory } from "../../interfaces/IMenu";
 import HeaderInfoSection from "./HeaderInfoSection";
 import HeaderMenu from "./HeaderMenu";

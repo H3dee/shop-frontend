@@ -1,3 +1,8 @@
 export interface ProductCardProps {
-      imageUrl: string
+      id?: number | string
+      imageUrl: string,
+      productName: string,
+      price: string
 }
+
+export type Product = ProductCardProps
