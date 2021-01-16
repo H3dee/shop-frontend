@@ -44,7 +44,7 @@ const NewProducts: React.FC = React.memo(() => {
       <div className="new-products__list">
         {loading && <Loader />}
         {!loading &&
-          products.map((product, index) => (
+          products.map((product) => (
             <ProductCard
               key={String(product.id)}
               imageUrl={product.imageUrl}

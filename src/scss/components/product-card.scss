@@ -47,6 +47,8 @@
           height: 230px;
         }
         .top__feedback {
+          position: absolute;
+          bottom: 0;
           margin: 0;
           align-items: flex-end;
           .feedback__count {
@@ -119,7 +121,7 @@
           width: 241px;
           padding: 6px 55px 6px 15px;
           flex-shrink: 1;
-          justify-content: space-between;  
+          justify-content: space-between;
           &:nth-child(even) {
             background: #f5f7ff;
           }
@@ -180,8 +182,6 @@
         }
       }
       .top__feedback {
-        position: absolute;
-        bottom: 0;
         display: flex;
         align-items: center;
         justify-content: flex-start;

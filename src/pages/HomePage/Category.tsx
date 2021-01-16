@@ -1,25 +1,25 @@
 import React from "react";
+import { PromotedCategoryProps } from "../../interfaces/IPromotedCategory";
 import ProductCard from "../../components(shared)/ProductCard";
 import testImg from "../../img/image 29.png";
 import "../../scss/components/category.scss";
 
-const Category: React.FC = () => {
+const Category: React.FC<PromotedCategoryProps> = (props) => {
   return (
     <div className="category">
       <div className="category__selectors">
-        <div className="selector__name active">MSI GS Series</div>
-        <div className="selector__name">MSI GS Series</div>
-        <div className="selector__name">MSI GS Series</div>
-        <div className="selector__name">MSI GS Series</div>
+       {props.subcategoriesNames && props.subcategoriesNames.map(item => 
+         <div key={item.id} className="selector__name">{item.name}</div>
+       )}
       </div>
       <div className="category__body">
         <div className="category__preview">
           <img
-            src="https://res.cloudinary.com/hgtfkfbcu/image/upload/v1608545275/thumbnail_image_30_2_1e3cc0c096.png"
+            src={props.parent.imgUrl}
             alt=""
           />
           <div className="preview-title">
-            <a href="/home">Custome Builds</a>
+            <a href="/home">{props.parent.name}</a>
           </div>
           <div className="preview__see-all">
             <a href="/home">see all new products</a>
