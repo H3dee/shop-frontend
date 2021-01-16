@@ -6,7 +6,7 @@ import HeaderMenu from "./HeaderMenu";
 import Loader from "../Loader";
 import "../../scss/components/header.scss";
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo(() => {
   const [showTimetable, setShowTimetable] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
@@ -22,6 +22,7 @@ const Header: React.FC = () => {
     setCurrentCategory(categoryToReplace!);
     setShowMenu(true);
   };
+  
 
   const toggleTimetableHandler = () => {
     setShowSearch(false);
@@ -77,6 +78,6 @@ const Header: React.FC = () => {
       />
     </header>
   );
-};
+})
 
 export default Header;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import gridIcon from "../../img/icons/Group 201grid-icon.svg";
 import lineIcon from "../../img/icons/Frame 50line-type.svg";
 import rightArrow from "../../img/icons/Vector 13right-pointer.svg";
@@ -7,6 +7,8 @@ import tempImg from "../../img/image 29test.png";
 import ProductCard from "../../components(shared)/ProductCard";
 
 const ListSection: React.FC = () => {
+  const [isGrid, setIsGrid] = useState(true)
+
   return (
     <div className="list__body">
       <div className="container">
@@ -39,11 +41,13 @@ const ListSection: React.FC = () => {
               </div>
             </div>
             <div className="top__display-type-btns">
-              <div className="grid-type active">
-                <img src={gridIcon} alt="" />
+              <div className={isGrid ? "grid-type active" : "grid-type"}>
+                <img src={gridIcon} alt=""
+                  onClick={() => !isGrid && setIsGrid(true)} />
               </div>
-              <div className="grid-type">
-                <img src={lineIcon} alt="" />
+              <div className={!isGrid ? "line-type active" : "line-type"}>
+                <img src={lineIcon} alt=""
+                  onClick={() => isGrid && setIsGrid(false)} />
               </div>
             </div>
           </div>
@@ -69,59 +73,51 @@ const ListSection: React.FC = () => {
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
             <ProductCard
               imageUrl={tempImg}
               price="255"
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
+              isExpanded={isGrid}
             />
-            <ProductCard
-              imageUrl={tempImg}
-              price="255"
-              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
-            />
-            <ProductCard
-              imageUrl={tempImg}
-              price="255"
-              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
-            />
-            <ProductCard
-              imageUrl={tempImg}
-              price="255"
-              productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
-            />
-
-            {/* <ProductCard imageUrl={tempImg}/> */}
+            
           </div>
         </div>
       </div>
