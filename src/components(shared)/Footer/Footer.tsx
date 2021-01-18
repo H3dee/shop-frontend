@@ -6,9 +6,9 @@ import maestroLogo from "../../img/icons/maestromaestro-logo.svg";
 import expressLogo from "../../img/icons/american-expressexpress-logo.svg";
 import discoverLogo from "../../img/icons/discoverdiscover-logo.svg";
 import visaLogo from "../../img/icons/visavisa-logo.svg";
-import '../../scss/components/footer.scss'
+import "../../scss/components/footer.scss";
 
-const Footer: React.FC = () => {
+const Footer: React.FC = React.memo(() => {
   return (
     <footer className="footer">
       <div className="container">
@@ -73,11 +73,15 @@ const Footer: React.FC = () => {
             <div className="columns__item">
               <div className="item__title">Address</div>
               <p>Address: 1234 Street Adress City Address, 1234</p>
-              <p>Phones: <span className="contacts">(00) 1234 5678</span></p>
+              <p>
+                Phones: <span className="contacts">(00) 1234 5678</span>
+              </p>
               <p>We are open: Monday-Thursday: 9:00 AM - 5:30 PM</p>
               <p>Friday: 9:00 AM - 6:00 PM</p>
               <p>Saturday: 11:00 AM - 5:00 PM</p>
-              <p>E-mail: <span className="contacts">shop@email.com</span></p>
+              <p>
+                E-mail: <span className="contacts">shop@email.com</span>
+              </p>
             </div>
           </div>
           <div className="footer__refs">
@@ -114,6 +118,6 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+});
 
 export default Footer;

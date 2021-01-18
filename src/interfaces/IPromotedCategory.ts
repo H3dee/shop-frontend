@@ -1,6 +1,7 @@
 import { Product } from "./IProductCard";
 
-type ID = number | string
+export type ID = number | string
+
 interface ParentCategory {
     imgUrl: string,
     name: string

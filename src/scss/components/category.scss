@@ -47,7 +47,7 @@
       cursor: pointer;
       &:hover {
         .preview-title {
-          a {
+          div {
             text-decoration: underline;
           }
         }
@@ -65,7 +65,7 @@
         z-index: 100;
         text-align: center;
         max-width: 100px;
-        a {
+        div {
           color: #ffffff;
           font-weight: bold;
           font-size: 19px;
@@ -77,11 +77,11 @@
         bottom: 7%;
         z-index: 100;
         &:hover{
-          a{
+          div{
             opacity: 0.8;
           }
         }
-        a {
+        div {
           font-size: 11px;
           line-height: 15px;
           text-decoration: underline;
@@ -93,6 +93,14 @@
     }
     .category__products {
       display: flex;
+      width: 100%;
+      max-width: 100%;
+      .products__loading{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
 import React from "react";
+import {useHistory} from 'react-router-dom'
 import rightArrow from "../../img/icons/Vector 13right-pointer.svg";
 import BrandsBlock from "./BrandsBlock";
 
 const FiltersSection: React.FC = () => {
+  const history = useHistory()
+
   return (
     <div className="list__filters-section">
       <div className="container">
@@ -11,7 +14,7 @@ const FiltersSection: React.FC = () => {
             <div className="back-btn__pointer">
               <img src={rightArrow} alt="" />
             </div>
-            <button>Back</button>
+            <button onClick={() => history.push('/home')}>Back</button>
           </div>
           <div className="list__filters-section__selectors">
             <div className="selectors__title">Filters</div>

@@ -7,7 +7,7 @@ export const routes = (
   <Switch>
     <Route component={HomePage} path="/home" exact />
     {/* test version */}
-    <Route component={CategoryPage} path='/category'/>  
+    <Route component={CategoryPage} path='/category/:id'/>  
     <Redirect to="/home" />
   </Switch>
 );

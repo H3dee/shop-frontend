@@ -1,8 +1,8 @@
 export interface ProductCardProps {
       id?: number | string
-      imageUrl: string,
+      imageUrl?: string,
       productName: string,
-      price: string,
+      price: string | number,
       isExpanded?: boolean
 }
 

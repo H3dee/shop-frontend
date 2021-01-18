@@ -4,29 +4,38 @@ import { Product } from "../../interfaces/IProductCard";
 import { useHttp } from "../../hooks/http.hook";
 import Loader from "../../components(shared)/Loader";
 
+const qs = require('qs')
+
 const NewProducts: React.FC = React.memo(() => {
   const { loading, request } = useHttp();
   const [products, setProducts] = useState<Product[]>([]);
 
   const getProducts = useCallback(async () => {
-    const amount = await request("/products/count", "GET");
-    const queryParams = new URLSearchParams("?_start=value");
-    queryParams.set("_start", String(amount - 6));
+    try {
+      const query = qs.stringify({
+        _limit: 6,
+        _sort: 'id:desc'
+      })
 
-    const data = await request(`/products?${queryParams.toString()}`, "GET");
-    data &&
-      data instanceof Array &&
-      setProducts(
-        data.map((product) => ({
-          id: product.id,
-          imageUrl:
-            product?.photo[0]?.formats?.medium?.url ||
-            product?.photo[0]?.formats?.small?.url ||
-            product?.photo[0]?.formats?.thumbnail?.url,
-          productName: product.name,
-          price: product.price,
-        }))
-      );
+      const data = await request(`/products?${query}`, "GET");
+
+      data &&
+        data instanceof Array &&
+        setProducts(
+          data.map((product) => ({
+            id: product.id,
+            imageUrl:
+              product?.photo[0]?.formats?.medium?.url ||
+              product?.photo[0]?.formats?.small?.url ||
+              product?.photo[0]?.formats?.thumbnail?.url ||
+              product?.photo[0]?.url,
+            productName: product.name,
+            price: product.price,
+          }))
+        );
+    } catch (err) {
+      console.log(err)
+    }
   }, [request]);
 
   useEffect(() => {
@@ -50,6 +59,7 @@ const NewProducts: React.FC = React.memo(() => {
               imageUrl={product.imageUrl}
               productName={product.productName}
               price={product.price}
+              isExpanded={false}
             />
           ))}
       </div>
