@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { PromotedCategory } from "../../interfaces/IPromotedCategory";
-import { Category as CategoryDTO} from '../../api/generated/models/Category';
+import { Category as CategoryDTO} from "../../api/generated/models/Category"
 import Category from "./Category";
 import Loader from "../../components(shared)/Loader";
 

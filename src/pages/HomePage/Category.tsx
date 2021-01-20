@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { ID, PromotedCategoryProps } from "../../interfaces/IPromotedCategory";
-import { Product } from "../../interfaces/IProductCard";
-import { Product as ProductDTO } from "../../api/generated/models/Product";
-import { useHttp } from "../../hooks/http.hook";
-import ProductCard from "../../components(shared)/ProductCard";
-import Loader from "../../components(shared)/Loader";
-import testImg from "../../img/image 29.png";
-import "../../scss/components/category.scss";
-import { getProductImage } from "../../util/getProductImage";
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { ID, PromotedCategoryProps } from '../../interfaces/IPromotedCategory'
+import { Product } from '../../interfaces/IProductCard'
+import { Product as ProductDTO } from '../../api/generated/models/Product'
+import { useHttp } from '../../hooks/http.hook'
+import { getProductImage } from '../../util/getProductImage'
+import ProductCard from '../../components(shared)/ProductCard'
+import Loader from '../../components(shared)/Loader'
+import testImg from '../../img/image 29.png'
+import '../../scss/components/category.scss'
 
-const qs = require("qs");
+const qs = require('qs')
 
 const Category: React.FC<PromotedCategoryProps> = (props) => {
-  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
-  const [currentSubCategoryId, setSubCategoryId] = useState<ID | null>(null);
-  const { loading, request } = useHttp<ProductDTO[]>();
-  const history = useHistory();
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([])
+  const [currentSubCategoryId, setSubCategoryId] = useState<ID | null>(null)
+  const { loading, request } = useHttp<ProductDTO[]>()
+  const history = useHistory()
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true
 
     const getProducts = async () => {
-      setCurrentProducts([]);
+      setCurrentProducts([])
       const query = qs.stringify({
         _where: [
           {
-            "category.id":
+            'category.id':
               currentSubCategoryId ||
               props?.subcategoriesNames[0]?.id ||
               props?.id,
           },
         ],
         _limit: 4,
-      });
-      const data = await request(`/products?${query}`, "GET");
+      })
+      const data = await request(`/products?${query}`, 'GET')
 
-      if (!isMounted) return;
+      if (!isMounted) return
 
       data &&
         data instanceof Array &&
@@ -47,15 +47,15 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
             productName: product.name,
             price: product.price,
           }))
-        );
-    };
+        )
+    }
 
-    getProducts();
+    getProducts()
 
     return () => {
-      isMounted = false;
-    };
-  }, [request, currentSubCategoryId, props?.id, props?.subcategoriesNames]);
+      isMounted = false
+    }
+  }, [request, currentSubCategoryId, props?.id, props?.subcategoriesNames])
 
   return (
     <div className="category">
@@ -67,8 +67,8 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
               className={
                 (!currentSubCategoryId && i === 0) ||
                 currentSubCategoryId === item.id
-                  ? "selector__name active"
-                  : "selector__name"
+                  ? 'selector__name active'
+                  : 'selector__name'
               }
               onClick={() => setSubCategoryId(item.id)}
             >
@@ -79,7 +79,9 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
       <div className="category__body">
         <div
           className="category__preview"
-          onClick={() => history.push(`/category/${props.id}`)}
+          onClick={() =>
+            currentProducts.length && history.push(`/category/${props.parent.name}/${props.id}`)
+          }
         >
           <img src={props.parent.imgUrl} alt="" />
           <div className="preview-title">
@@ -91,24 +93,30 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
         </div>
         <div className="category__products">
           {!loading ? (
-            currentProducts.map((product, i) => {
-              return (
-                <ProductCard
-                  key={String(i)}
-                  imageUrl={product.imageUrl || testImg}
-                  price={product.price}
-                  productName={product.productName}
-                  isExpanded={false}
-                />
-              );
-            })
+            currentProducts.length ? (
+              currentProducts.map((product, i) => {
+                return (
+                  <ProductCard
+                    key={String(i)}
+                    imageUrl={product.imageUrl || testImg}
+                    price={product.price}
+                    productName={product.productName}
+                    isExpanded={false}
+                  />
+                )
+              })
+            ) : (
+              <div className="products__empty-alert">
+                There are no products yet....
+              </div>
+            )
           ) : (
             <div className="products__loading">{<Loader />}</div>
           )}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Category;
+export default Category

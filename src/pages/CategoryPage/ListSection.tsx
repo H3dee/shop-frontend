@@ -45,7 +45,7 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
         },
         { encode: false }
       )
-      
+    
       const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
 
       data &&
