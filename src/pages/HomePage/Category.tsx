@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ID, PromotedCategoryProps } from "../../interfaces/IPromotedCategory";
 import { Product } from "../../interfaces/IProductCard";
-import {Product as ProductDTO} from '../../api/generated/models/Product'
+import { Product as ProductDTO } from "../../api/generated/models/Product";
 import { useHttp } from "../../hooks/http.hook";
 import ProductCard from "../../components(shared)/ProductCard";
 import Loader from "../../components(shared)/Loader";
@@ -19,40 +19,42 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-  let isMounted = true
+    let isMounted = true;
 
-   const getProducts = async () => {
-    setCurrentProducts([]);
-    const query = qs.stringify({
-      _where: [
-        {
-          "category.id":
-            currentSubCategoryId ||
-            props?.subcategoriesNames[0]?.id ||
-            props?.id,
-        },
-      ],
-      _limit: 4,
-    });
-    const data = await request(`/products?${query}`, "GET");
+    const getProducts = async () => {
+      setCurrentProducts([]);
+      const query = qs.stringify({
+        _where: [
+          {
+            "category.id":
+              currentSubCategoryId ||
+              props?.subcategoriesNames[0]?.id ||
+              props?.id,
+          },
+        ],
+        _limit: 4,
+      });
+      const data = await request(`/products?${query}`, "GET");
 
-    if(!isMounted) return
-    
+      if (!isMounted) return;
 
-    data && data instanceof Array &&  setCurrentProducts(data.map((product) => ({
-      id: product.id,
-      imageUrl: getProductImage(product),
-      productName: product.name,
-      price: product.price,
-    })))
-    
-   }
+      data &&
+        data instanceof Array &&
+        setCurrentProducts(
+          data.map((product) => ({
+            id: product.id,
+            imageUrl: getProductImage(product),
+            productName: product.name,
+            price: product.price,
+          }))
+        );
+    };
 
-   getProducts()
+    getProducts();
 
-   return () => {
-     isMounted = false
-   }
+    return () => {
+      isMounted = false;
+    };
   }, [request, currentSubCategoryId, props?.id, props?.subcategoriesNames]);
 
   return (
