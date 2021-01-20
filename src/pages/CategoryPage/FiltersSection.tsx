@@ -1,9 +1,17 @@
-import React from "react";
-import {useHistory} from 'react-router-dom'
-import rightArrow from "../../img/icons/Vector 13right-pointer.svg";
-import BrandsBlock from "./BrandsBlock";
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
+import BrandsBlock from './BrandsBlock'
+import Filter from './Filter'
 
 const FiltersSection: React.FC = () => {
+  const filtersNames = ['Category', 'Price']
+  const prices: string[] = ['$0.00 - $1,000.00', '$1,000.00 - $2,000.00']
+  const categories: string[] = [
+    'CUSTOM PCS',
+    'MSI ALL-IN-ONE PCS',
+    'HP/COMPAQ PCS',
+  ]
   const history = useHistory()
 
   return (
@@ -21,60 +29,8 @@ const FiltersSection: React.FC = () => {
             <div className="selectors__clear-btn">
               <button>Clear Filter</button>
             </div>
-            <div className="selectors__category-filter">
-              <div className="category-filter__placeholder">
-                <span className="title">Category</span>
-                <span className="arrow">
-                  <img src={rightArrow} alt=" " />
-                </span>
-              </div>
-              <div className="category-filter__expanded">
-                <div className="category-filter__item">
-                  <span className="name">CUSTOM PCS</span>
-                </div>
-                <div className="category-filter__item">
-                  <span className="name">MSI ALL-IN-ONE PCS</span>
-                </div>
-                <div className="category-filter__item">
-                  <span className="name">HP/COMPAQ PCS</span>
-                </div>
-              </div>
-            </div>
-            <div className="selectors__price-filter">
-              <div className="price-filter__placeholder">
-                <span className="title">Price</span>
-                <span className="arrow">
-                  <img src={rightArrow} alt=" " />
-                </span>
-              </div>
-              <div className="price-filter__expanded">
-                <div className="price-filter__item">
-                  <span className="name">$0.00 - $1,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-                <div className="price-filter__item">
-                  <span className="name">$1,000.00 - $2,000.00</span>
-                </div>
-              </div>
-            </div>
-
+            <Filter title={filtersNames[0]} items={categories} />
+            <Filter title={filtersNames[1]} items={prices} />
             <div className="selectors__apply-btn">
               <button>Apply Filters (2)</button>
             </div>
@@ -93,7 +49,7 @@ const FiltersSection: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FiltersSection;
+export default FiltersSection

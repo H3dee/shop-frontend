@@ -1,5 +1,5 @@
-@import "../templates/ad-banner.scss";
-@import "../templates/btn.scss";
+@import '../templates/ad-banner.scss';
+@import '../templates/btn.scss';
 
 .content {
   flex: 1 1 auto;
@@ -98,7 +98,6 @@
                           transform: rotate(90deg);
                         }
                       }
-
                       &.open > div:last-child {
                         display: block;
                         transform: translateY(0);
@@ -122,8 +121,8 @@
                         }
                       }
                       & > div:last-child {
-                        // display: none;
-                        // transform: translateY(-200px);
+                        display: none;
+                        transform: translateY(-200px);
                         transition: transform 0.2s ease-in;
                         div {
                           display: flex;
@@ -132,7 +131,7 @@
                           line-height: 27px;
                           cursor: pointer;
                           transition: opacity 0.1s ease-in;
-                          &:hover{
+                          &:hover {
                             opacity: 0.8;
                           }
                           .name {
@@ -163,11 +162,11 @@
                         }
                       }
                     }
-                    .selectors__category-filter {
-                      margin: 25px 0px 15px 0px;
+                    .selectors__filter {
                       @extend %filter;
                     }
-                    .selectors__price-filter {
+                    .category-filter {
+                      margin: 25px 0px 15px 0px;
                       @extend %filter;
                     }
                     .selectors__apply-btn {
@@ -341,7 +340,7 @@
                       align-items: center;
                       div.active {
                         opacity: 1;
-                        &:hover{
+                        &:hover {
                           opacity: 1;
                         }
                       }
@@ -353,7 +352,7 @@
                         margin-right: 8px;
                         opacity: 0.5;
                         transition: opacity 0.1s ease-in;
-                        &:hover{
+                        &:hover {
                           opacity: 0.6;
                         }
                         img {
@@ -419,7 +418,7 @@
                       }
                     }
                   }
-                  .body__products{
+                  .body__products {
                     margin-top: 5px;
                     display: flex;
                     flex-wrap: wrap;

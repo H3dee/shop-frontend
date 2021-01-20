@@ -1,77 +1,71 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Product } from "../../interfaces/IProductCard";
-import { useHttp } from "../../hooks/http.hook";
-import ProductCard from "../../components(shared)/ProductCard";
-import Loader from "../../components(shared)/Loader";
-import gridIcon from "../../img/icons/Group 201grid-icon.svg";
-import lineIcon from "../../img/icons/Frame 50line-type.svg";
-import rightArrow from "../../img/icons/Vector 13right-pointer.svg";
-import cancelIcon from "../../img/icons/Group 108cancel.svg";
-import tempImg from "../../img/image 29test.png";
+import React, { useCallback, useEffect, useState } from 'react'
+import { Category as CategoryDTO } from '../../api/generated'
+import { Product as ProductDTO } from '../../api/generated/models/Product'
+import { Product } from '../../interfaces/IProductCard'
+import { useHttp } from '../../hooks/http.hook'
+import { getProductImage } from '../../util/getProductImage'
+import ProductCard from '../../components(shared)/ProductCard'
+import Loader from '../../components(shared)/Loader'
+import gridIcon from '../../img/icons/Group 201grid-icon.svg'
+import lineIcon from '../../img/icons/Frame 50line-type.svg'
+import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
+import cancelIcon from '../../img/icons/Group 108cancel.svg'
+import tempImg from '../../img/image 29test.png'
 
-const qs = require("qs");
+const qs = require('qs')
 
 const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
-  const [isGrid, setIsGrid] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
-  const { loading, request } = useHttp();
+  const [isGrid, setIsGrid] = useState(true)
+  const [products, setProducts] = useState<Product[]>([])
+  const { loading, request } = useHttp()
 
   const getProducts = useCallback(async () => {
     try {
-      setProducts([]);
+      setProducts([])
       const subcategoriesParams = qs.stringify({
-        _where: { "parent.id": categoryId },
-      });
+        _where: { 'parent.id': categoryId },
+      })
 
-      const subCategories = await request(
+      const subCategories: CategoryDTO[] = await request(
         `/categories?${subcategoriesParams}`,
-        "GET"
-      );
+        'GET'
+      )
 
       const query = qs.stringify(
         {
           _where: {
             _or: [
-              { "category.id": categoryId },
-              [
-                ...subCategories.map((subCategory: { id: string }) => ({
-                  "category.id": subCategory.id
-                })),
-
-              ],
+              { 'category.id': categoryId },
+              ...subCategories.map((subCategory) => ({
+                'category.id': subCategory.id,
+              })),
             ],
           },
           _limit: 20,
         },
         { encode: false }
-      );
-      const data = await request(`/products?${query}`, "GET");
+      )
+      
+      const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
 
       data &&
         data instanceof Array &&
-        data.forEach((product) => {
-          setProducts((prev) => [
-            ...prev,
-            {
-              id: product.id,
-              imageUrl:
-                product?.photo[0]?.formats?.medium?.url ||
-                product?.photo[0]?.formats?.small?.url ||
-                product?.photo[0]?.formats?.thumbnail?.url ||
-                product?.photo[0]?.url,
-              productName: product.name,
-              price: product.price,
-            },
-          ]);
-        });
+        setProducts(
+          data.map((product) => ({
+            id: product.id,
+            imageUrl: getProductImage(product),
+            productName: product.name,
+            price: product.price,
+          }))
+        )
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  }, [request, categoryId]);
+  }, [request, categoryId])
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    getProducts()
+  }, [getProducts])
 
   return (
     <div className="list__body">
@@ -107,14 +101,14 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
                   </div>
                 </div>
                 <div className="top__display-type-btns">
-                  <div className={isGrid ? "grid-type active" : "grid-type"}>
+                  <div className={isGrid ? 'grid-type active' : 'grid-type'}>
                     <img
                       src={gridIcon}
                       alt=""
                       onClick={() => !isGrid && setIsGrid(true)}
                     />
                   </div>
-                  <div className={!isGrid ? "line-type active" : "line-type"}>
+                  <div className={!isGrid ? 'line-type active' : 'line-type'}>
                     <img
                       src={lineIcon}
                       alt=""
@@ -158,7 +152,7 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ListSection;
+export default ListSection

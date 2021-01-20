@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/http.hook";
-import { PromotedCategory, ID } from "../../interfaces/IPromotedCategory";
+import { PromotedCategory } from "../../interfaces/IPromotedCategory";
+import { Category as CategoryDTO} from '../../api/generated/models/Category';
 import Category from "./Category";
 import Loader from "../../components(shared)/Loader";
 
@@ -23,7 +24,7 @@ const CategoriesList: React.FC = () => {
           },
           { encode: false }
         );
-        const subCategories = await request(`/categories?${query}`, "GET");
+        const subCategories: CategoryDTO[] = await request(`/categories?${query}`, "GET");
 
         setPromotedCategories((prev) => [
           ...prev,
@@ -37,7 +38,7 @@ const CategoriesList: React.FC = () => {
               category?.image?.formats?.thumbnail?.url,
           },
           subcategoriesNames: subCategories.map(
-            (subCategory: { id: ID; name: string }) => ({
+            (subCategory) => ({
               id: subCategory.id,
               name: subCategory.name,
             })
