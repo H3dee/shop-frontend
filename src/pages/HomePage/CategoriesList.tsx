@@ -1,51 +1,57 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { PromotedCategory } from "../../interfaces/IPromotedCategory";
-import { Category as CategoryDTO} from "../../api/generated/models/Category"
+import { Category as CategoryDTO } from "../../api/generated/models/Category";
+import { getCategoryImage } from "../../util/getImage";
+import { getSubCategoriesById } from "../../util/getSubCategories";
 import Category from "./Category";
 import Loader from "../../components(shared)/Loader";
 
 const qs = require("qs");
 
 const CategoriesList: React.FC = () => {
-  const [promotedCategories, setPromotedCategories] = useState<PromotedCategory[]>([]);
+  const [promotedCategories, setPromotedCategories] = useState<
+    PromotedCategory[]
+  >([]);
   const { loading, request } = useHttp();
 
   const getPromotedCategories = useCallback(async () => {
     try {
-      setPromotedCategories([])
+      setPromotedCategories([]);
       const { categories } = await request("/promoted-categories", "GET");
+      const query = qs.stringify({
+        _where: {
+          _or: [
+            ...categories.map((category: CategoryDTO) => ({
+              "parent.id": category.id,
+            })),
+          ],
+        },
+      });
 
-      for (const category of categories) {
-        const query = qs.stringify(
-          {
-            _where: [{ "parent.id": category.id }],
-            _limit: 6,
-          },
-          { encode: false }
-        );
-        const subCategories: CategoryDTO[] = await request(`/categories?${query}`, "GET");
+      const subCategories: CategoryDTO[] = await request(
+        `/categories?${query}`,
+        "GET"
+      );
 
-        setPromotedCategories((prev) => [
-          ...prev,
-        {
-          id: category.id,
-          parent: {
-            name: category.name,
-            imgUrl:
-              category?.image?.formats?.medium?.url ||
-              category?.image?.formats?.small?.url ||
-              category?.image?.formats?.thumbnail?.url,
-          },
-          subcategoriesNames: subCategories.map(
-            (subCategory) => ({
+      subCategories.length &&
+        setPromotedCategories(
+          categories.map((category: CategoryDTO) => ({
+            id: category.id,
+            parent: {
+              name: category.name,
+              imgUrl: getCategoryImage(category),
+            },
+            subcategoriesNames: getSubCategoriesById(
+              subCategories,
+              category.id
+            ).map((subCategory) => ({
               id: subCategory.id,
               name: subCategory.name,
-            })
-          ),
-        },
-        ]);
-      }
+            })),
+          }))
+        );
+
     } catch (e) {
       console.log(e);
     }
