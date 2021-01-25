@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category as CategoryDTO } from '../../api/generated'
 import { Product as ProductDTO } from '../../api/generated/models/Product'
 import { Product } from '../../interfaces/IProductCard'
@@ -19,53 +19,52 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
   const [products, setProducts] = useState<Product[]>([])
   const { loading, request } = useHttp()
 
-  const getProducts = useCallback(async () => {
-    try {
-      setProducts([])
-      const subcategoriesParams = qs.stringify({
-        _where: { 'parent.id': categoryId },
-      })
-
-      const subCategories: CategoryDTO[] = await request(
-        `/categories?${subcategoriesParams}`,
-        'GET'
-      )
-
-      const query = qs.stringify(
-        {
-          _where: {
-            _or: [
-              { 'category.id': categoryId },
-              ...subCategories.map((subCategory) => ({
-                'category.id': subCategory.id,
-              })),
-            ],
-          },
-          _limit: 20,
-        },
-        { encode: false }
-      )
-    
-      const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
-
-      data &&
-        data instanceof Array &&
-        setProducts(
-          data.map((product) => ({
-            id: product.id,
-            imageUrl: getProductImage(product),
-            productName: product.name,
-            price: product.price,
-          }))
-        )
-    } catch (e) {
-      console.log(e)
-    }
-  }, [request, categoryId])
-
   useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const subcategoriesParams = qs.stringify({
+          _where: { 'parent.id': categoryId },
+        })
+  
+        const subCategories: CategoryDTO[] = await request(
+          `/categories?${subcategoriesParams}`,
+          'GET'
+        )
+  
+        const query = qs.stringify(
+          {
+            _where: {
+              _or: [
+                { 'category.id': categoryId },
+                ...subCategories.map((subCategory) => ({
+                  'category.id': subCategory.id,
+                })),
+              ],
+            },
+            _limit: 20,
+          },
+          { encode: false }
+        )
+      
+        const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
+  
+        data &&
+          data instanceof Array &&
+          setProducts(
+            data.map((product) => ({
+              id: product.id,
+              imageUrl: getProductImage(product),
+              productName: product.name,
+              price: product.price,
+            }))
+          )
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     getProducts()
-  }, [getProducts])
+  }, [request, categoryId])
 
   return (
     <div className="list__body">

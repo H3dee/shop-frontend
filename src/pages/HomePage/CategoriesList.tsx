@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { PromotedCategory } from "../../interfaces/IPromotedCategory";
 import { Category as CategoryDTO } from "../../api/generated/models/Category";
@@ -15,51 +15,49 @@ const CategoriesList: React.FC = () => {
   >([]);
   const { loading, request } = useHttp();
 
-  const getPromotedCategories = useCallback(async () => {
-    try {
-      setPromotedCategories([]);
-      const { categories } = await request("/promoted-categories", "GET");
-      const query = qs.stringify({
-        _where: {
-          _or: [
-            ...categories.map((category: CategoryDTO) => ({
-              "parent.id": category.id,
-            })),
-          ],
-        },
-      });
+  useEffect(() => {
+    const getPromotedCategories = async () => {
+      try {
+        const { categories } = await request("/promoted-categories", "GET");
+        const query = qs.stringify({
+          _where: {
+            _or: [
+              ...categories.map((category: CategoryDTO) => ({
+                "parent.id": category.id,
+              })),
+            ],
+          },
+        });
 
-      const subCategories: CategoryDTO[] = await request(
-        `/categories?${query}`,
-        "GET"
-      );
-
-      subCategories.length &&
-        setPromotedCategories(
-          categories.map((category: CategoryDTO) => ({
-            id: category.id,
-            parent: {
-              name: category.name,
-              imgUrl: getCategoryImage(category),
-            },
-            subcategoriesNames: getSubCategoriesById(
-              subCategories,
-              category.id
-            ).map((subCategory) => ({
-              id: subCategory.id,
-              name: subCategory.name,
-            })),
-          }))
+        const subCategories: CategoryDTO[] = await request(
+          `/categories?${query}`,
+          "GET"
         );
 
-    } catch (e) {
-      console.log(e);
-    }
-  }, [request]);
+        subCategories.length &&
+          setPromotedCategories(
+            categories.map((category: CategoryDTO) => ({
+              id: category.id,
+              parent: {
+                name: category.name,
+                imgUrl: getCategoryImage(category),
+              },
+              subcategoriesNames: getSubCategoriesById(
+                subCategories,
+                category.id
+              ).map((subCategory) => ({
+                id: subCategory.id,
+                name: subCategory.name,
+              })),
+            }))
+          );
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
-  useEffect(() => {
     getPromotedCategories();
-  }, [getPromotedCategories]);
+  }, [request]);
 
   return (
     <div className="content__categories">

@@ -18,7 +18,7 @@ const CategoryPage: React.FC = () => {
       behavior: 'auto',
       inline: 'start',
     })
-  })
+  }, [])
 
   return (
     <>

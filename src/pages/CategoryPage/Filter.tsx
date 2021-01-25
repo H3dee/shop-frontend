@@ -3,7 +3,7 @@ import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
 import { FilterProps } from '../../interfaces/IFilter'
 
 const Filter: React.FC<FilterProps> = ({ title, items }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
     <div
