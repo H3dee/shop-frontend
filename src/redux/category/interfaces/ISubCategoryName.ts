@@ -1,0 +1,1 @@
+export type subCategoriesName = { id: string, name: string }

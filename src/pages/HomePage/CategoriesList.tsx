@@ -10,9 +10,7 @@ import Loader from "../../components(shared)/Loader";
 const qs = require("qs");
 
 const CategoriesList: React.FC = () => {
-  const [promotedCategories, setPromotedCategories] = useState<
-    PromotedCategory[]
-  >([]);
+  const [promotedCategories, setPromotedCategories] = useState<PromotedCategory[]>([]);
   const { loading, request } = useHttp();
 
   useEffect(() => {

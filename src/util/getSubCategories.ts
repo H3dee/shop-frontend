@@ -4,7 +4,7 @@ import { getParentId } from "./getParentId";
 
 export const getSubCategoriesById: (
   subCategories: CategoryDTO[],
-  id: ID
+  id: ID,
 ) => CategoryDTO[] = (subCategories, id) =>
   subCategories
     .filter((subCategory) => getParentId(subCategory) === id)

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
 import BrandsBlock from './BrandsBlock'
@@ -6,12 +7,13 @@ import Filter from './Filter'
 
 const FiltersSection: React.FC = () => {
   const filtersNames = ['Category', 'Price']
-  const prices: string[] = ['$0.00 - $1,000.00', '$1,000.00 - $2,000.00']
+  const prices: string[] = ['$0 - $1000', '$1000 - $5000', "$5000 - 15000"]
   const categories: string[] = [
     'CUSTOM PCS',
     'MSI ALL-IN-ONE PCS',
     'HP/COMPAQ PCS',
   ]
+  const categoriesTest = useSelector(state => console.log(state))
   const history = useHistory()
 
   return (

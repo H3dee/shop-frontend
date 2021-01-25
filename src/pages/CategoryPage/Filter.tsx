@@ -17,16 +17,15 @@ const Filter: React.FC<FilterProps> = ({ title, items }) => {
           <img src={rightArrow} alt=" " />
         </span>
       </div>
-      <div className="filter__expanded">
-        {Array.from({ length: 8 }, (_, i) => {
-          return (
-            <div className="filter__item" key={String(i)}>
-              <span className="name">
-                {items[i] || items[items.length - 1]}
-              </span>
-            </div>
-          )
-        })}
+      <div className="filter__expanded" onClick={e => e.stopPropagation()}>
+        {
+          items.map((price, i) => 
+          <div className="filter__item" key={String(i)}>
+            <span className="name">
+              {price}
+            </span>
+          </div>)
+        }
       </div>
     </div>
   )

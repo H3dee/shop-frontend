@@ -5,11 +5,11 @@ import './scss/index.scss'
 
 const App: React.FC = () => {
   return (
-   <Router>
-      <div className="App">
-          {routes}
-      </div>
-   </Router>
+     <Router>
+        <div className="App">
+            {routes}
+        </div>
+     </Router>
   )
 }
 
