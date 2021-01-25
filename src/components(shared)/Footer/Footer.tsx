@@ -1,11 +1,11 @@
 import React from "react";
-import fbIcon from "../../img/icons/fb-icon.svg";
-import instIcon from "../../img/icons/inst_icon.svg";
-import paypalLogo from "../../img/icons/paypalpaypal-logo.svg";
-import maestroLogo from "../../img/icons/maestromaestro-logo.svg";
-import expressLogo from "../../img/icons/american-expressexpress-logo.svg";
-import discoverLogo from "../../img/icons/discoverdiscover-logo.svg";
-import visaLogo from "../../img/icons/visavisa-logo.svg";
+import fbIcon from "../../assets/img/icons/fb-icon.svg";
+import instIcon from "../../assets/img/icons/inst_icon.svg";
+import paypalLogo from "../../assets/img/icons/paypalpaypal-logo.svg";
+import maestroLogo from "../../assets/img/icons/maestromaestro-logo.svg";
+import expressLogo from "../../assets/img/icons/american-expressexpress-logo.svg";
+import discoverLogo from "../../assets/img/icons/discoverdiscover-logo.svg";
+import visaLogo from "../../assets/img/icons/visavisa-logo.svg";
 import "../../scss/components/footer.scss";
 
 const Footer: React.FC = React.memo(() => {

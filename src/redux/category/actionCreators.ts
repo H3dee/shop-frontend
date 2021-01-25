@@ -20,21 +20,21 @@ export const openCategory = (
   const query = qs.stringify({
     _where: [{ "parent.id": id }],
     _limit: 12,
-  });
-  const response = await fetch(`/category?${query}`, {
+  }, {encode: false});
+  const response = await fetch(`/categories?${query}`, {
     method: "GET",
     headers: {
       accept: "application/json",
     },
   });
-
+  
   const data: CategoryDTO[] = await response.json();
 
-  return {
+  dispatch({
     type: OPEN_CATEGORY,
     payload: data.map((category) => ({
       id: category.id,
       name: category.name,
-    })),
-  };
+    }))
+  })
 };

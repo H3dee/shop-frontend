@@ -1,19 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import { subCategoriesName } from '../../redux/category/interfaces/ISubCategoryName'
 import BrandsBlock from './BrandsBlock'
 import Filter from './Filter'
+
+interface RootState{
+  category: {
+    subCategoriesNames: subCategoriesName[]
+  }
+}
 
 const FiltersSection: React.FC = () => {
   const filtersNames = ['Category', 'Price']
   const prices: string[] = ['$0 - $1000', '$1000 - $5000', "$5000 - 15000"]
-  const categories: string[] = [
-    'CUSTOM PCS',
-    'MSI ALL-IN-ONE PCS',
-    'HP/COMPAQ PCS',
-  ]
-  const categoriesTest = useSelector(state => console.log(state))
+  const categories = useSelector((state: RootState) => state.category.subCategoriesNames)
   const history = useHistory()
 
   return (
@@ -32,7 +34,7 @@ const FiltersSection: React.FC = () => {
               <button>Clear Filter</button>
             </div>
             <Filter title={filtersNames[0]} items={categories} />
-            <Filter title={filtersNames[1]} items={prices} />
+            <Filter title={filtersNames[1]} prices={prices} />
             <div className="selectors__apply-btn">
               <button>Apply Filters (2)</button>
             </div>

@@ -1,8 +1,8 @@
 import React from 'react'
 import BenefitCard from './BenefitCard'
-import supportLogo from '../../img/icons/SupportsupportLogo.svg'
-import accLogo from '../../img/icons/Accountacc-logo.svg'
-import savingLogo from '../../img/icons/Savingsaving-logo.svg'
+import supportLogo from '../../assets/img/icons/SupportsupportLogo.svg'
+import accLogo from '../../assets/img/icons/Accountacc-logo.svg'
+import savingLogo from '../../assets/img/icons/Savingsaving-logo.svg'
 import '../../scss/components/benefit-cards.scss'
 
 const BenefitsList: React.FC = () => {

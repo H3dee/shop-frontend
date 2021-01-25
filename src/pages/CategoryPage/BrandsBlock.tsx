@@ -1,10 +1,10 @@
 import React from "react";
-import roccatLogo from "../../img/image 33roccat.png";
-import msiLogo from "../../img/image 33msi.png";
-import thermaltakeLogo from "../../img/image 33thermaltake.png";
-import adataLogo from "../../img/image 33adata.png";
-import hpLogo from "../../img/image 33hp.png";
-import gigabyteLogo from "../../img/image 33gigabyte.png";
+import roccatLogo from "../../assets/img/image 33roccat.png";
+import msiLogo from "../../assets/img/image 33msi.png";
+import thermaltakeLogo from "../../assets/img/image 33thermaltake.png";
+import adataLogo from "../../assets/img/image 33adata.png";
+import hpLogo from "../../assets/img/image 33hp.png";
+import gigabyteLogo from "../../assets/img/image 33gigabyte.png";
 
 const BrandsBlock: React.FC = () => {
   return (

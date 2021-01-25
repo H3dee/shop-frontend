@@ -7,7 +7,7 @@ import CompaniesLogos from "../../components(shared)/CompaniesLogos";
 import NewsCardsList from "../../components(shared)/NewsCards/NewsCardsList";
 import AdBanner from "../../components(shared)/AdBanner";
 import Reviews from "./Reviews";
-import adBannerImg from "../../img/image 26ad.png";
+import adBannerImg from "../../assets/img/image 26ad.png";
 import "../../scss/components/home-page.scss";
 
 const HomePage: React.FC = () => {

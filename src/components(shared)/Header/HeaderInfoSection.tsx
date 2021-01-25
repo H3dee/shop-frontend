@@ -1,7 +1,7 @@
 import React from "react";
 import { InfoSection } from "../../interfaces/IHeader";
-import fbIcon from "../../img/icons/fb-icon.svg";
-import instIcon from "../../img/icons/inst_icon.svg";
+import fbIcon from "../../assets/img/icons/fb-icon.svg";
+import instIcon from "../../assets/img/icons/inst_icon.svg";
 
 const HeaderInfoSection: React.FC<InfoSection> = ({
   showTimetable,

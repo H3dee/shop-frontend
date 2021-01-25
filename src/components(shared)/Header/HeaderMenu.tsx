@@ -1,10 +1,10 @@
 import React from "react";
 import { Menu } from "../../interfaces/IHeader";
-import headerLogo from "../../img/icons/Vector 24header-logo.svg";
-import searchIcon from "../../img/icons/Vectorsearch-icon.svg";
-import cartIcon from "../../img/icons/Vectorshop-cart.svg";
-import accPhoto from "../../img/acc-photo.png";
-import closeIcon from "../../img/icons/gg_searchclose-icon.svg";
+import headerLogo from "../../assets/img/icons/Vector 24header-logo.svg";
+import searchIcon from "../../assets/img/icons/Vectorsearch-icon.svg";
+import cartIcon from "../../assets/img/icons/Vectorshop-cart.svg";
+import accPhoto from "../../assets/img/acc-photo.png";
+import closeIcon from "../../assets/img/icons/gg_searchclose-icon.svg";
 import HoveredMenu from "./HoveredMenu";
 
 const HeaderMenu: React.FC<Menu> = ({

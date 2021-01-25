@@ -98,9 +98,9 @@
             transition: top 0.25s ease-in;
             .timetable__days {
               padding: 12px 0px 12px 42px;
-              background: url("../../img/icons/Vectortime_arrow-icon.svg") 9.2% 19%
+              background: url("../../assets/img/icons/Vectortime_arrow-icon.svg") 9.2% 19%
                   no-repeat,
-                url("../../img/icons/Vectortime_circle-icon.svg") 5% 15%/24px 24px
+                url("../../assets/img/icons/Vectortime_circle-icon.svg") 5% 15%/24px 24px
                   no-repeat;
               p {
                 font-weight: 600;
@@ -129,7 +129,7 @@
               border-left: none;
               padding: 10px 0px 10px 42px;
               line-height: 140%;
-              background: url("../../img/icons/Vectormap_dot-icon.svg") 8% 44%/18px
+              background: url("../../assets/img/icons/Vectormap_dot-icon.svg") 8% 44%/18px
                 22px no-repeat;
             }
             .timetable__contacts {
@@ -230,13 +230,13 @@
             line-height: 21px;
             padding: 15px 35px 15px 30px;
             border: 2px solid #ebebeb;
-            background: url("../../img/icons/VectoropenedSearchIcon.svg") 98% 47%
+            background: url("../../assets/img/icons/VectoropenedSearchIcon.svg") 98% 47%
                 no-repeat,
               #ebebeb;
             transition: width 0.15s ease-in;
             transition: background-color 0.2s ease-in;
             &:focus {
-              background: url("../../img/icons/VectoropenedSearchIcon.svg") 98% 47%
+              background: url("../../assets/img/icons/VectoropenedSearchIcon.svg") 98% 47%
                   no-repeat,
                 none;
               color: #000000;
@@ -339,7 +339,7 @@
                   align-self: center;
                   width: 5px;
                   height: 5px;
-                  background: url('../../img/icons/Vector\ 13right-pointer.svg') center center no-repeat;
+                  background: url('../../assets/img/icons/Vector\ 13right-pointer.svg') center center no-repeat;
                 }
               }
             }

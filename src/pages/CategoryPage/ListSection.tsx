@@ -6,11 +6,11 @@ import { useHttp } from '../../hooks/http.hook'
 import { getProductImage} from '../../util/getImage'
 import ProductCard from '../../components(shared)/ProductCard'
 import Loader from '../../components(shared)/Loader'
-import gridIcon from '../../img/icons/Group 201grid-icon.svg'
-import lineIcon from '../../img/icons/Frame 50line-type.svg'
-import rightArrow from '../../img/icons/Vector 13right-pointer.svg'
-import cancelIcon from '../../img/icons/Group 108cancel.svg'
-import tempImg from '../../img/image 29test.png'
+import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
+import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
+import tempImg from '../../assets/img/image 29test.png'
 
 const qs = require('qs')
 

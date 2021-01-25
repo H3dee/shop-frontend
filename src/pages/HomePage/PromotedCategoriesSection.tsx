@@ -1,5 +1,5 @@
 import React from "react";
-import zipLogo from "../../img/icons/Asset 1zip-logo.svg";
+import zipLogo from "../../assets/img/icons/Asset 1zip-logo.svg";
 import CategoriesList from "./CategoriesList";
 import NewProducts from "./NewProducts";
 

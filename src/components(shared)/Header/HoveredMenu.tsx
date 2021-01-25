@@ -1,7 +1,7 @@
 import React from "react";
 import { HoveredMenuProps } from "../../interfaces/IMenu";
 import CompaniesLogos from "../CompaniesLogos";
-import tempImg from "../../img/image 29test.png";
+import tempImg from "../../assets/img/image 29test.png";
 import ProductCard from "../ProductCard";
 
 const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {

@@ -5,12 +5,12 @@ import { Product } from "../../interfaces/IProductCard";
 import { Product as ProductDTO } from "../../api/generated/models/Product";
 import { useHttp } from "../../hooks/http.hook";
 import { getProductImage } from "../../util/getImage";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
+import { openCategory } from "../../redux/category/actionCreators";
 import ProductCard from "../../components(shared)/ProductCard";
 import Loader from "../../components(shared)/Loader";
-import testImg from "../../img/image 29.png";
+import testImg from "../../assets/img/image 29.png";
 import "../../scss/components/category.scss";
-import { openCategory } from "../../redux/category/actionCreators";
 
 const qs = require("qs");
 
@@ -19,14 +19,13 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
   const [currentSubCategoryId, setSubCategoryId] = useState<ID | null>(null);
   const { loading, request } = useHttp<ProductDTO[]>();
   const history = useHistory();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const previewClickHandler = () => {
-    dispatch(openCategory(String(props.id)))    
+    dispatch(openCategory(String(props.id)));
 
-    currentProducts.length &&
-    history.push(`/category/${props.parent.name}/${props.id}`);
-  }
+    currentProducts.length && history.push(`/category/${props.parent.name}/${props.id}`);
+  };
 
   useEffect(() => {
     let isMounted = true;

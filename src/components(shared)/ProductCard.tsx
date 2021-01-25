@@ -1,11 +1,11 @@
 import React from "react";
 import { ProductCardProps } from "../interfaces/IProductCard";
-import stockIcon from "../img/icons/Group 132stock-icon.svg";
-import cartIcon from '../img/icons/Group 65cart-icon.svg'
-import mailIcon from '../img/icons/Group 107mail.svg'
-import favoriteIcon from '../img/icons/Group 106favorite.svg'
-import statisticIcon from '../img/icons/Group 107statistic.svg'
-import star from "../img/icons/Star 1star.svg";
+import stockIcon from "../assets/img/icons/Group 132stock-icon.svg";
+import cartIcon from '../assets/img/icons/Group 65cart-icon.svg'
+import mailIcon from '../assets/img/icons/Group 107mail.svg'
+import favoriteIcon from '../assets/img/icons/Group 106favorite.svg'
+import statisticIcon from '../assets/img/icons/Group 107statistic.svg'
+import star from "../assets/img/icons/Star 1star.svg";
 import "../scss/components/product-card.scss";
 
 const ProductCard: React.FC<ProductCardProps> = ({
