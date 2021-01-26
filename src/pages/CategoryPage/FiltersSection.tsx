@@ -1,22 +1,96 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
-import { subCategoriesName } from '../../redux/category/interfaces/ISubCategoryName'
-import BrandsBlock from './BrandsBlock'
-import Filter from './Filter'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { RootState } from "../../redux/interfaces/IRootState";
+import { clearFilters } from "../../redux/category/actionCreators";
+import { Product as ProductDTO } from "../../api/generated";
+import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
+import BrandsBlock from "./BrandsBlock";
+import Filter from "./Filter";
+import { useHttp } from "../../hooks/http.hook";
 
-interface RootState{
-  category: {
-    subCategoriesNames: subCategoriesName[]
-  }
-}
+const qs = require("qs");
 
 const FiltersSection: React.FC = () => {
-  const filtersNames = ['Category', 'Price']
-  const prices: string[] = ['$0 - $1000', '$1000 - $5000', "$5000 - 15000"]
-  const categories = useSelector((state: RootState) => state.category.subCategoriesNames)
-  const history = useHistory()
+  const filtersNames = ["Category", "Price"];
+  const prices: string[] = ["0 - 1000", "1000 - 5000", "5000 - 15000"];
+  const categories = useSelector(
+    (state: RootState) => state.category.subCategoriesNames
+  );
+  const { filtersBySubCategory, filtersByPrice } = useSelector(
+    (state: RootState) => state.filters
+  );
+  const { request } = useHttp();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const filters = [...filtersBySubCategory, ...filtersByPrice];
+
+  const backBtnHandler = () => {
+    dispatch(clearFilters());
+    history.push("/home");
+  };
+
+  const applyBtnHandler = async () => {
+    try {
+      if (!filters.length) return;
+
+      let query = null;
+
+      if (filtersBySubCategory.length && filtersByPrice.length && !query) {
+        query = qs.stringify({
+          _where: {},
+        });
+      }
+       else if (
+        filtersBySubCategory.length &&
+        !filtersByPrice.length &&
+        !query
+      ) {
+        query = qs.stringify({
+          _where: {
+            _or: [
+              ...filtersBySubCategory.map((filter) => ({
+                "category.id": filter.id,
+              })),
+            ],
+          },
+        });
+      }
+       else if (
+        !filtersBySubCategory.length &&
+        filtersByPrice.length &&
+        !query
+      ) {
+        const selectedPrices = [
+          ...filtersByPrice
+            .map(({ name: value }) => value.split("-"))
+            .map((priceValues) => [
+              { price_gte: priceValues[0].trim() },
+              { price_lt: priceValues[1].trim() },
+            ]),
+        ];
+
+        query = qs.stringify({
+          _where: {
+            _or: [
+              ...categories.map((category) =>
+                selectedPrices.map((priceItem) => [
+                  { "category.id": category.id },
+                  ...priceItem,
+                ])
+              ),
+            ],
+          },
+        });
+      }
+
+      const products: ProductDTO[] = await request(`/products?${query}`, "GET");
+
+      console.log(products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="list__filters-section">
@@ -26,17 +100,28 @@ const FiltersSection: React.FC = () => {
             <div className="back-btn__pointer">
               <img src={rightArrow} alt="" />
             </div>
-            <button onClick={() => history.push('/home')}>Back</button>
+            <button onClick={backBtnHandler}>Back</button>
           </div>
           <div className="list__filters-section__selectors">
             <div className="selectors__title">Filters</div>
             <div className="selectors__clear-btn">
-              <button>Clear Filter</button>
+              <button
+                onClick={() => filters.length && dispatch(clearFilters())}
+              >
+                Clear Filter
+              </button>
             </div>
-            <Filter title={filtersNames[0]} items={categories} />
+            {categories.length ? (
+              <Filter title={filtersNames[0]} items={categories} />
+            ) : null}
             <Filter title={filtersNames[1]} prices={prices} />
             <div className="selectors__apply-btn">
-              <button>Apply Filters (2)</button>
+              <button onClick={applyBtnHandler}>
+                Apply Filters
+                {filters.length ? (
+                  <span className="filters-amount">({filters.length})</span>
+                ) : null}
+              </button>
             </div>
           </div>
           <BrandsBlock />
@@ -53,7 +138,7 @@ const FiltersSection: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FiltersSection
+export default FiltersSection;

@@ -1,8 +1,8 @@
-import { Action } from "../actionCreators";
+import { CategoryAction } from "../actionCreators";
 import { OPEN_CATEGORY } from "../actionsTypes";
-import { subCategoriesName } from "../interfaces/ISubCategoryName";
+import { ISubCategoriesName as subCategoriesName } from "../../interfaces/ISubCategoryName";
 
-interface InitialCategoryState {
+export interface InitialCategoryState {
   subCategoriesNames: subCategoriesName[];
 }
 
@@ -12,7 +12,7 @@ const initialState: InitialCategoryState = {
 
 export const categoryReducer = (
   state: InitialCategoryState = initialState,
-  action: Action
+  action: CategoryAction
 ) => {
   switch (action.type) {
     case OPEN_CATEGORY:

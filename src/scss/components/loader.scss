@@ -9,6 +9,13 @@
     z-index: -200;
     visibility: hidden;
   }
+  &.small{
+    padding: 10px 0;
+    .Preloader__spinner{
+      width: 20px;
+      height: 20px;
+    }
+  }
   display: flex;
   justify-content: center;
   padding: 30px 0;

@@ -100,7 +100,12 @@
                       }
                       &.open > div:last-child {
                         display: block;
+                        justify-content: center;
                         transform: translateY(0);
+                        &.preloaded{
+                          display: flex;
+                          justify-content: center;
+                        }
                       }
                       & > div:first-child {
                         margin-bottom: 10px;
@@ -149,6 +154,7 @@
                     }
                     .selectors__clear-btn {
                       width: $btnWidth;
+                      margin-bottom: 25px;
                       button {
                         @extend %btnTemplate;
                         background: none;
@@ -166,7 +172,7 @@
                       @extend %filter;
                     }
                     .category-filter {
-                      margin: 25px 0px 15px 0px;
+                      margin: 0px 0px 15px 0px;
                       @extend %filter;
                     }
                     .selectors__apply-btn {
@@ -178,6 +184,9 @@
                         color: #ffffff;
                         padding: 5px 0;
                         transition: 0.15s ease-in;
+                        .filters-amount{
+                          padding-left: 4px;
+                        }
                         &:hover {
                           border-color: #0156ff;
                           background: none;
@@ -369,6 +378,7 @@
                   }
                   .body__applied-filters {
                     display: flex;
+                    flex-wrap: wrap;
                     margin-top: 7px;
                     %item {
                       border: 1px solid #cccccc;
@@ -379,7 +389,7 @@
                       font-size: 13px;
                       padding: 8px 17px;
                       transition: opacity 0.05s ease-in;
-                      margin-right: 6px;
+                      margin: 0px 6px 5px 0px;
                       &:last-child {
                         margin: 0;
                       }

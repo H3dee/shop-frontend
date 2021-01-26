@@ -1,53 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import { Category as CategoryDTO } from '../../api/generated'
-import { Product as ProductDTO } from '../../api/generated/models/Product'
-import { Product } from '../../interfaces/IProductCard'
-import { useHttp } from '../../hooks/http.hook'
-import { getProductImage} from '../../util/getImage'
-import ProductCard from '../../components(shared)/ProductCard'
-import Loader from '../../components(shared)/Loader'
-import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
-import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
-import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
-import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
-import tempImg from '../../assets/img/image 29test.png'
+import React, { useEffect, useState } from "react";
+import { Category as CategoryDTO } from "../../api/generated";
+import { Product as ProductDTO } from "../../api/generated/models/Product";
+import { Product } from "../../interfaces/IProductCard";
+import { useHttp } from "../../hooks/http.hook";
+import { getProductImage } from "../../util/getImage";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/interfaces/IRootState";
+import {
+  clearFilters,
+  removePriceFilter,
+  removeSubcategoryFilter,
+} from "../../redux/category/actionCreators";
+import ProductCard from "../../components(shared)/ProductCard";
+import Loader from "../../components(shared)/Loader";
+import gridIcon from "../../assets/img/icons/Group 201grid-icon.svg";
+import lineIcon from "../../assets/img/icons/Frame 50line-type.svg";
+import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
+import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
+import tempImg from "../../assets/img/image 29test.png";
+import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
+import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
 
-const qs = require('qs')
+const qs = require("qs");
 
 const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
-  const [isGrid, setIsGrid] = useState(true)
-  const [products, setProducts] = useState<Product[]>([])
-  const { loading, request } = useHttp()
+  const [isGrid, setIsGrid] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const { filtersByPrice, filtersBySubCategory } = useSelector(
+    (state: RootState) => state.filters
+  );
+  const { loading, request } = useHttp();
+  const dispatch = useDispatch();
+  const filters: (subCategoriesName | PriceFilterItem)[] = [
+    ...filtersBySubCategory,
+    ...filtersByPrice,
+  ];
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const subcategoriesParams = qs.stringify({
-          _where: { 'parent.id': categoryId },
-        })
-  
+          _where: { "parent.id": categoryId },
+        });
+
         const subCategories: CategoryDTO[] = await request(
           `/categories?${subcategoriesParams}`,
-          'GET'
-        )
-  
+          "GET"
+        );
+
         const query = qs.stringify(
           {
             _where: {
               _or: [
-                { 'category.id': categoryId },
+                { "category.id": categoryId },
                 ...subCategories.map((subCategory) => ({
-                  'category.id': subCategory.id,
+                  "category.id": subCategory.id,
                 })),
               ],
             },
             _limit: 20,
           },
           { encode: false }
-        )
-      
-        const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
-  
+        );
+
+        const data: ProductDTO[] = await request(`/products?${query}`, "GET");
+
         data &&
           data instanceof Array &&
           setProducts(
@@ -57,14 +74,14 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
               productName: product.name,
               price: product.price,
             }))
-          )
+          );
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-    }
+    };
 
-    getProducts()
-  }, [request, categoryId])
+    getProducts();
+  }, [request, categoryId]);
 
   return (
     <div className="list__body">
@@ -100,14 +117,14 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
                   </div>
                 </div>
                 <div className="top__display-type-btns">
-                  <div className={isGrid ? 'grid-type active' : 'grid-type'}>
+                  <div className={isGrid ? "grid-type active" : "grid-type"}>
                     <img
                       src={gridIcon}
                       alt=""
                       onClick={() => !isGrid && setIsGrid(true)}
                     />
                   </div>
-                  <div className={!isGrid ? 'line-type active' : 'line-type'}>
+                  <div className={!isGrid ? "line-type active" : "line-type"}>
                     <img
                       src={lineIcon}
                       alt=""
@@ -116,23 +133,33 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
                   </div>
                 </div>
               </div>
-              <div className="body__applied-filters">
-                <div className="applied-filters__item">
-                  <div className="item__name">CUSTOM PCS</div>
-                  <div className="item__cancel-icon">
-                    <img src={cancelIcon} alt=" " />
+              {filters.length ? (
+                <div className="body__applied-filters">
+                  {filters.map((filter, i) => (
+                    <div className="applied-filters__item" key={String(i)}>
+                      <div className="item__name">{filter.name}</div>
+                      <div className="item__cancel-icon">
+                        <img
+                          src={cancelIcon}
+                          alt=" "
+                          onClick={() =>
+                            dispatch(
+                              filter.id
+                                ? removeSubcategoryFilter(filter)
+                                : removePriceFilter(filter)
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <div className="applied-filters__clear-btn">
+                    <button onClick={() => dispatch(clearFilters())}>
+                      Clear All
+                    </button>
                   </div>
                 </div>
-                <div className="applied-filters__item">
-                  <div className="item__name">HP/COMPAQ PCS</div>
-                  <div className="item__cancel-icon">
-                    <img src={cancelIcon} alt=" " />
-                  </div>
-                </div>
-                <div className="applied-filters__clear-btn">
-                  <button>Clear All</button>
-                </div>
-              </div>
+              ) : null}
               <div className="body__products">
                 {products.map((product, i) => (
                   <ProductCard
@@ -151,7 +178,7 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ListSection
+export default ListSection;

@@ -24,7 +24,8 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
   const previewClickHandler = () => {
     dispatch(openCategory(String(props.id)));
 
-    currentProducts.length && history.push(`/category/${props.parent.name}/${props.id}`);
+    currentProducts.length &&
+      history.push(`/category/${props.parent.name}/${props.id}`);
   };
 
   useEffect(() => {
