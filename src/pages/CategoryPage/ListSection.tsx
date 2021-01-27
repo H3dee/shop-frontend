@@ -11,7 +11,10 @@ import {
 } from "../../redux/category/actionCreators";
 import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
 import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
-import { hideLoading, showLoading } from "../../redux/application/actionCreators";
+import {
+  hideProductsLoading,
+  showProductsLoading,
+} from "../../redux/application/actionCreators";
 import { setProducts } from "../../redux/product/actionCreators";
 import ProductCard from "../../components(shared)/ProductCard";
 import Loader from "../../components(shared)/Loader";
@@ -21,20 +24,21 @@ import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
 import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
 import tempImg from "../../assets/img/image 29test.png";
 
-
 const qs = require("qs");
 
 const ListSection: React.FC = () => {
   const [isGrid, setIsGrid] = useState(true);
-  const products = useSelector((state: RootState) => state.products.products)
+  const products = useSelector((state: RootState) => state.products.products);
   const { filtersByPrice, filtersBySubCategory } = useSelector(
     (state: RootState) => state.filters
   );
   const categoryId = useSelector(
     (state: RootState) => state.category.parentCategoryId
   );
-  const subCategories = useSelector((state: RootState) => state.category.subCategoriesNames)
-  const loading = useSelector((state: RootState) => state.app.loading);
+  const subCategories = useSelector(
+    (state: RootState) => state.category.subCategoriesNames
+  );
+  const loading = useSelector((state: RootState) => state.app.productsLoading);
   const { request } = useHttp();
   const dispatch = useDispatch();
   const filters: (subCategoriesName | PriceFilterItem)[] = [
@@ -61,10 +65,10 @@ const ListSection: React.FC = () => {
           },
           { encode: false }
         );
-        
-        dispatch(showLoading())
+
+        dispatch(showProductsLoading());
         const data: ProductDTO[] = await request(`/products?${query}`, "GET");
-        
+
         dispatch(
           data.length &&
             setProducts(
@@ -76,8 +80,8 @@ const ListSection: React.FC = () => {
               }))
             )
         );
-        
-        dispatch(hideLoading());
+
+        dispatch(hideProductsLoading());
       } catch (e) {
         console.log(e);
       }

@@ -1,12 +1,19 @@
 import { IAction as Action } from "../../interfaces/IAction";
-import { HIDE_LOADING, SHOW_LOADING } from "../actionTypes";
+import {
+  HIDE_FILTERS_LOADING,
+  HIDE_PRODUCTS_LOADING,
+  SHOW_FILTERS_LOADING,
+  SHOW_PRODUCTS_LOADING,
+} from "../actionTypes";
 
 export interface InitialAppState {
-  loading: boolean;
+  productsLoading: boolean;
+  filtersLoading: boolean;
 }
 
 const initialState: InitialAppState = {
-  loading: false,
+  productsLoading: false,
+  filtersLoading: false,
 };
 
 export const appReducer = (
@@ -14,15 +21,25 @@ export const appReducer = (
   action: Action
 ): InitialAppState => {
   switch (action.type) {
-    case SHOW_LOADING:
+    case SHOW_FILTERS_LOADING:
       return {
         ...state,
-        loading: true,
+        filtersLoading: true,
       };
-    case HIDE_LOADING:
+    case HIDE_FILTERS_LOADING:
       return {
         ...state,
-        loading: false,
+        filtersLoading: false,
+      };
+    case SHOW_PRODUCTS_LOADING:
+      return {
+        ...state,
+        productsLoading: true,
+      };
+    case HIDE_PRODUCTS_LOADING:
+      return {
+        ...state,
+        productsLoading: false,
       };
     default:
       return state;

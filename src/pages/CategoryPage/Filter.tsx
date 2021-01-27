@@ -12,7 +12,7 @@ import {
 const Filter: React.FC<FilterProps> = ({ title, items, prices }) => {
   const [isOpen, setIsOpen] = useState(true);
   const filters = useSelector((state: RootState) => state.filters);
-  const loading = useSelector((state: RootState) => state.app.loading);
+  const loading = useSelector((state: RootState) => state.app.filtersLoading);
   const dispatch = useDispatch();
 
   return (

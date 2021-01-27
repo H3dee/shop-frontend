@@ -16,7 +16,12 @@ import {
 import { ISubCategoriesName as subCategoriesName } from "../interfaces/ISubCategoryName";
 import axios from "axios";
 import { IAction as Action } from "../interfaces/IAction";
-import { hideLoading, showLoading } from "../application/actionCreators";
+import {
+  hideFiltersLoading,
+  hideProductsLoading,
+  showFiltersLoading,
+  showProductsLoading,
+} from "../application/actionCreators";
 import { PriceFilterItem } from "../interfaces/IPriceFilterItem";
 import { setProducts } from "../product/actionCreators";
 import { getProductImage } from "../../util/getImage";
@@ -44,7 +49,7 @@ export const openCategory = (
     { encode: false }
   );
 
-  // dispatch(showLoading());
+  dispatch(showFiltersLoading());
   axios
     .get<CategoryDTO[]>(`/categories?${query}`, {
       headers: {
@@ -62,7 +67,7 @@ export const openCategory = (
           parentId: id,
         },
       });
-      // dispatch(hideLoading());
+      dispatch(hideFiltersLoading());
     })
     .catch((err) => console.log(err));
 };
@@ -118,7 +123,7 @@ export const clearFilters = (): ThunkAction<
     _limit: 20,
   });
 
-  dispatch(showLoading());
+  dispatch(showProductsLoading());
   axios
     .get<ProductDTO[]>(`/products?${query}`, {
       headers: {
@@ -136,7 +141,7 @@ export const clearFilters = (): ThunkAction<
           }))
         )
       );
-      dispatch(hideLoading());
+      dispatch(hideProductsLoading());
     })
     .catch((err) => console.log(err));
 };

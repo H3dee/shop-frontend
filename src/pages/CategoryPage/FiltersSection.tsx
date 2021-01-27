@@ -7,8 +7,8 @@ import { Product as ProductDTO } from "../../api/generated";
 import { useHttp } from "../../hooks/http.hook";
 import { setProducts } from "../../redux/product/actionCreators";
 import {
-  hideLoading,
-  showLoading,
+  hideProductsLoading,
+  showProductsLoading,
 } from "../../redux/application/actionCreators";
 import { getProductImage } from "../../util/getImage";
 import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
@@ -42,9 +42,29 @@ const FiltersSection: React.FC = () => {
 
       let query = null;
 
+      const selectedPrices = [
+        ...filtersByPrice
+          .map(({ name: value }) => value.split("-"))
+          .map((priceValues) => [
+            { price_gte: priceValues[0].trim() },
+            { price_lt: priceValues[1].trim() },
+          ]),
+      ];
+
       if (filtersBySubCategory.length && filtersByPrice.length && !query) {
         query = qs.stringify({
-          _where: {},
+          _where: {
+            _or: [
+              ...filtersBySubCategory
+                .map((subCategoryFilter) =>
+                  selectedPrices.map((price) => [
+                    { "category.id": subCategoryFilter.id },
+                    ...price,
+                  ])
+                )
+                .flat(),
+            ],
+          },
         });
       } else if (
         filtersBySubCategory.length &&
@@ -65,30 +85,23 @@ const FiltersSection: React.FC = () => {
         filtersByPrice.length &&
         !query
       ) {
-        const selectedPrices = [
-          ...filtersByPrice
-            .map(({ name: value }) => value.split("-"))
-            .map((priceValues) => [
-              { price_gte: priceValues[0].trim() },
-              { price_lt: priceValues[1].trim() },
-            ]),
-        ];
-
         query = qs.stringify({
           _where: {
             _or: [
-              ...categories.map((category) =>
-                selectedPrices.map((priceItem) => [
-                  { "category.id": category.id },
-                  ...priceItem,
-                ])
-              ),
+              ...categories
+                .map((category) =>
+                  selectedPrices.map((priceItem) => [
+                    { "category.id": category.id },
+                    ...priceItem,
+                  ])
+                )
+                .flat(),
             ],
           },
         });
       }
 
-      dispatch(showLoading());
+      dispatch(showProductsLoading());
       const products: ProductDTO[] = await request(`/products?${query}`, "GET");
 
       dispatch(
@@ -103,7 +116,7 @@ const FiltersSection: React.FC = () => {
           )
       );
 
-      dispatch(hideLoading());
+      dispatch(hideProductsLoading());
     } catch (err) {
       console.log(err);
     }
