@@ -51,6 +51,7 @@ const ListSection: React.FC = () => {
       try {
         if (!categoryId || products.length) return;
 
+        console.log('test')
         const query = qs.stringify(
           {
             _where: {

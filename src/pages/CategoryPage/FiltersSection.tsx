@@ -2,10 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { RootState } from "../../redux/interfaces/IRootState";
-import { clearFilters } from "../../redux/category/actionCreators";
+import {
+  clearFilters,
+  resetFilters,
+} from "../../redux/category/actionCreators";
 import { Product as ProductDTO } from "../../api/generated";
 import { useHttp } from "../../hooks/http.hook";
-import { setProducts } from "../../redux/product/actionCreators";
+import { resetProducts, setProducts } from "../../redux/product/actionCreators";
 import {
   hideProductsLoading,
   showProductsLoading,
@@ -32,7 +35,8 @@ const FiltersSection: React.FC = () => {
   const filters = [...filtersBySubCategory, ...filtersByPrice];
 
   const backBtnHandler = () => {
-    dispatch(clearFilters());
+    dispatch(resetFilters());
+    dispatch(resetProducts());
     history.push("/home");
   };
 
@@ -100,7 +104,6 @@ const FiltersSection: React.FC = () => {
           },
         });
       }
-
       dispatch(showProductsLoading());
       const products: ProductDTO[] = await request(`/products?${query}`, "GET");
 

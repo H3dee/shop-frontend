@@ -1,6 +1,6 @@
 import { Product } from "../../../interfaces/IProductCard";
 import { ProductAction } from "../actionCreators";
-import { SET_PRODUCTS } from "../actionTypes";
+import { RESET_PRODUCTS, SET_PRODUCTS } from "../actionTypes";
 
 export interface InitialProductState {
   products: Product[];
@@ -19,6 +19,10 @@ export const productReducer = (
       return {
         ...state,
         products: [...action.payload],
+      };
+    case RESET_PRODUCTS:
+      return {
+        products: [],
       };
     default:
       return state;

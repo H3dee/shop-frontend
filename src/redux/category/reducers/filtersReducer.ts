@@ -7,6 +7,7 @@ import {
   CLEAR_FILTERS,
   REMOVE_PRICE_FILTER,
   REMOVE_SUBCATEGORY_FILTER,
+  RESET_FILTERS,
 } from "../actionsTypes";
 
 export interface InitialFiltersState {
@@ -49,6 +50,11 @@ export const filtersReducer = (
         filtersByPrice: [
           ...state.filtersByPrice.filter((filter) => filter !== action.payload),
         ],
+      };
+    case RESET_FILTERS:
+      return {
+        filtersByPrice: [],
+        filtersBySubCategory: [],
       };
     case CLEAR_FILTERS:
       return {

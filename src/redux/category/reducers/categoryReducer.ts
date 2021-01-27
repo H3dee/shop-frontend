@@ -4,12 +4,12 @@ import { ISubCategoriesName as subCategoriesName } from "../../interfaces/ISubCa
 
 export interface InitialCategoryState {
   subCategoriesNames: subCategoriesName[];
-  parentCategoryId: string | null
+  parentCategoryId: string | null;
 }
 
 const initialState: InitialCategoryState = {
   subCategoriesNames: [],
-  parentCategoryId: null
+  parentCategoryId: null,
 };
 
 export const categoryReducer = (
@@ -21,7 +21,7 @@ export const categoryReducer = (
       return {
         ...state,
         subCategoriesNames: action.payload.subCategoriesNames,
-        parentCategoryId: action.payload.parentId
+        parentCategoryId: action.payload.parentId,
       };
     default:
       return state;

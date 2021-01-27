@@ -8,6 +8,7 @@ import {
   OPEN_CATEGORY,
   REMOVE_PRICE_FILTER,
   REMOVE_SUBCATEGORY_FILTER,
+  RESET_FILTERS,
 } from "./actionsTypes";
 import {
   Category as CategoryDTO,
@@ -99,6 +100,10 @@ export const removePriceFilter = (filter: Filter): FilterAction => ({
   type: REMOVE_PRICE_FILTER,
   payload: filter,
 });
+
+export const resetFilters = (): Action => ({
+  type: RESET_FILTERS
+})
 
 export const clearFilters = (): ThunkAction<
   void,
