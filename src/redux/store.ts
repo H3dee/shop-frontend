@@ -6,3 +6,5 @@ import thunk from "redux-thunk";
 export const store = createStore(rootReducer, composeWithDevTools(
       applyMiddleware(thunk)
 ))
+
+

@@ -9,7 +9,7 @@ import bannerImg from '../../assets/img/image 26ad2.png'
 import '../../scss/components/category-page.scss'
 
 const CategoryPage: React.FC = () => {
-  const { id, name: categoryName } = useParams<{ id: string; name: string }>()
+  const { name: categoryName } = useParams<{ name: string }>()
   const focusRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const CategoryPage: React.FC = () => {
           <div className="content__row">
             <AdBanner imageUrl={bannerImg} />
             <div className="content__category-title">{categoryName}</div>
-            <SelectedCategoryList parentCategoryId={id} />
+            <SelectedCategoryList/>
             <BenefitsList />
           </div>
         </div>

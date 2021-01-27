@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Category as CategoryDTO } from "../../api/generated";
 import { Product as ProductDTO } from "../../api/generated/models/Product";
-import { Product } from "../../interfaces/IProductCard";
 import { useHttp } from "../../hooks/http.hook";
 import { getProductImage } from "../../util/getImage";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +9,10 @@ import {
   removePriceFilter,
   removeSubcategoryFilter,
 } from "../../redux/category/actionCreators";
+import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
+import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
+import { hideLoading, showLoading } from "../../redux/application/actionCreators";
+import { setProducts } from "../../redux/product/actionCreators";
 import ProductCard from "../../components(shared)/ProductCard";
 import Loader from "../../components(shared)/Loader";
 import gridIcon from "../../assets/img/icons/Group 201grid-icon.svg";
@@ -18,18 +20,22 @@ import lineIcon from "../../assets/img/icons/Frame 50line-type.svg";
 import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
 import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
 import tempImg from "../../assets/img/image 29test.png";
-import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
-import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
+
 
 const qs = require("qs");
 
-const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
+const ListSection: React.FC = () => {
   const [isGrid, setIsGrid] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useSelector((state: RootState) => state.products.products)
   const { filtersByPrice, filtersBySubCategory } = useSelector(
     (state: RootState) => state.filters
   );
-  const { loading, request } = useHttp();
+  const categoryId = useSelector(
+    (state: RootState) => state.category.parentCategoryId
+  );
+  const subCategories = useSelector((state: RootState) => state.category.subCategoriesNames)
+  const loading = useSelector((state: RootState) => state.app.loading);
+  const { request } = useHttp();
   const dispatch = useDispatch();
   const filters: (subCategoriesName | PriceFilterItem)[] = [
     ...filtersBySubCategory,
@@ -39,14 +45,7 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const subcategoriesParams = qs.stringify({
-          _where: { "parent.id": categoryId },
-        });
-
-        const subCategories: CategoryDTO[] = await request(
-          `/categories?${subcategoriesParams}`,
-          "GET"
-        );
+        if (!categoryId || products.length) return;
 
         const query = qs.stringify(
           {
@@ -62,26 +61,30 @@ const ListSection: React.FC<{ categoryId: string }> = ({ categoryId }) => {
           },
           { encode: false }
         );
-
+        
+        dispatch(showLoading())
         const data: ProductDTO[] = await request(`/products?${query}`, "GET");
-
-        data &&
-          data instanceof Array &&
-          setProducts(
-            data.map((product) => ({
-              id: product.id,
-              imageUrl: getProductImage(product),
-              productName: product.name,
-              price: product.price,
-            }))
-          );
+        
+        dispatch(
+          data.length &&
+            setProducts(
+              data.map((product) => ({
+                id: product.id,
+                imageUrl: getProductImage(product),
+                productName: product.name,
+                price: product.price,
+              }))
+            )
+        );
+        
+        dispatch(hideLoading());
       } catch (e) {
         console.log(e);
       }
     };
 
     getProducts();
-  }, [request, categoryId]);
+  }, [request, categoryId, dispatch, products.length, subCategories]);
 
   return (
     <div className="list__body">

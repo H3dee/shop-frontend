@@ -25,7 +25,7 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
     dispatch(openCategory(String(props.id)));
 
     currentProducts.length &&
-      history.push(`/category/${props.parent.name}/${props.id}`);
+      history.push(`/category/${props.parent.name}`);
   };
 
   useEffect(() => {

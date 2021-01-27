@@ -4,10 +4,16 @@ import { useHistory } from "react-router-dom";
 import { RootState } from "../../redux/interfaces/IRootState";
 import { clearFilters } from "../../redux/category/actionCreators";
 import { Product as ProductDTO } from "../../api/generated";
+import { useHttp } from "../../hooks/http.hook";
+import { setProducts } from "../../redux/product/actionCreators";
+import {
+  hideLoading,
+  showLoading,
+} from "../../redux/application/actionCreators";
+import { getProductImage } from "../../util/getImage";
 import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
 import BrandsBlock from "./BrandsBlock";
 import Filter from "./Filter";
-import { useHttp } from "../../hooks/http.hook";
 
 const qs = require("qs");
 
@@ -40,8 +46,7 @@ const FiltersSection: React.FC = () => {
         query = qs.stringify({
           _where: {},
         });
-      }
-       else if (
+      } else if (
         filtersBySubCategory.length &&
         !filtersByPrice.length &&
         !query
@@ -55,8 +60,7 @@ const FiltersSection: React.FC = () => {
             ],
           },
         });
-      }
-       else if (
+      } else if (
         !filtersBySubCategory.length &&
         filtersByPrice.length &&
         !query
@@ -84,9 +88,22 @@ const FiltersSection: React.FC = () => {
         });
       }
 
+      dispatch(showLoading());
       const products: ProductDTO[] = await request(`/products?${query}`, "GET");
 
-      console.log(products);
+      dispatch(
+        products.length &&
+          setProducts(
+            products.map((product) => ({
+              id: product.id,
+              imageUrl: getProductImage(product),
+              productName: product.name,
+              price: product.price,
+            }))
+          )
+      );
+
+      dispatch(hideLoading());
     } catch (err) {
       console.log(err);
     }

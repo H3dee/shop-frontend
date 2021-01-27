@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage/index";
 export const routes = (
   <Switch>
     <Route component={HomePage} path="/home" exact />
-    <Route component={CategoryPage} path='/category/:name/:id'/>  
+    <Route component={CategoryPage} path='/category/:name'/>  
     <Redirect to="/home" />
   </Switch>
 );

@@ -2,13 +2,13 @@ import React from "react";
 import FiltersSection from "./FiltersSection";
 import ListSection from "./ListSection";
 
-const SelectedCategoryList: React.FC<{parentCategoryId: string}> = ({parentCategoryId}) => {
+const SelectedCategoryList: React.FC = () => {
   return (
     <div className="content__list">
       <div className="container">
         <div className="content__list__row">
           <FiltersSection />
-          <ListSection categoryId={parentCategoryId}/>
+          <ListSection />
         </div>
       </div>
     </div>
