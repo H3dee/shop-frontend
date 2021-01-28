@@ -1,73 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { Product as ProductDTO } from "../../api/generated/models/Product";
-import { useHttp } from "../../hooks/http.hook";
-import { getProductImage } from "../../util/getImage";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/interfaces/IRootState";
+import React, { useEffect, useState } from 'react'
+import { Product as ProductDTO } from '../../api/generated/models/Product'
+import { useHttp } from '../../hooks/http.hook'
+import { getProductImage } from '../../util/getImage'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/interfaces/IRootState'
 import {
   clearFilters,
   removePriceFilter,
   removeSubcategoryFilter,
-} from "../../redux/category/actionCreators";
-import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
-import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
+} from '../../redux/category/actionCreators'
+import { ISubCategoriesName as subCategoriesName } from '../../redux/interfaces/ISubCategoryName'
+import { PriceFilterItem } from '../../redux/interfaces/IPriceFilterItem'
 import {
   hideProductsLoading,
   showProductsLoading,
-} from "../../redux/application/actionCreators";
-import { setProducts } from "../../redux/product/actionCreators";
-import ProductCard from "../../components(shared)/ProductCard";
-import Loader from "../../components(shared)/Loader";
-import gridIcon from "../../assets/img/icons/Group 201grid-icon.svg";
-import lineIcon from "../../assets/img/icons/Frame 50line-type.svg";
-import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
-import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
-import tempImg from "../../assets/img/image 29test.png";
+} from '../../redux/application/actionCreators'
+import { setProducts } from '../../redux/product/actionCreators'
+import ProductCard from '../../components(shared)/ProductCard'
+import Loader from '../../components(shared)/Loader'
+import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
+import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
+import reserveImg from '../../assets/img/image 29test.png'
 
-const qs = require("qs");
+const qs = require('qs')
 
 const ListSection: React.FC = () => {
-  const [isGrid, setIsGrid] = useState(true);
-  const products = useSelector((state: RootState) => state.products.products);
+  const [isGrid, setIsGrid] = useState(true)
+  const products = useSelector((state: RootState) => state.products.products)
   const { filtersByPrice, filtersBySubCategory } = useSelector(
     (state: RootState) => state.filters
-  );
+  )
   const categoryId = useSelector(
     (state: RootState) => state.category.parentCategoryId
-  );
+  )
   const subCategories = useSelector(
     (state: RootState) => state.category.subCategoriesNames
-  );
-  const loading = useSelector((state: RootState) => state.app.productsLoading);
-  const { request } = useHttp();
-  const dispatch = useDispatch();
+  )
+  const loading = useSelector((state: RootState) => state.app.productsLoading)
+  const { request } = useHttp()
+  const dispatch = useDispatch()
   const filters: (subCategoriesName | PriceFilterItem)[] = [
     ...filtersBySubCategory,
     ...filtersByPrice,
-  ];
+  ]
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        if (!categoryId || products.length) return;
+        if (!categoryId || products.length) return
 
         const query = qs.stringify(
           {
             _where: {
               _or: [
-                { "category.id": categoryId },
+                { 'category.id': categoryId },
                 ...subCategories.map((subCategory) => ({
-                  "category.id": subCategory.id,
+                  'category.id': subCategory.id,
                 })),
               ],
             },
             _limit: 20,
           },
           { encode: false }
-        );
+        )
 
-        dispatch(showProductsLoading());
-        const data: ProductDTO[] = await request(`/products?${query}`, "GET");
+        dispatch(showProductsLoading())
+        const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
 
         dispatch(
           data.length &&
@@ -79,16 +79,16 @@ const ListSection: React.FC = () => {
                 price: product.price,
               }))
             )
-        );
+        )
 
-        dispatch(hideProductsLoading());
+        dispatch(hideProductsLoading())
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-    };
+    }
 
-    getProducts();
-  }, [request, categoryId, dispatch, products.length, subCategories]);
+    getProducts()
+  }, [request, categoryId, dispatch, products.length, subCategories])
 
   return (
     <div className="list__body">
@@ -124,14 +124,14 @@ const ListSection: React.FC = () => {
                   </div>
                 </div>
                 <div className="top__display-type-btns">
-                  <div className={isGrid ? "grid-type active" : "grid-type"}>
+                  <div className={isGrid ? 'grid-type active' : 'grid-type'}>
                     <img
                       src={gridIcon}
                       alt=""
                       onClick={() => !isGrid && setIsGrid(true)}
                     />
                   </div>
-                  <div className={!isGrid ? "line-type active" : "line-type"}>
+                  <div className={!isGrid ? 'line-type active' : 'line-type'}>
                     <img
                       src={lineIcon}
                       alt=""
@@ -171,7 +171,7 @@ const ListSection: React.FC = () => {
                 {products.map((product, i) => (
                   <ProductCard
                     key={String(i)}
-                    imageUrl={product.imageUrl || tempImg}
+                    imageUrl={product.imageUrl || reserveImg}
                     price={product.price}
                     productName={product.productName}
                     isExpanded={!isGrid}
@@ -185,7 +185,7 @@ const ListSection: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ListSection;
+export default ListSection

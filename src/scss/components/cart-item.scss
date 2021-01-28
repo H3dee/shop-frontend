@@ -1,0 +1,105 @@
+%imgTemplate {
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.cart-item {
+  display: flex;
+  padding: 25px 0;
+  position: relative;
+  border-bottom: 1.5px solid #cccccc77;
+  .cart-item__description {
+    flex: 1 1 50%;
+    display: flex;
+    .description__image {
+      flex-shrink: 0;
+      height: 110px;
+      width: 110px;
+      img {
+        @extend %imgTemplate;
+      }
+    }
+    .description__text {
+      padding: 0px 26px 0px 29px;
+      line-height: 18px;
+      font-size: 12px;
+      text-align: justify;
+    }
+  }
+  .cart-item__options-info {
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10%;
+    .options-info__price {
+      font-weight: 600;
+    }
+    .options-info__amount-selector {
+      width: 60px;
+      height: 40px;
+      background: #ebebeb;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .amount-selector__value {
+        line-height: 29px;
+        font-weight: 600;
+      }
+      .amount-selector__arrows {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 15px;
+        div {
+          width: 6px;
+          height: 6px;
+          opacity: 0.45;
+          display: flex;
+          transition: opacity 0.1s ease-in;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
+          img {
+            @extend %imgTemplate;
+          }
+        }
+        div:first-child {
+          transform: rotate(-90deg);
+          margin-bottom: 10px;
+        }
+        div:last-child {
+          position: relative;
+          left: 0.5px;
+          transform: rotate(90deg);
+        }
+      }
+    }
+    .options-info__subtotal {
+      font-weight: 600;
+    }
+  }
+  .cart-item__actions {
+    position: absolute;
+    top: 15%;
+    right: 1%;
+    .actions__item {
+      height: 24px;
+      width: 24px;
+      opacity: 0.8;
+      cursor: pointer;
+      img {
+        @extend %imgTemplate;
+      }
+      &:hover {
+        opacity: 1;
+      }
+      &:first-child {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

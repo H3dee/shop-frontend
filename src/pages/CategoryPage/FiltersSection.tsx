@@ -73,17 +73,6 @@ const FiltersSection: React.FC = () => {
           },
         }, {encode: false})
 
-        // console.log(query)
-        // console.log([
-        //   ...filtersBySubCategory
-        //     .map((subCategoryFilter) =>
-        //       selectedPrices.map((price) => [
-        //         { 'category.id': subCategoryFilter.id },
-        //         ...price,
-        //       ])
-        //     )
-        //     .flat(),
-        // ])
       } else if (
         filtersBySubCategory.length &&
         !filtersByPrice.length &&

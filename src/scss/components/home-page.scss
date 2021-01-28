@@ -2,9 +2,10 @@
 
 .content {
   flex: 1 1 auto;
-  .container {
-    max-width: 1220px;
+  & > .container {
+    max-width: 1210px;
     margin: 0 auto;
+    padding: 0 5px;
     .content__row {
       display: flex;
       flex-direction: column;
@@ -139,23 +140,23 @@
                   }
                 }
               }
-              .latest-reviews__selectors{
+              .latest-reviews__selectors {
                 display: flex;
-                .selectors__item{
+                .selectors__item {
                   height: 12px;
                   width: 12px;
                   margin-right: 9px;
                   border-radius: 50%;
                   background: #cccccc;
                   cursor: pointer;
-                  &:hover{
+                  &:hover {
                     opacity: 0.7;
                   }
-                  &.current{
-                    background: #0156FF;
+                  &.current {
+                    background: #0156ff;
                     opacity: 1;
                   }
-                  &:last-child{
+                  &:last-child {
                     margin: 0;
                   }
                 }

@@ -1,0 +1,115 @@
+@import '../templates/btn.scss';
+
+.content {
+  & > .container {
+    max-width: 1210px;
+    margin: 0 auto;
+    padding: 0 5px;
+    .content__row {
+      display: flex;
+      flex-direction: column;
+      .content__title {
+        margin: 40px 0px 20px 0px;
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 48px;
+      }
+      .content__body {
+        margin-bottom: 60px;
+        .container {
+          .body__row {
+            display: flex;
+            .products-section {
+              flex: 1 1 68%;
+              display: flex;
+              flex-direction: column;
+              .container {
+                width: 100%;
+                padding-right: 35px;
+                .products-section__row {
+                  display: flex;
+                  flex-direction: column;
+                  .products-section__head-info {
+                    display: flex;
+                    padding: 10px 0;
+                    border-bottom: 1.5px solid #cccccc77;
+                    %info-item {
+                      font-size: 12px;
+                      font-weight: 600;
+                      line-height: 21px;
+                    }
+                    .head-info__description {
+                      flex: 1 1 50%;
+                      display: flex;
+                      div {
+                        @extend %info-item;
+                      }
+                    }
+                    .head-info__options {
+                      flex: 1 1 50%;
+                      display: flex;
+                      justify-content: space-between;
+                      padding-right: 12.7%;
+                      div {
+                        @extend %info-item;
+                      }
+                    }
+                  }
+                  .products-section__buttons {
+                    display: flex;
+                    margin-top: 25px;
+                    position: relative;
+                    div {
+                      button {
+                        @extend %btnTemplate;
+                        background: none;
+                        transition: 0.15s ease-in;
+                        line-height: 21px;
+                        padding: 3.5px 20px;
+                      }
+                    }
+                    .buttons__continue {
+                      button {
+                        color: #666666;
+                        border-color: #666666;
+                        &:hover {
+                          background: #666666;
+                          color: #ffffff;
+                        }
+                      }
+                    }
+                    div:nth-child(2),
+                    div:nth-child(3) {
+                      button {
+                        color: #ffffff;
+                        border-color: #000000;
+                        background: #000000;
+                        &:hover {
+                          background: #ffffff;
+                          color: #000000;
+                        }
+                      }
+                    }
+                    .buttons__clear {
+                      margin-left: 7px;
+                    }
+                    .buttons__update {
+                      position: absolute;
+                      right: 0;
+                    }
+                  }
+                }
+              }
+            }
+            .summary-section {
+              flex: 1 1 32%;
+              display: flex;
+              flex-direction: column;
+              background: #f5f9ff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

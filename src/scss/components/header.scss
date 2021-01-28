@@ -66,7 +66,7 @@
               padding: 0px 0px 3px 4px;
               &::before,
               &::after {
-                content: "";
+                content: '';
                 position: absolute;
                 top: 0;
                 border-radius: 2px;
@@ -98,10 +98,10 @@
             transition: top 0.25s ease-in;
             .timetable__days {
               padding: 12px 0px 12px 42px;
-              background: url("../../assets/img/icons/Vectortime_arrow-icon.svg") 9.2% 19%
-                  no-repeat,
-                url("../../assets/img/icons/Vectortime_circle-icon.svg") 5% 15%/24px 24px
-                  no-repeat;
+              background: url('../../assets/img/icons/Vectortime_arrow-icon.svg')
+                  9.2% 19% no-repeat,
+                url('../../assets/img/icons/Vectortime_circle-icon.svg') 5% 15%/24px
+                  24px no-repeat;
               p {
                 font-weight: 600;
                 color: #000000;
@@ -129,8 +129,8 @@
               border-left: none;
               padding: 10px 0px 10px 42px;
               line-height: 140%;
-              background: url("../../assets/img/icons/Vectormap_dot-icon.svg") 8% 44%/18px
-                22px no-repeat;
+              background: url('../../assets/img/icons/Vectormap_dot-icon.svg')
+                8% 44%/18px 22px no-repeat;
             }
             .timetable__contacts {
               padding: 10px 20px;
@@ -196,7 +196,7 @@
     }
   }
   .header__menu {
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1.5px solid #cccccc77;
     height: 95px;
     .container {
       max-width: 1200px;
@@ -231,14 +231,14 @@
             line-height: 21px;
             padding: 15px 35px 15px 30px;
             border: 2px solid #ebebeb;
-            background: url("../../assets/img/icons/VectoropenedSearchIcon.svg") 98% 47%
-                no-repeat,
+            background: url('../../assets/img/icons/VectoropenedSearchIcon.svg')
+                98% 47% no-repeat,
               #ebebeb;
             transition: width 0.15s ease-in;
             transition: background-color 0.2s ease-in;
             &:focus {
-              background: url("../../assets/img/icons/VectoropenedSearchIcon.svg") 98% 47%
-                  no-repeat,
+              background: url('../../assets/img/icons/VectoropenedSearchIcon.svg')
+                  98% 47% no-repeat,
                 none;
               color: #000000;
             }
@@ -328,19 +328,20 @@
                 padding: 10px 20px 13px 20px;
                 transition: background-color 0.1s ease-in;
                 cursor: pointer;
-                &:hover{
-                  background-color:#EBEBEB;
+                &:hover {
+                  background-color: #ebebeb;
                 }
                 .item__name {
                   font-weight: 600;
                   font-size: 12.5px;
                   line-height: 21px;
                 }
-                .item__pointer{
+                .item__pointer {
                   align-self: center;
                   width: 5px;
                   height: 5px;
-                  background: url('../../assets/img/icons/Vector\ 13right-pointer.svg') center center no-repeat;
+                  background: url('../../assets/img/icons/Vector\ 13right-pointer.svg')
+                    center center no-repeat;
                 }
               }
             }
@@ -348,13 +349,13 @@
               display: flex;
             }
           }
-          .menu__empty-alert{
+          .menu__empty-alert {
             padding: 30px 0;
             text-align: center;
             letter-spacing: 0.8px;
             font-size: 19px;
             color: #000000be;
-            &::first-letter{
+            &::first-letter {
               text-transform: uppercase;
             }
           }
