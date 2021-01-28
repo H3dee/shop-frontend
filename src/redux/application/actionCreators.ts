@@ -21,3 +21,4 @@ export const showFiltersLoading = (): Action => ({
 export const hideFiltersLoading = (): Action => ({
   type: HIDE_FILTERS_LOADING,
 });
+

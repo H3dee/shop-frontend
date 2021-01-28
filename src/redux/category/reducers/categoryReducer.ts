@@ -1,5 +1,5 @@
 import { CategoryAction } from "../actionCreators";
-import { OPEN_CATEGORY } from "../actionsTypes";
+import { OPEN_CATEGORY, RESET_CATEGORY } from "../actionsTypes";
 import { ISubCategoriesName as subCategoriesName } from "../../interfaces/ISubCategoryName";
 
 export interface InitialCategoryState {
@@ -23,6 +23,11 @@ export const categoryReducer = (
         subCategoriesNames: action.payload.subCategoriesNames,
         parentCategoryId: action.payload.parentId,
       };
+    case RESET_CATEGORY:
+      return {
+        subCategoriesNames: [],
+        parentCategoryId: null
+      }
     default:
       return state;
   }

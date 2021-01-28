@@ -6,6 +6,7 @@ import cartIcon from "../../assets/img/icons/Vectorshop-cart.svg";
 import accPhoto from "../../assets/img/acc-photo.png";
 import closeIcon from "../../assets/img/icons/gg_searchclose-icon.svg";
 import HoveredMenu from "./HoveredMenu";
+import { useHistory } from "react-router-dom";
 
 const HeaderMenu: React.FC<Menu> = ({
   showMenu,
@@ -15,12 +16,14 @@ const HeaderMenu: React.FC<Menu> = ({
   HoverMenuHandler,
   toggleSearch,
 }) => {
+  const history = useHistory()
+
   return (
     <div className="header__menu">
       <div className="container">
         <div className="menu__row">
           <div className="menu__logo">
-            <img src={headerLogo} alt=" " />
+            <img src={headerLogo} alt=" " onClick={() => history.push('/home')} title="home"/>
           </div>
           <div
             className={

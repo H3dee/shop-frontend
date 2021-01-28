@@ -1,59 +1,61 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { RootState } from "../../redux/interfaces/IRootState";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { RootState } from '../../redux/interfaces/IRootState'
 import {
   clearFilters,
+  resetCategory,
   resetFilters,
-} from "../../redux/category/actionCreators";
-import { Product as ProductDTO } from "../../api/generated";
-import { useHttp } from "../../hooks/http.hook";
-import { resetProducts, setProducts } from "../../redux/product/actionCreators";
+} from '../../redux/category/actionCreators'
+import { Product as ProductDTO } from '../../api/generated'
+import { useHttp } from '../../hooks/http.hook'
+import { resetProducts, setProducts } from '../../redux/product/actionCreators'
 import {
   hideProductsLoading,
   showProductsLoading,
-} from "../../redux/application/actionCreators";
-import { getProductImage } from "../../util/getImage";
-import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
-import BrandsBlock from "./BrandsBlock";
-import Filter from "./Filter";
+} from '../../redux/application/actionCreators'
+import { getProductImage } from '../../util/getImage'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import BrandsBlock from './BrandsBlock'
+import Filter from './Filter'
 
-const qs = require("qs");
+const qs = require('qs')
 
 const FiltersSection: React.FC = () => {
-  const filtersNames = ["Category", "Price"];
-  const prices: string[] = ["0 - 1000", "1000 - 5000", "5000 - 15000"];
+  const filtersNames = ['Category', 'Price']
+  const prices: string[] = ['0 - 1000', '1000 - 5000', '5000 - 15000']
   const categories = useSelector(
     (state: RootState) => state.category.subCategoriesNames
-  );
+  )
   const { filtersBySubCategory, filtersByPrice } = useSelector(
     (state: RootState) => state.filters
-  );
-  const { request } = useHttp();
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const filters = [...filtersBySubCategory, ...filtersByPrice];
+  )
+  const { request } = useHttp()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const filters = [...filtersBySubCategory, ...filtersByPrice]
 
   const backBtnHandler = () => {
-    dispatch(resetFilters());
-    dispatch(resetProducts());
-    history.push("/home");
-  };
+    dispatch(resetFilters())
+    dispatch(resetCategory())
+    dispatch(resetProducts())
+    history.push('/home')
+  }
 
   const applyBtnHandler = async () => {
     try {
-      if (!filters.length) return;
+      if (!filters.length) return
 
-      let query = null;
+      let query = null
 
       const selectedPrices = [
         ...filtersByPrice
-          .map(({ name: value }) => value.split("-"))
+          .map(({ name: value }) => value.split('-'))
           .map((priceValues) => [
             { price_gte: priceValues[0].trim() },
             { price_lt: priceValues[1].trim() },
           ]),
-      ];
+      ]
 
       if (filtersBySubCategory.length && filtersByPrice.length && !query) {
         query = qs.stringify({
@@ -62,14 +64,26 @@ const FiltersSection: React.FC = () => {
               ...filtersBySubCategory
                 .map((subCategoryFilter) =>
                   selectedPrices.map((price) => [
-                    { "category.id": subCategoryFilter.id },
+                    { 'category.id': subCategoryFilter.id },
                     ...price,
                   ])
                 )
                 .flat(),
             ],
           },
-        });
+        }, {encode: false})
+
+        // console.log(query)
+        // console.log([
+        //   ...filtersBySubCategory
+        //     .map((subCategoryFilter) =>
+        //       selectedPrices.map((price) => [
+        //         { 'category.id': subCategoryFilter.id },
+        //         ...price,
+        //       ])
+        //     )
+        //     .flat(),
+        // ])
       } else if (
         filtersBySubCategory.length &&
         !filtersByPrice.length &&
@@ -79,11 +93,11 @@ const FiltersSection: React.FC = () => {
           _where: {
             _or: [
               ...filtersBySubCategory.map((filter) => ({
-                "category.id": filter.id,
+                'category.id': filter.id,
               })),
             ],
           },
-        });
+        })
       } else if (
         !filtersBySubCategory.length &&
         filtersByPrice.length &&
@@ -95,18 +109,18 @@ const FiltersSection: React.FC = () => {
               ...categories
                 .map((category) =>
                   selectedPrices.map((priceItem) => [
-                    { "category.id": category.id },
+                    { 'category.id': category.id },
                     ...priceItem,
                   ])
                 )
                 .flat(),
             ],
           },
-        });
+        })
       }
-      dispatch(showProductsLoading());
-      const products: ProductDTO[] = await request(`/products?${query}`, "GET");
 
+      dispatch(showProductsLoading())
+      const products: ProductDTO[] = await request(`/products?${query}`, 'GET')
       dispatch(
         products.length &&
           setProducts(
@@ -117,13 +131,13 @@ const FiltersSection: React.FC = () => {
               price: product.price,
             }))
           )
-      );
+      )
 
-      dispatch(hideProductsLoading());
+      dispatch(hideProductsLoading())
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   return (
     <div className="list__filters-section">
@@ -171,7 +185,7 @@ const FiltersSection: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FiltersSection;
+export default FiltersSection

@@ -1,6 +1,6 @@
-import { store } from "../store";
-import { ThunkAction } from "redux-thunk";
-import { AnyAction } from "redux";
+import { store } from '../store'
+import { ThunkAction } from 'redux-thunk'
+import { AnyAction } from 'redux'
 import {
   ADD_PRICE_FILTER,
   ADD_SUBCATEGORY_FILTER,
@@ -8,53 +8,54 @@ import {
   OPEN_CATEGORY,
   REMOVE_PRICE_FILTER,
   REMOVE_SUBCATEGORY_FILTER,
+  RESET_CATEGORY,
   RESET_FILTERS,
-} from "./actionsTypes";
+} from './actionsTypes'
 import {
   Category as CategoryDTO,
   Product as ProductDTO,
-} from "../../api/generated";
-import { ISubCategoriesName as subCategoriesName } from "../interfaces/ISubCategoryName";
-import axios from "axios";
-import { IAction as Action } from "../interfaces/IAction";
+} from '../../api/generated'
+import { ISubCategoriesName as subCategoriesName } from '../interfaces/ISubCategoryName'
+import axios from 'axios'
+import { IAction as Action } from '../interfaces/IAction'
 import {
   hideFiltersLoading,
   hideProductsLoading,
   showFiltersLoading,
   showProductsLoading,
-} from "../application/actionCreators";
-import { PriceFilterItem } from "../interfaces/IPriceFilterItem";
-import { setProducts } from "../product/actionCreators";
-import { getProductImage } from "../../util/getImage";
-import { RootState } from "../interfaces/IRootState";
+} from '../application/actionCreators'
+import { PriceFilterItem } from '../interfaces/IPriceFilterItem'
+import { setProducts } from '../product/actionCreators'
+import { getProductImage } from '../../util/getImage'
+import { RootState } from '../interfaces/IRootState'
 
-const qs = require("qs");
+const qs = require('qs')
 
 interface SetAction {
   payload: {
-    subCategoriesNames: subCategoriesName[];
-    parentId: string | null;
-  };
+    subCategoriesNames: subCategoriesName[]
+    parentId: string | null
+  }
 }
 
-export type CategoryAction = SetAction & Action;
+export type CategoryAction = SetAction & Action
 
 export const openCategory = (
   id: string
 ): ThunkAction<void, typeof store, unknown, AnyAction> => async (dispatch) => {
   const query = qs.stringify(
     {
-      _where: [{ "parent.id": id }],
+      _where: [{ 'parent.id': id }],
       _limit: 12,
     },
     { encode: false }
-  );
+  )
 
-  dispatch(showFiltersLoading());
+  dispatch(showFiltersLoading())
   axios
     .get<CategoryDTO[]>(`/categories?${query}`, {
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
       },
     })
     .then((res) => {
@@ -67,42 +68,46 @@ export const openCategory = (
           })),
           parentId: id,
         },
-      });
-      dispatch(hideFiltersLoading());
+      })
+      dispatch(hideFiltersLoading())
     })
-    .catch((err) => console.log(err));
-};
-
-type Filter = subCategoriesName | PriceFilterItem;
-
-interface SetFilterAction {
-  payload: Filter;
+    .catch((err) => console.log(err))
 }
 
-export type FilterAction = SetFilterAction & Action;
+export const resetCategory = (): Action => ({
+  type: RESET_CATEGORY,
+})
+
+type Filter = subCategoriesName | PriceFilterItem
+
+interface SetFilterAction {
+  payload: Filter
+}
+
+export type FilterAction = SetFilterAction & Action
 
 export const addSubcategoryFilter = (filter: Filter): FilterAction => ({
   type: ADD_SUBCATEGORY_FILTER,
   payload: filter,
-});
+})
 
 export const removeSubcategoryFilter = (filter: Filter): FilterAction => ({
   type: REMOVE_SUBCATEGORY_FILTER,
   payload: filter,
-});
+})
 
 export const addPriceFilter = (filter: Filter): FilterAction => ({
   type: ADD_PRICE_FILTER,
   payload: filter,
-});
+})
 
 export const removePriceFilter = (filter: Filter): FilterAction => ({
   type: REMOVE_PRICE_FILTER,
   payload: filter,
-});
+})
 
 export const resetFilters = (): Action => ({
-  type: RESET_FILTERS
+  type: RESET_FILTERS,
 })
 
 export const clearFilters = (): ThunkAction<
@@ -111,28 +116,28 @@ export const clearFilters = (): ThunkAction<
   unknown,
   AnyAction
 > => (dispatch, getState) => {
-  const defaultCategory = getState().category;
+  const defaultCategory = getState().category
 
   dispatch({
     type: CLEAR_FILTERS,
-  });
+  })
   const query = qs.stringify({
     _where: {
       _or: [
-        { "category.id": defaultCategory.parentCategoryId },
+        { 'category.id': defaultCategory.parentCategoryId },
         ...defaultCategory.subCategoriesNames.map((subCategory) => ({
-          "category.id": subCategory.id,
+          'category.id': subCategory.id,
         })),
       ],
     },
     _limit: 20,
-  });
+  })
 
-  dispatch(showProductsLoading());
+  dispatch(showProductsLoading())
   axios
     .get<ProductDTO[]>(`/products?${query}`, {
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
       },
     })
     .then((res) => {
@@ -145,8 +150,8 @@ export const clearFilters = (): ThunkAction<
             price: product.price,
           }))
         )
-      );
-      dispatch(hideProductsLoading());
+      )
+      dispatch(hideProductsLoading())
     })
-    .catch((err) => console.log(err));
-};
+    .catch((err) => console.log(err))
+}
