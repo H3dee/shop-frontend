@@ -96,7 +96,10 @@
             padding: 5px 15px;
             transition: opacity 0.1s ease-in;
             &:hover {
-              opacity: 0.8;
+              opacity: 0.6;
+            }
+            &:active{
+              opacity: 0.85;
             }
             .add-btn__icon {
               height: 17px;
@@ -138,6 +141,9 @@
           transition: opacity 0.05s ease-in;
           &:hover {
             opacity: 0.75;
+          }
+          &:active{
+            opacity: 1;
           }
           &:last-child {
             margin: 0;

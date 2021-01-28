@@ -278,10 +278,14 @@
             line-height: 21px;
             padding: 3px 11px;
             margin-left: 25px;
-            transition: 0.15s ease-in;
+            transition: background 0.15s ease-in;
+            transition: opacity 0.05s ease-in;
             &:hover {
               color: #ffffff;
               background: #0156ff;
+            }
+            &:active{
+              opacity: 0.8;
             }
           }
         }

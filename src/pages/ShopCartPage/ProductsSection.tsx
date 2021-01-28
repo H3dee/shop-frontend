@@ -1,5 +1,5 @@
-import React from 'react'
-import CartItem from './CartItem'
+import React from "react";
+import CartItem from "./CartItem";
 
 const ProductsSection: React.FC = () => {
   return (
@@ -18,6 +18,7 @@ const ProductsSection: React.FC = () => {
           </div>
           <div className="products-section__list">
             <CartItem />
+            <CartItem />
           </div>
           <div className="products-section__buttons">
             <div className="buttons__continue">
@@ -33,7 +34,7 @@ const ProductsSection: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsSection
+export default ProductsSection;

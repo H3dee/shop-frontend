@@ -1,5 +1,5 @@
-@import '../templates/ad-banner.scss';
-@import '../templates/btn.scss';
+@import "../templates/ad-banner.scss";
+@import "../templates/btn.scss";
 
 .content {
   flex: 1 1 auto;
@@ -102,7 +102,7 @@
                         display: block;
                         justify-content: center;
                         transform: translateY(0);
-                        &.preloaded{
+                        &.preloaded {
                           display: flex;
                           justify-content: center;
                         }
@@ -184,7 +184,7 @@
                         color: #ffffff;
                         padding: 5px 0;
                         transition: 0.15s ease-in;
-                        .filters-amount{
+                        .filters-amount {
                           padding-left: 4px;
                         }
                         &:hover {
