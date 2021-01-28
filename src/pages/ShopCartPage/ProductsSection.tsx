@@ -18,8 +18,6 @@ const ProductsSection: React.FC = () => {
           </div>
           <div className="products-section__list">
             <CartItem />
-            <CartItem />
-            <CartItem />
           </div>
           <div className="products-section__buttons">
             <div className="buttons__continue">
