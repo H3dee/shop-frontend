@@ -15,6 +15,7 @@ import {
   showProductsLoading,
 } from '../../redux/application/actionCreators'
 import { getProductImage } from '../../util/getImage'
+import { useTypedSelector } from '../../redux/modules'
 import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
 import BrandsBlock from './BrandsBlock'
 import Filter from './Filter'
@@ -24,8 +25,8 @@ const qs = require('qs')
 const FiltersSection: React.FC = () => {
   const filtersNames = ['Category', 'Price']
   const prices: string[] = ['0 - 1000', '1000 - 5000', '5000 - 15000']
-  const categories = useSelector(
-    (state: RootState) => state.category.subCategoriesNames
+  const categories = useTypedSelector(
+    (state) => state.category.subCategoriesNames
   )
   const { filtersBySubCategory, filtersByPrice } = useSelector(
     (state: RootState) => state.filters
@@ -58,21 +59,23 @@ const FiltersSection: React.FC = () => {
       ]
 
       if (filtersBySubCategory.length && filtersByPrice.length && !query) {
-        query = qs.stringify({
-          _where: {
-            _or: [
-              ...filtersBySubCategory
-                .map((subCategoryFilter) =>
-                  selectedPrices.map((price) => [
-                    { 'category.id': subCategoryFilter.id },
-                    ...price,
-                  ])
-                )
-                .flat(),
-            ],
+        query = qs.stringify(
+          {
+            _where: {
+              _or: [
+                ...filtersBySubCategory
+                  .map((subCategoryFilter) =>
+                    selectedPrices.map((price) => [
+                      { 'category.id': subCategoryFilter.id },
+                      ...price,
+                    ])
+                  )
+                  .flat(),
+              ],
+            },
           },
-        }, {encode: false})
-
+          { encode: false }
+        )
       } else if (
         filtersBySubCategory.length &&
         !filtersByPrice.length &&

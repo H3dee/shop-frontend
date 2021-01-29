@@ -1,12 +1,13 @@
-import React from "react";
-import { Menu } from "../../interfaces/IHeader";
-import headerLogo from "../../assets/img/icons/Vector 24header-logo.svg";
-import searchIcon from "../../assets/img/icons/Vectorsearch-icon.svg";
-import cartIcon from "../../assets/img/icons/Vectorshop-cart.svg";
-import accPhoto from "../../assets/img/acc-photo.png";
-import closeIcon from "../../assets/img/icons/gg_searchclose-icon.svg";
-import HoveredMenu from "./HoveredMenu";
-import { useHistory } from "react-router-dom";
+import React from 'react'
+import { Menu } from '../../interfaces/IHeader'
+import { useHistory } from 'react-router-dom'
+import { useTypedSelector } from '../../redux/modules'
+import headerLogo from '../../assets/img/icons/Vector 24header-logo.svg'
+import searchIcon from '../../assets/img/icons/Vectorsearch-icon.svg'
+import cartIcon from '../../assets/img/icons/Vectorshop-cart.svg'
+import accPhoto from '../../assets/img/acc-photo.png'
+import closeIcon from '../../assets/img/icons/gg_searchclose-icon.svg'
+import HoveredMenu from './HoveredMenu'
 
 const HeaderMenu: React.FC<Menu> = ({
   showMenu,
@@ -16,6 +17,9 @@ const HeaderMenu: React.FC<Menu> = ({
   HoverMenuHandler,
   toggleSearch,
 }) => {
+  const {
+    products: { length: itemsAmount },
+  } = useTypedSelector((state) => state.cart)
   const history = useHistory()
 
   return (
@@ -23,16 +27,21 @@ const HeaderMenu: React.FC<Menu> = ({
       <div className="container">
         <div className="menu__row">
           <div className="menu__logo">
-            <img src={headerLogo} alt=" " onClick={() => history.push('/home')} title="home"/>
+            <img
+              src={headerLogo}
+              alt=" "
+              onClick={() => history.push('/home')}
+              title="home"
+            />
           </div>
           <div
             className={
-              showSearch ? "menu__search-input active" : "menu__search-input"
+              showSearch ? 'menu__search-input active' : 'menu__search-input'
             }
           >
             <input placeholder="Search entiere store here..." type="text" />
           </div>
-          <div className={showSearch ? "menu__items hidden" : "menu__items"}>
+          <div className={showSearch ? 'menu__items hidden' : 'menu__items'}>
             {categories.map((category, i) => (
               <div
                 key={String(i)}
@@ -53,7 +62,14 @@ const HeaderMenu: React.FC<Menu> = ({
               />
             </div>
             <div className="options__shop-cart-icon">
-              <img src={cartIcon} alt=" " />
+              <img
+                src={cartIcon}
+                alt=" "
+                onClick={() => history.push('/cart')}
+              />
+              {itemsAmount ? (
+                <div className={'items-amount'}>{itemsAmount}</div>
+              ) : null}
             </div>
             <div className="options__account">
               <div className="account__placeholder-icon">
@@ -65,7 +81,7 @@ const HeaderMenu: React.FC<Menu> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HeaderMenu;
+export default HeaderMenu

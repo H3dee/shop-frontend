@@ -4,7 +4,6 @@
   min-width: 100%;
   min-height: 100%;
 }
-
 .cart-item {
   display: flex;
   padding: 25px 0;
@@ -44,6 +43,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background-color .15s ease-in;
+      &:hover{
+        background-color: #dfe4fa;
+      }
       .amount-selector__value {
         line-height: 29px;
         font-weight: 600;
@@ -89,7 +92,7 @@
     .actions__item {
       height: 24px;
       width: 24px;
-      opacity: 0.8;
+      opacity: 0.55;
       cursor: pointer;
       img {
         @extend %imgTemplate;
