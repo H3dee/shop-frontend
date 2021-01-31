@@ -102,6 +102,7 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
               currentProducts.map((product, i) => {
                 return (
                   <ProductCard
+                    id={product.id}
                     key={String(i)}
                     imageUrl={product.imageUrl || testImg}
                     price={product.price}

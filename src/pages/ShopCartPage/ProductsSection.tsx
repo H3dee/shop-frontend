@@ -1,7 +1,14 @@
-import React from "react";
-import CartItem from "./CartItem";
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { clearCart } from '../../redux/cart/actionCreators'
+import { useTypedDispatch, useTypedSelector } from '../../redux/modules'
+import CartItem from './CartItem'
 
 const ProductsSection: React.FC = () => {
+  const { products: cartItems } = useTypedSelector((state) => state.cart)
+  const dispatch = useTypedDispatch()
+  const history = useHistory()
+
   return (
     <div className="products-section">
       <div className="container">
@@ -17,15 +24,33 @@ const ProductsSection: React.FC = () => {
             </div>
           </div>
           <div className="products-section__list">
-            <CartItem />
-            <CartItem />
+            {cartItems.length ? (
+              cartItems.map((item, i) => (
+                <CartItem
+                  key={String(i)}
+                  amount={item.amount}
+                  id={item.id}
+                  price={item.price}
+                  productName={item.productName}
+                  imageUrl={item.imageUrl}
+                />
+              ))
+            ) : (
+              <div className="list__empty-placeholder">
+                There are no items yet...
+              </div>
+            )}
           </div>
           <div className="products-section__buttons">
             <div className="buttons__continue">
-              <button>Continue Shopping</button>
+              <button onClick={() => history.push('/home')}>
+                Continue Shopping
+              </button>
             </div>
             <div className="buttons__clear">
-              <button>Clear Shopping Cart</button>
+              <button onClick={() => cartItems.length && dispatch(clearCart())}>
+                Clear Shopping Cart
+              </button>
             </div>
             <div className="buttons__update">
               <button>Update Shopping Cart</button>
@@ -34,7 +59,7 @@ const ProductsSection: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductsSection;
+export default ProductsSection

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Product as ProductDTO } from '../../api/generated/models/Product'
 import { useHttp } from '../../hooks/http.hook'
 import { getProductImage } from '../../util/getImage'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/interfaces/IRootState'
+import { useDispatch } from 'react-redux'
 import {
   clearFilters,
   removePriceFilter,
@@ -16,6 +15,7 @@ import {
   showProductsLoading,
 } from '../../redux/application/actionCreators'
 import { setProducts } from '../../redux/product/actionCreators'
+import { useTypedSelector } from '../../redux/modules'
 import ProductCard from '../../components(shared)/ProductCard'
 import Loader from '../../components(shared)/Loader'
 import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
@@ -28,17 +28,15 @@ const qs = require('qs')
 
 const ListSection: React.FC = () => {
   const [isGrid, setIsGrid] = useState(true)
-  const products = useSelector((state: RootState) => state.products.products)
-  const { filtersByPrice, filtersBySubCategory } = useSelector(
-    (state: RootState) => state.filters
+  const products = useTypedSelector(state => state.products.products) 
+  const { filtersByPrice, filtersBySubCategory } = useTypedSelector(
+    (state) => state.filters
   )
-  const categoryId = useSelector(
-    (state: RootState) => state.category.parentCategoryId
+  const categoryId = useTypedSelector(state => state.category.parentCategoryId)
+  const subCategories = useTypedSelector(
+    (state) => state.category.subCategoriesNames
   )
-  const subCategories = useSelector(
-    (state: RootState) => state.category.subCategoriesNames
-  )
-  const loading = useSelector((state: RootState) => state.app.productsLoading)
+  const loading = useTypedSelector((state) => state.app.productsLoading)
   const { request } = useHttp()
   const dispatch = useDispatch()
   const filters: (subCategoriesName | PriceFilterItem)[] = [
@@ -170,6 +168,7 @@ const ListSection: React.FC = () => {
               <div className="body__products">
                 {products.map((product, i) => (
                   <ProductCard
+                    id={product.id}
                     key={String(i)}
                     imageUrl={product.imageUrl || reserveImg}
                     price={product.price}

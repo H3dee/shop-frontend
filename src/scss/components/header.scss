@@ -284,7 +284,7 @@
               color: #ffffff;
               background: #0156ff;
             }
-            &:active{
+            &:active {
               opacity: 0.8;
             }
           }
@@ -302,7 +302,22 @@
             }
           }
           .options__shop-cart-icon {
+            position: relative;
             margin: 0px 38px 0px 29px;
+            .items-amount {
+              position: absolute;
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              color: #ffffff;
+              background: #0156ff;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 9px;
+              top: -8px;
+              right: -8px;
+            }
           }
         }
         .hovered-menu {

@@ -1,4 +1,4 @@
-@import "../templates/btn.scss";
+@import '../templates/btn.scss';
 %image {
   height: 100%;
   width: 100%;
@@ -26,6 +26,30 @@
           }
         }
       }
+      .content__options {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 3%;
+        right: 3%;
+        div {
+          cursor: pointer;
+          transition: opacity 0.05s ease-in;
+          &:hover {
+            opacity: 0.75;
+          }
+          &:active {
+            opacity: 1;
+          }
+          &:last-child {
+            margin: 0;
+          }
+          &:nth-child(1),
+          &:nth-child(2){
+            display: none;
+          }
+        }
+      }
     }
   }
   &.expanded {
@@ -33,6 +57,26 @@
     max-width: 100%;
     width: 100%;
     padding: 14px 25px 35px 50px;
+    &:hover{
+      .product__content{
+        .content__options{
+          flex-direction: row;
+          top: auto;
+          right: 0;
+          bottom: 0;
+          div{
+            margin-right: 6px;
+            &:nth-child(1),
+            &:nth-child(2){
+              display: block;
+            }
+            &:last-child{
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
     .product__status {
       justify-content: flex-end;
     }
@@ -98,7 +142,7 @@
             &:hover {
               opacity: 0.6;
             }
-            &:active{
+            &:active {
               opacity: 0.85;
             }
             .add-btn__icon {
@@ -142,7 +186,7 @@
           &:hover {
             opacity: 0.75;
           }
-          &:active{
+          &:active {
             opacity: 1;
           }
           &:last-child {

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useTypedSelector } from "../../redux/modules";
 import paypalLogo from "../../assets/img/icons/Group 114paypal_logo.svg";
 import zipLogo from "../../assets/img/icons/Asset 1zip-logo.svg";
 import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
 
 const SummarySection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const cartItems = useTypedSelector((state) => state.cart.products);
+
+  const totalCost = cartItems.reduce(
+    (acc, { price, amount }) => acc + price * amount,
+    0
+  );
 
   const getTotalItem = (name: string, value: string) => (
     <div className="total__item">
@@ -39,18 +46,18 @@ const SummarySection: React.FC = () => {
             </div>
           </div>
           <div className="summary-section__total">
-            {getTotalItem("Subtotal", "13,047.00")}
+            {getTotalItem("Subtotal", `${totalCost}.00`)}
             {getTotalItem("Shipping", "21.00")}
             <div className="total__item__additional">
               (Standard Rate - Price may vary depending on the item/destination.
               TECS Staff will contact you.)
             </div>
-            {getTotalItem("Tax", "1.91")}
-            {getTotalItem("GST (10%)", "1.91")}
+            {getTotalItem("Tax", "2.00")}
+            {getTotalItem("GST (10%)", "2.00")}
             <div className="total__item">
               <div className="item__name">Order Total </div>
               <div className="item__value">
-                <span className="total-value">$13,068.00</span>
+                <span className="total-value">${totalCost + 25}.00</span>
               </div>
             </div>
           </div>

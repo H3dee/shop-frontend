@@ -1,8 +1,8 @@
-import React from "react";
-import { HoveredMenuProps } from "../../interfaces/IMenu";
-import CompaniesLogos from "../CompaniesLogos";
-import tempImg from "../../assets/img/image 29test.png";
-import ProductCard from "../ProductCard";
+import React from 'react'
+import { HoveredMenuProps } from '../../interfaces/IMenu'
+import CompaniesLogos from '../CompaniesLogos'
+import tempImg from '../../assets/img/image 29test.png'
+import ProductCard from '../ProductCard'
 
 const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
   if (!categories?.length)
@@ -10,7 +10,7 @@ const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
       <div className="hovered-menu">
         <div className="menu__empty-alert">There are no categories yet...</div>
       </div>
-    );
+    )
 
   return (
     <div className="hovered-menu">
@@ -28,23 +28,27 @@ const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
           </div>
           <div className="menu__products">
             <ProductCard
+              id={Date.now()}
               imageUrl={tempImg}
-              price="255"
+              price={255}
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
             />
             <ProductCard
+              id={Date.now()}
               imageUrl={tempImg}
-              price="255"
+              price={255}
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
             />
             <ProductCard
+              id={Date.now()}
               imageUrl={tempImg}
-              price="255"
+              price={255}
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
             />
             <ProductCard
+              id={Date.now()}
               imageUrl={tempImg}
-              price="255"
+              price={255}
               productName="EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On"
             />
           </div>
@@ -52,7 +56,7 @@ const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
       )}
       <CompaniesLogos />
     </div>
-  );
-};
+  )
+}
 
-export default HoveredMenu;
+export default HoveredMenu

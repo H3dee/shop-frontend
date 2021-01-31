@@ -55,6 +55,7 @@ const NewProducts: React.FC = React.memo(() => {
         {!loading &&
           products.map((product) => (
             <ProductCard
+              id={product.id}
               key={String(product.id)}
               imageUrl={product.imageUrl}
               productName={product.productName}
