@@ -1,0 +1,23 @@
+.general-details {
+  border-bottom: 1.5px solid #cccccc77;
+  .container {
+    max-width: 1220px;
+    padding: 0 10px;
+    margin: 0 auto;
+    .general-details__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .general-details__selectors {
+        display: flex;
+      }
+      .general-details__actions {
+        display: flex;
+        align-items: center;
+        .actions__cost{
+              
+        }
+      }
+    }
+  }
+}
