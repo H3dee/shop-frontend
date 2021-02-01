@@ -1,0 +1,29 @@
+.product__content {
+  .product__container {
+    max-width: 100%;
+    .product__content__row {
+      display: flex;
+      flex-direction: column;
+      .product-info {
+        background: url('../../assets/img/Rectangle 14bg1.png') 0 0/55% 100%
+            no-repeat,
+          url('../../assets/img/Rectangle 5bg2.png') 100% 0/45% 100% no-repeat;
+
+        & > .container {
+          padding: 67px 0px 59px 0px;
+          // max-width: 1200px;
+          // margin: 0 auto;
+          .product-info__row {
+            display: flex;
+            .product-info__description {
+              flex: 1 1 55%;
+            }
+            .product-info__preview {
+              flex: 1 1 45%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

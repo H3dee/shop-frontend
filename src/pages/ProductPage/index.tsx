@@ -1,0 +1,23 @@
+import React from 'react'
+import Footer from '../../components(shared)/Footer/Footer'
+import Header from '../../components(shared)/Header/Header'
+import { ProductInfo } from './ProductInfo'
+import BenefitsList from '../../components(shared)/BenefitsCards/BenefitsList'
+import '../../scss/components/product-page.scss'
+
+export const ProductPage: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <div className="product__content">
+        <div className="product__container">
+          <div className="product__content__row">
+            <ProductInfo />
+          </div>
+        </div>
+      </div>
+      <BenefitsList />
+      <Footer />
+    </>
+  )
+}
