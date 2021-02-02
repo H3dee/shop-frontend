@@ -10,7 +10,6 @@ import statisticIcon from '../assets/img/icons/Group 107statistic.svg'
 import star from '../assets/img/icons/Star 1star.svg'
 import '../scss/components/product-card.scss'
 
-
 const ProductCard: React.FC<ProductCardProps> = ({
   id,
   imageUrl,
@@ -50,19 +49,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const optionsItems = Array.from({ length: 3 }, (_, i) => (
     <div className={`options-${options[i].name}`} key={String(i)}>
-      <img src={options[i].icon} alt=" " onClick={() => i === 2 && dispatch(addProduct({
-        id,
-        amount: 1,
-        price,
-        productName,
-        imageUrl
-      }))} />
+      <img
+        src={options[i].icon}
+        alt=" "
+        onClick={() =>
+          i === 2 &&
+          dispatch(
+            addProduct({
+              id,
+              amount: 1,
+              price,
+              productName,
+              imageUrl,
+            })
+          )
+        }
+      />
     </div>
   ))
 
   return (
     <div className={isExpanded ? 'product-card expanded' : 'product-card'}>
-      
       <div className="product__status">
         <div className="status__icon">
           <img src={stockIcon} alt=" " />

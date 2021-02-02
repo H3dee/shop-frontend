@@ -1,8 +1,8 @@
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { ProductPage } from './pages/ProductPage'
-import CategoryPage from './pages/CategoryPage/index'
-import HomePage from './pages/HomePage/index'
-import ShopCart from './pages/ShopCartPage/index'
+import { Switch, Route, Redirect } from "react-router-dom";
+import ProductPage from "./pages/ProductPage";
+import CategoryPage from "./pages/CategoryPage/index";
+import HomePage from "./pages/HomePage/index";
+import ShopCart from "./pages/ShopCartPage/index";
 
 export const routes = (
   <Switch>
@@ -13,4 +13,4 @@ export const routes = (
     <Route component={ProductPage} path="/product" />
     <Redirect to="/home" />
   </Switch>
-)
+);
