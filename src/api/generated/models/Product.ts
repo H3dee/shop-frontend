@@ -84,7 +84,6 @@ export function ProductToJSON(value?: Product | null): any {
         return null;
     }
     return {
-        
         'id': value.id,
         'name': value.name,
         'price': value.price,

@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import arrowIcon from '../../assets/img/icons/Vector 13right-pointer.svg'
-import paypalLogo from '../../assets/img/icons/Group 114paypal_logo.svg'
-import '../../scss/components/general-details.scss'
+import React, { useState } from "react";
+import arrowIcon from "../../assets/img/icons/Vector 13right-pointer.svg";
+import paypalLogo from "../../assets/img/icons/Group 114paypal_logo.svg";
+import "../../scss/components/general-details.scss";
 
-export const GeneralDetails: React.FC = () => {
-  const [currentAmount, setCurrentAmount] = useState<number>(1)
+const GeneralDetails: React.FC = () => {
+  const [currentAmount, setCurrentAmount] = useState<number>(1);
 
   const amountSelectorHandler = (arrowIndex: number) =>
     setCurrentAmount((prev) =>
       arrowIndex === 0 ? ++prev : currentAmount > 1 ? --prev : 1
-    )
+    );
 
   return (
     <div className="general-details">
       <div className="container">
         <div className="general-details__row">
           <div className="general-details__selectors">
-            <div className="selectors__about">About Product</div>
+            <div className="selectors__about active">About Product</div>
             <div className="selectors__details">Details</div>
             <div className="selectors__specs">Specs</div>
           </div>
@@ -57,5 +57,7 @@ export const GeneralDetails: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default GeneralDetails;
