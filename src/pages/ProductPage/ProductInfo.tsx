@@ -1,24 +1,24 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Product as ProductDTO } from '../../api/generated'
-import Loader from '../../components(shared)/Loader'
-import { useHttp } from '../../hooks/http.hook'
-import { Product } from '../../interfaces/IProductCard'
-import { getProductImage } from '../../util/getImage'
-import GeneralDetails from './GeneralDetails'
-import Preview from './Preview'
+import React, { useEffect, useMemo, useState } from "react";
+import { Product as ProductDTO } from "../../api/generated";
+import Loader from "../../components(shared)/Loader";
+import { useHttp } from "../../hooks/http.hook";
+import { Product } from "../../interfaces/IProductCard";
+import { getProductImage } from "../../util/getImage";
+import GeneralDetails from "./GeneralDetails";
+import Preview from "./Preview";
 
-const qs = require('qs')
+const qs = require("qs");
 
 const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
-  const [product, setProduct] = useState<Product | null>(null)
-  const [typeOfContent, setTypeOfContent] = useState('about')
-  const { request, loading } = useHttp()
+  const [product, setProduct] = useState<Product>();
+  const [typeOfContent, setTypeOfContent] = useState("about");
+  const { request, loading } = useHttp();
 
-  const setTypeHandler = (type: string) => setTypeOfContent(type.toLowerCase())
+  const setTypeHandler = (type: string) => setTypeOfContent(type.toLowerCase());
 
   const tabContent = useMemo((): JSX.Element => {
     switch (typeOfContent) {
-      case 'specs':
+      case "specs":
         return (
           <div className="description__specs">
             {product?.specs?.length ? (
@@ -34,8 +34,8 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
               </div>
             )}
           </div>
-        )
-      case 'details':
+        );
+      case "details":
         return (
           <div className="description__details">
             {product?.details?.length ? (
@@ -50,18 +50,18 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
               </div>
             )}
           </div>
-        )
+        );
       default:
-        return <div className="description__about">{product?.productName}</div>
+        return <div className="description__about">{product?.productName}</div>;
     }
-  }, [typeOfContent, product?.details, product?.productName, product?.specs])
+  }, [typeOfContent, product?.details, product?.productName, product?.specs]);
 
   useEffect(() => {
     const getProduct = async () => {
       const query = qs.stringify({
         _where: { id: productId },
-      })
-      const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
+      });
+      const data: ProductDTO[] = await request(`/products?${query}`, "GET");
 
       Array.isArray(data) &&
         data.length &&
@@ -72,24 +72,31 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
           price: data[0].price,
           details: data[0].details,
           specs: data[0].specs,
-        })
-    }
+        });
+    };
 
-    getProduct()
-  }, [productId, request])
+    getProduct();
+  }, [productId, request]);
 
   return (
     <>
-      <GeneralDetails type={typeOfContent} setTypeHandler={setTypeHandler} />
-      <div className="product__content__product-info">
-        <div className="product__content__container">
-          <div className="product-info__row">
-            {loading ? (
-              <div className="product-info__loading">
-                <Loader />
-              </div>
-            ) : (
-              <>
+      {loading ? (
+        <div className="product__content__loading">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <GeneralDetails
+            type={typeOfContent}
+            setTypeHandler={setTypeHandler}
+            productName={product?.productName}
+            id={product?.id}
+            price={product?.price}
+            imageUrl={product?.imageUrl}
+          />
+          <div className="product__content__product-info">
+            <div className="product__content__container">
+              <div className="product-info__row">
                 <div className="product-info__description">
                   <div className="product-info__description__container">
                     <div className="product-info__description__row">
@@ -128,13 +135,13 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
                   </div>
                 </div>
                 <Preview image={product?.imageUrl} />
-              </>
-            )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default ProductInfo
+export default ProductInfo;

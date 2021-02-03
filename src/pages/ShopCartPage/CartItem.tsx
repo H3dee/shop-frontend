@@ -1,36 +1,40 @@
-import React, { useState } from 'react'
-import { CartItem as CartItemProps } from '../../redux/interfaces/ICartItem'
-import { useTypedDispatch } from '../../redux/modules'
-import { removeProduct, updateProduct } from '../../redux/cart/actionCreators'
-import reserveImg from '../../assets/img/image 51cart-image.png'
-import removeIcon from '../../assets/img/icons/Group 108remove-icon.svg'
-import editIcon from '../../assets/img/icons/Group 115edit-icon.svg'
-import arrowIcon from '../../assets/img/icons/Vector 13right-pointer.svg'
-import '../../scss/components/cart-item.scss'
+import React, { useEffect, useState } from "react";
+import { CartItem as CartItemProps } from "../../redux/interfaces/ICartItem";
+import { useTypedDispatch } from "../../redux/modules";
+import { removeProduct, updateProduct } from "../../redux/cart/actionCreators";
+import reserveImg from "../../assets/img/image 51cart-image.png";
+import removeIcon from "../../assets/img/icons/Group 108remove-icon.svg";
+import editIcon from "../../assets/img/icons/Group 115edit-icon.svg";
+import arrowIcon from "../../assets/img/icons/Vector 13right-pointer.svg";
+import "../../scss/components/cart-item.scss";
 
 const CartItem: React.FC<CartItemProps> = ({
   id,
   imageUrl,
   productName,
   price,
+  amount,
 }) => {
-  const dispatch = useTypedDispatch()
-  const [currentAmount, setCurrentAmount] = useState<number>(1)
+  const dispatch = useTypedDispatch();
+  const [currentAmount, setCurrentAmount] = useState<number>(amount);
 
   const amountSelectorHandler = (arrowIndex: number) => {
     setCurrentAmount((prev) =>
-      arrowIndex === 0 ? ++prev : currentAmount > 1 ? --prev : 1
-    )
+      arrowIndex === 0 ? ++prev! : currentAmount! > 1 ? --prev! : 1
+    );
+  };
+
+  useEffect(() => {
     dispatch(
       updateProduct({
         id,
         price,
         imageUrl,
         productName,
-        amount: currentAmount,
+        amount: currentAmount!,
       })
-    )
-  }
+    );
+  }, [currentAmount, id, price, imageUrl, productName, amount, dispatch]);
 
   return (
     <div className="cart-item">
@@ -57,7 +61,7 @@ const CartItem: React.FC<CartItemProps> = ({
           </div>
         </div>
         <div className="options-info__subtotal">
-          ${price * currentAmount}.00
+          ${price * currentAmount!}.00
         </div>
       </div>
       <div className="cart-item__actions">
@@ -83,7 +87,7 @@ const CartItem: React.FC<CartItemProps> = ({
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CartItem
+export default CartItem;

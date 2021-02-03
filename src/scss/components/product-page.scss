@@ -1,4 +1,4 @@
-@import '../templates/img.scss';
+@import "../templates/img.scss";
 
 .product__content {
   .product__container {
@@ -6,10 +6,17 @@
     .product__content__row {
       display: flex;
       flex-direction: column;
+      .product__content__loading {
+        border-top: 1px solid #cccccc;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .product__content__product-info {
-        background: url('../../assets/img/Rectangle 14bg1.png') 0 0/55% 100%
+        background: url("../../assets/img/Rectangle 14bg1.png") 0 0/55% 100%
             no-repeat,
-          url('../../assets/img/Rectangle 5bg2.png') 100% 0/45% 100% no-repeat;
+          url("../../assets/img/Rectangle 5bg2.png") 100% 0/45% 100% no-repeat;
         .product__content__container {
           padding: 67px 10px 59px 10px;
           max-width: 1220px;
@@ -38,7 +45,7 @@
                         font-weight: 600;
                         &::before,
                         &::after {
-                          content: '';
+                          content: "";
                           position: absolute;
                           width: 3px;
                           height: 1px;
@@ -153,7 +160,7 @@
                           border-color: #ffffff;
                           &::before {
                             position: absolute;
-                            content: '';
+                            content: "";
                             z-index: -1;
                             top: -30px;
                             bottom: -30px;
@@ -307,7 +314,7 @@
       .product__content__advantages {
         position: relative;
         overflow: hidden;
-        background: url('../../assets/img/Rectangle 11outplay.png') 81% 25%/49%
+        background: url("../../assets/img/Rectangle 11outplay.png") 81% 25%/49%
             80% no-repeat,
           #000000;
         .product__content__advantages__container {
@@ -369,7 +376,7 @@
         }
       }
       .product__content__fast-references {
-        background: url('../../assets/img/image 22support.png') 62% 100% / auto
+        background: url("../../assets/img/image 22support.png") 62% 100% / auto
             97% no-repeat,
           linear-gradient(
             270deg,

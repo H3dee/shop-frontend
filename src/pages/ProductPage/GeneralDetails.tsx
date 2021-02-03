@@ -1,27 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react'
-import arrowIcon from '../../assets/img/icons/Vector 13right-pointer.svg'
-import paypalLogo from '../../assets/img/icons/Group 114paypal_logo.svg'
-import '../../scss/components/general-details.scss'
+import React, { useEffect, useRef, useState } from "react";
+import { Details } from "../../interfaces/IDetails";
+import { useTypedDispatch } from "../../redux/modules";
+import arrowIcon from "../../assets/img/icons/Vector 13right-pointer.svg";
+import paypalLogo from "../../assets/img/icons/Group 114paypal_logo.svg";
+import "../../scss/components/general-details.scss";
+import { addProduct } from "../../redux/cart/actionCreators";
 
-const GeneralDetails: React.FC<{
-  setTypeHandler(type: string): void
-  type: string
-}> = ({ setTypeHandler: setType, type }) => {
-  const [currentAmount, setCurrentAmount] = useState<number>(1)
-  const focusRef = useRef<HTMLDivElement>(null)
+const GeneralDetails: React.FC<Details> = ({
+  setTypeHandler: setType,
+  type,
+  id,
+  price,
+  productName,
+  imageUrl,
+}) => {
+  const [currentAmount, setCurrentAmount] = useState<number>(1);
+  const focusRef = useRef<HTMLDivElement>(null);
+  const [currentPrice, setCurrentPrice] = useState<number | null>(null);
+  const dispatch = useTypedDispatch()
 
   const amountSelectorHandler = (arrowIndex: number) =>
     setCurrentAmount((prev) =>
       arrowIndex === 0 ? ++prev : currentAmount > 1 ? --prev : 1
-    )
+    );
 
   useEffect(() => {
     focusRef.current!.scrollIntoView({
-      block: 'start',
-      behavior: 'auto',
-      inline: 'start',
-    })
-  }, [])
+      block: "start",
+      behavior: "auto",
+      inline: "start",
+    });
+    price && setCurrentPrice(price);
+  }, [price]);
 
   return (
     <div className="general-details" ref={focusRef}>
@@ -30,31 +40,31 @@ const GeneralDetails: React.FC<{
           <div className="general-details__selectors">
             <div
               className={
-                type === 'about'
-                  ? 'selectors__about active'
-                  : 'selectors__about'
+                type === "about"
+                  ? "selectors__about active"
+                  : "selectors__about"
               }
-              onClick={() => setType('about')}
+              onClick={() => setType("about")}
             >
               About Product
             </div>
             <div
               className={
-                type === 'details'
-                  ? 'selectors__details active'
-                  : 'selectors__details'
+                type === "details"
+                  ? "selectors__details active"
+                  : "selectors__details"
               }
-              onClick={() => setType('details')}
+              onClick={() => setType("details")}
             >
               Details
             </div>
             <div
               className={
-                type === 'specs'
-                  ? 'selectors__specs active'
-                  : 'selectors__specs'
+                type === "specs"
+                  ? "selectors__specs active"
+                  : "selectors__specs"
               }
-              onClick={() => setType('specs')}
+              onClick={() => setType("specs")}
             >
               Specs
             </div>
@@ -63,7 +73,7 @@ const GeneralDetails: React.FC<{
             <div className="actions__info-cost">
               <span>On Sale from </span>
               <span className="cost">
-                $<span className="value">{3299 * currentAmount}</span>.00
+                $<span className="value">{currentPrice! * currentAmount}</span>.00
               </span>
             </div>
             <div className="actions__amount-selector">
@@ -82,7 +92,13 @@ const GeneralDetails: React.FC<{
             </div>
             <div className="actions__buttons">
               <div className="buttons__add-btn">
-                <button>Add to cart</button>
+                <button onClick={() => dispatch(addProduct({
+                  id: id!,
+                  price: +price!,
+                  productName: productName!,
+                  amount: currentAmount,
+                  imageUrl
+                }))}>Add to cart</button>
               </div>
               <div className="buttons__paypal-btn">
                 <button>
@@ -96,7 +112,7 @@ const GeneralDetails: React.FC<{
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GeneralDetails
+export default GeneralDetails;
