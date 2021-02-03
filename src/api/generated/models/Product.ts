@@ -13,6 +13,17 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    ProductDetails,
+    ProductDetailsFromJSON,
+    ProductDetailsFromJSONTyped,
+    ProductDetailsToJSON,
+    ProductSpecs,
+    ProductSpecsFromJSON,
+    ProductSpecsFromJSONTyped,
+    ProductSpecsToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -51,6 +62,18 @@ export interface Product {
     photo?: Array<object>;
     /**
      * 
+     * @type {Array<ProductDetails>}
+     * @memberof Product
+     */
+    details?: Array<ProductDetails>;
+    /**
+     * 
+     * @type {Array<ProductSpecs>}
+     * @memberof Product
+     */
+    specs?: Array<ProductSpecs>;
+    /**
+     * 
      * @type {Date}
      * @memberof Product
      */
@@ -72,6 +95,8 @@ export function ProductFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
         'price': json['price'],
         'category': !exists(json, 'category') ? undefined : json['category'],
         'photo': !exists(json, 'photo') ? undefined : json['photo'],
+        'details': !exists(json, 'details') ? undefined : ((json['details'] as Array<any>).map(ProductDetailsFromJSON)),
+        'specs': !exists(json, 'specs') ? undefined : ((json['specs'] as Array<any>).map(ProductSpecsFromJSON)),
         'publishedAt': !exists(json, 'published_at') ? undefined : (new Date(json['published_at'])),
     };
 }
@@ -84,11 +109,14 @@ export function ProductToJSON(value?: Product | null): any {
         return null;
     }
     return {
+        
         'id': value.id,
         'name': value.name,
         'price': value.price,
         'category': value.category,
         'photo': value.photo,
+        'details': value.details === undefined ? undefined : ((value.details as Array<any>).map(ProductDetailsToJSON)),
+        'specs': value.specs === undefined ? undefined : ((value.specs as Array<any>).map(ProductSpecsToJSON)),
         'published_at': value.publishedAt === undefined ? undefined : (value.publishedAt.toISOString()),
     };
 }

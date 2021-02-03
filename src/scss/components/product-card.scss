@@ -89,6 +89,9 @@
           margin: 0;
           width: 230px;
           height: 230px;
+          img{
+            object-fit: scale-down;
+          }
         }
         .top__feedback {
           position: absolute;

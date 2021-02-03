@@ -9,8 +9,7 @@ export const routes = (
     <Route component={HomePage} path="/home" exact />
     <Route component={CategoryPage} path="/category/:name" />
     <Route component={ShopCart} path="/cart" exact />
-    {/* Temporary route */}
-    <Route component={ProductPage} path="/product" />
+    <Route component={ProductPage} path="/product/:id" />
     <Redirect to="/home" />
   </Switch>
 );

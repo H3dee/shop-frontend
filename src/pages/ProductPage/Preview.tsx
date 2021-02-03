@@ -4,8 +4,8 @@ import favoriteIcon from '../../assets/img/icons/Group 106favorite.svg'
 import statisticIcon from '../../assets/img/icons/Group 107statistic.svg'
 import zipLogo from '../../assets/img/icons/Asset 1zip-logo.svg'
 
-const Preview: React.FC = () => {
-  const options: Array<{name: string, icon: string}> = [
+const Preview: React.FC<{ image: string | undefined}> = ({ image: imgUrl }) => {
+  const options: Array<{ name: string; icon: string }> = [
     {
       name: 'mail',
       icon: mailIcon,
@@ -33,10 +33,7 @@ const Preview: React.FC = () => {
           <div className="product-info__preview__image">
             <div className="image__options">{optionsItems}</div>
             <div className="image__photo">
-              <img
-                src="https://res.cloudinary.com/hgtfkfbcu/image/upload/v1610536306/medium_1412333_v01_b_85705bb72d.jpg"
-                alt=" "
-              />
+              <img src={imgUrl} alt=" " />
             </div>
             <div className="image__sub-advertise">
               <div className="sub-advertise__logo">

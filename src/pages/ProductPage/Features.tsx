@@ -7,25 +7,25 @@ import ddr from '../../assets/img/features_images/Group 14ddr4.png'
 export const Features: React.FC = () => {
   const features: Array<{ id: number; img: string; description: string }> = [
     {
-      id: Date.now(),
+      id: 1,
       img: intel,
       description:
         'Intel® Core™ i7 processor with the upmost computing power to bring you an unparalleled gaming experience.',
     },
     {
-      id: Date.now(),
+      id: 2,
       img: rtx,
       description:
         'The new GeForce® RTX SUPER™ Series has more cores and higher clocks for superfast performance compared to previous-gen GPUs.',
     },
     {
-      id: Date.now(),
+      id: 3,
       img: ssd,
       description:
         'Unleash the full potential with the latest SSD technology, the NVM Express. 6 times faster than traditional SATA SSD.',
     },
     {
-      id: Date.now(),
+      id: 4,
       img: ddr,
       description:
         'Featuring the latest 10th Gen Intel® Core™ processors, memory can support up to DDR4 2933MHz to delivers an unprecedented gaming experience.',
@@ -37,8 +37,8 @@ export const Features: React.FC = () => {
     img: string,
     description: string
   ): JSX.Element => (
-    <div className="list__feature-item">
-      <div className="feature-item__logo" key={String(key)}>
+    <div className="list__feature-item" key={String(key)}>
+      <div className="feature-item__logo">
         <img src={img} alt=" " />
       </div>
       <div className="feature-item__description">{description}</div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { ProductCardProps } from '../interfaces/IProductCard'
 import { useTypedDispatch } from '../redux/modules'
 import { addProduct } from '../redux/cart/actionCreators'
+import { useHistory } from 'react-router-dom'
 import stockIcon from '../assets/img/icons/Group 132stock-icon.svg'
 import cartIcon from '../assets/img/icons/Group 65cart-icon.svg'
 import mailIcon from '../assets/img/icons/Group 107mail.svg'
@@ -18,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isExpanded,
 }) => {
   const dispatch = useTypedDispatch()
-
+  const history = useHistory()
   const options = [
     {
       name: 'mail',
@@ -34,6 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     },
   ]
   const names = ['CPU', 'Featured', 'I/O Ports']
+
   const reviewStars = Array.from({ length: 5 }, (_, i) => (
     <div key={String(i)} className="stars__item">
       <img src={star} alt="" />
@@ -52,24 +54,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <img
         src={options[i].icon}
         alt=" "
-        onClick={() =>
-          i === 2 &&
-          dispatch(
-            addProduct({
-              id,
-              amount: 1,
-              price,
-              productName,
-              imageUrl,
-            })
-          )
-        }
+        onClick={(event) => i === 2 && addBtnHandler(event)}
       />
     </div>
   ))
 
+  const addBtnHandler = (e: React.MouseEvent): void => {
+    e.stopPropagation()
+    dispatch(
+      addProduct({
+        id: id,
+        amount: 1,
+        price,
+        productName,
+        imageUrl,
+      })
+    )
+  }
+
   return (
-    <div className={isExpanded ? 'product-card expanded' : 'product-card'}>
+    <div
+      className={isExpanded ? 'product-card expanded' : 'product-card'}
+      onClick={() => history.push(`/product/${id}`)}
+    >
       <div className="product__status">
         <div className="status__icon">
           <img src={stockIcon} alt=" " />
@@ -107,17 +114,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
               <div
                 className="add-btn__text"
-                onClick={() =>
-                  dispatch(
-                    addProduct({
-                      id: id,
-                      amount: 1,
-                      price,
-                      productName,
-                      imageUrl,
-                    })
-                  )
-                }
+                onClick={(event) => addBtnHandler(event)}
               >
                 Add to Cart
               </div>

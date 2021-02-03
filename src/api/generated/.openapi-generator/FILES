@@ -10,6 +10,8 @@ models/NewCategory.ts
 models/NewProduct.ts
 models/NewPromotedCategories.ts
 models/Product.ts
+models/ProductDetails.ts
+models/ProductSpecs.ts
 models/PromotedCategories.ts
 models/index.ts
 runtime.ts

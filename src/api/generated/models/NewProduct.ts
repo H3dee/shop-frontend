@@ -13,6 +13,17 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    ProductDetails,
+    ProductDetailsFromJSON,
+    ProductDetailsFromJSONTyped,
+    ProductDetailsToJSON,
+    ProductSpecs,
+    ProductSpecsFromJSON,
+    ProductSpecsFromJSONTyped,
+    ProductSpecsToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -37,6 +48,18 @@ export interface NewProduct {
      * @memberof NewProduct
      */
     category?: string;
+    /**
+     * 
+     * @type {Array<ProductDetails>}
+     * @memberof NewProduct
+     */
+    details?: Array<ProductDetails>;
+    /**
+     * 
+     * @type {Array<ProductSpecs>}
+     * @memberof NewProduct
+     */
+    specs?: Array<ProductSpecs>;
     /**
      * 
      * @type {Date}
@@ -70,6 +93,8 @@ export function NewProductFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'name': json['name'],
         'price': json['price'],
         'category': !exists(json, 'category') ? undefined : json['category'],
+        'details': !exists(json, 'details') ? undefined : ((json['details'] as Array<any>).map(ProductDetailsFromJSON)),
+        'specs': !exists(json, 'specs') ? undefined : ((json['specs'] as Array<any>).map(ProductSpecsFromJSON)),
         'publishedAt': !exists(json, 'published_at') ? undefined : (new Date(json['published_at'])),
         'createdBy': !exists(json, 'created_by') ? undefined : json['created_by'],
         'updatedBy': !exists(json, 'updated_by') ? undefined : json['updated_by'],
@@ -88,6 +113,8 @@ export function NewProductToJSON(value?: NewProduct | null): any {
         'name': value.name,
         'price': value.price,
         'category': value.category,
+        'details': value.details === undefined ? undefined : ((value.details as Array<any>).map(ProductDetailsToJSON)),
+        'specs': value.specs === undefined ? undefined : ((value.specs as Array<any>).map(ProductSpecsToJSON)),
         'published_at': value.publishedAt === undefined ? undefined : (value.publishedAt.toISOString()),
         'created_by': value.createdBy,
         'updated_by': value.updatedBy,
