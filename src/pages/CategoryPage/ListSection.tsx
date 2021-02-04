@@ -1,71 +1,82 @@
-import React, { useEffect, useState } from 'react'
-import { Product as ProductDTO } from '../../api/generated/models/Product'
-import { useHttp } from '../../hooks/http.hook'
-import { getProductImage } from '../../util/getImage'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { Product as ProductDTO } from "../../api/generated/models/Product";
+import { useHttp } from "../../hooks/http.hook";
+import { getProductImage } from "../../util/getImage";
+import { useDispatch } from "react-redux";
 import {
   clearFilters,
   removePriceFilter,
   removeSubcategoryFilter,
-} from '../../redux/category/actionCreators'
-import { ISubCategoriesName as subCategoriesName } from '../../redux/interfaces/ISubCategoryName'
-import { PriceFilterItem } from '../../redux/interfaces/IPriceFilterItem'
+} from "../../redux/category/actionCreators";
+import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
+import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
 import {
   hideProductsLoading,
   showProductsLoading,
-} from '../../redux/application/actionCreators'
-import { setProducts } from '../../redux/product/actionCreators'
-import { useTypedSelector } from '../../redux/modules'
-import ProductCard from '../../components(shared)/ProductCard'
-import Loader from '../../components(shared)/Loader'
-import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
-import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
-import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
-import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
-import reserveImg from '../../assets/img/image 29test.png'
+} from "../../redux/application/actionCreators";
+import { setProducts } from "../../redux/product/actionCreators";
+import { useTypedSelector } from "../../redux/modules";
+import ProductCard from "../../components(shared)/ProductCard";
+import Loader from "../../components(shared)/Loader";
+import Pagination from "./Pagination";
+import gridIcon from "../../assets/img/icons/Group 201grid-icon.svg";
+import lineIcon from "../../assets/img/icons/Frame 50line-type.svg";
+import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
+import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
+import reserveImg from "../../assets/img/image 29test.png";
 
-const qs = require('qs')
+const qs = require("qs");
 
 const ListSection: React.FC = () => {
-  const [isGrid, setIsGrid] = useState(true)
-  const products = useTypedSelector(state => state.products.products) 
+  const [isGrid, setIsGrid] = useState(true);
+  const products = useTypedSelector((state) => state.products.products);
   const { filtersByPrice, filtersBySubCategory } = useTypedSelector(
     (state) => state.filters
-  )
-  const categoryId = useTypedSelector(state => state.category.parentCategoryId)
+  );
+  const categoryId = useTypedSelector(
+    (state) => state.category.parentCategoryId
+  );
   const subCategories = useTypedSelector(
     (state) => state.category.subCategoriesNames
-  )
-  const loading = useTypedSelector((state) => state.app.productsLoading)
-  const { request } = useHttp()
-  const dispatch = useDispatch()
+  );
+  const loading = useTypedSelector((state) => state.app.productsLoading);
+  const [amount, setAmount] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1)
+  const dispatch = useDispatch();
   const filters: (subCategoriesName | PriceFilterItem)[] = [
     ...filtersBySubCategory,
     ...filtersByPrice,
-  ]
+  ];
+  const { request } = useHttp();
+
+  const switchPageHandler = (page: number): void => {
+    setCurrentPage(page)
+  }
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        if (!categoryId || products.length) return
+        if (!categoryId || products.length) return;
 
         const query = qs.stringify(
           {
             _where: {
               _or: [
-                { 'category.id': categoryId },
+                { "category.id": categoryId },
                 ...subCategories.map((subCategory) => ({
-                  'category.id': subCategory.id,
+                  "category.id": subCategory.id,
                 })),
               ],
             },
-            _limit: 20,
+            _limit: 10,
+            _start: currentPage * 10
           },
           { encode: false }
-        )
+        );
 
-        dispatch(showProductsLoading())
-        const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
+        dispatch(showProductsLoading());
+        const productsAmount: number = await request("/products/count", "GET");
+        const data: ProductDTO[] = await request(`/products?${query}`, "GET");
 
         dispatch(
           data.length &&
@@ -77,16 +88,17 @@ const ListSection: React.FC = () => {
                 price: product.price,
               }))
             )
-        )
+        );
 
-        dispatch(hideProductsLoading())
+        dispatch(hideProductsLoading());
+        productsAmount && setAmount(Math.ceil(productsAmount / 10));
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-    }
+    };
 
-    getProducts()
-  }, [request, categoryId, dispatch, products.length, subCategories])
+    getProducts();
+  }, [request, categoryId, dispatch, products.length, subCategories, currentPage]);
 
   return (
     <div className="list__body">
@@ -122,14 +134,14 @@ const ListSection: React.FC = () => {
                   </div>
                 </div>
                 <div className="top__display-type-btns">
-                  <div className={isGrid ? 'grid-type active' : 'grid-type'}>
+                  <div className={isGrid ? "grid-type active" : "grid-type"}>
                     <img
                       src={gridIcon}
                       alt=""
                       onClick={() => !isGrid && setIsGrid(true)}
                     />
                   </div>
-                  <div className={!isGrid ? 'line-type active' : 'line-type'}>
+                  <div className={!isGrid ? "line-type active" : "line-type"}>
                     <img
                       src={lineIcon}
                       alt=""
@@ -182,9 +194,10 @@ const ListSection: React.FC = () => {
             <Loader />
           )}
         </div>
+        {amount && <Pagination pagesAmount={amount!} />}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ListSection
+export default ListSection;

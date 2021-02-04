@@ -278,6 +278,8 @@
               flex: 1 1 83%;
               .container {
                 padding: 0px 8px;
+                min-height: 100%;
+                position: relative;
                 .list__body__row {
                   display: flex;
                   flex-direction: column;
@@ -432,6 +434,45 @@
                     margin-top: 5px;
                     display: flex;
                     flex-wrap: wrap;
+                  }
+                }
+                .pagination {
+                  position: absolute;
+                  bottom: -5%;
+                  left: 43%;
+                  display: flex;
+                  .pagination__item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 38px;
+                    height: 37px;
+                    padding: 8px 16px;
+                    border-radius: 50%;
+                    font-weight: 600;
+                    line-height: 19px;
+                    overflow: hidden;
+                    background: none;
+                    border: 2px solid #8C8C8C;
+                    margin-right: 10px;
+                    color: #8C8C8C;
+                    transition: 0.1s ease-in;
+                    cursor: pointer;
+                    .arrow{
+                      font-size: 18px;
+                    }
+                    &:hover {
+                      color: #ffffff;
+                      background: #8C8C8C;
+                    }
+                    &.selected{
+                      background: #EBEBEB;
+                      border-color: #EBEBEB;
+                      color: #000000;
+                    }
+                    &:last-child {
+                      margin: 0;
+                    }
                   }
                 }
               }

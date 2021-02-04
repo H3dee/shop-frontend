@@ -18,6 +18,7 @@
       width: 110px;
       img {
         @extend %imgTemplate;
+        object-fit: contain;
       }
     }
     .description__text {
