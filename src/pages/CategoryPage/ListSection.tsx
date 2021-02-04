@@ -1,107 +1,210 @@
-import React, { useEffect, useState } from "react";
-import { Product as ProductDTO } from "../../api/generated/models/Product";
-import { useHttp } from "../../hooks/http.hook";
-import { getProductImage } from "../../util/getImage";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react'
+import { Product as ProductDTO } from '../../api/generated/models/Product'
+import { useHttp } from '../../hooks/http.hook'
+import { getProductImage } from '../../util/getImage'
+import { useDispatch } from 'react-redux'
 import {
   clearFilters,
   removePriceFilter,
   removeSubcategoryFilter,
-} from "../../redux/category/actionCreators";
-import { ISubCategoriesName as subCategoriesName } from "../../redux/interfaces/ISubCategoryName";
-import { PriceFilterItem } from "../../redux/interfaces/IPriceFilterItem";
+  setPagination,
+} from '../../redux/category/actionCreators'
+import { ISubCategoriesName as subCategoriesName } from '../../redux/interfaces/ISubCategoryName'
+import { PriceFilterItem } from '../../redux/interfaces/IPriceFilterItem'
 import {
   hideProductsLoading,
   showProductsLoading,
-} from "../../redux/application/actionCreators";
-import { setProducts } from "../../redux/product/actionCreators";
-import { useTypedSelector } from "../../redux/modules";
-import ProductCard from "../../components(shared)/ProductCard";
-import Loader from "../../components(shared)/Loader";
-import Pagination from "./Pagination";
-import gridIcon from "../../assets/img/icons/Group 201grid-icon.svg";
-import lineIcon from "../../assets/img/icons/Frame 50line-type.svg";
-import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
-import cancelIcon from "../../assets/img/icons/Group 108cancel.svg";
-import reserveImg from "../../assets/img/image 29test.png";
+} from '../../redux/application/actionCreators'
+import { setProducts } from '../../redux/product/actionCreators'
+import { useTypedSelector } from '../../redux/modules'
+import ProductCard from '../../components(shared)/ProductCard'
+import Loader from '../../components(shared)/Loader'
+import Pagination from './Pagination'
+import gridIcon from '../../assets/img/icons/Group 201grid-icon.svg'
+import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
+import reserveImg from '../../assets/img/image 29test.png'
 
-const qs = require("qs");
+const qs = require('qs')
 
 const ListSection: React.FC = () => {
-  const [isGrid, setIsGrid] = useState(true);
-  const products = useTypedSelector((state) => state.products.products);
+  const [isGrid, setIsGrid] = useState(true)
+  const products = useTypedSelector((state) => state.products.products)
   const { filtersByPrice, filtersBySubCategory } = useTypedSelector(
     (state) => state.filters
-  );
+  )
   const categoryId = useTypedSelector(
     (state) => state.category.parentCategoryId
-  );
+  )
   const subCategories = useTypedSelector(
     (state) => state.category.subCategoriesNames
-  );
-  const loading = useTypedSelector((state) => state.app.productsLoading);
-  const [amount, setAmount] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState(1)
-  const dispatch = useDispatch();
+  )
+  const loading = useTypedSelector((state) => state.app.productsLoading)
+  const pagination = useTypedSelector((state) => state.pagination)
+  const dispatch = useDispatch()
   const filters: (subCategoriesName | PriceFilterItem)[] = [
     ...filtersBySubCategory,
     ...filtersByPrice,
-  ];
-  const { request } = useHttp();
+  ]
+  const focusRef = useRef<HTMLDivElement>(null)
+  const { request } = useHttp()
 
   const switchPageHandler = (page: number): void => {
-    setCurrentPage(page)
-  }
+    dispatch(setPagination({ ...pagination, currentPage: page }))
 
-  useEffect(() => {
-    const getProducts = async () => {
+    const toggleProducts = async () => {
       try {
-        if (!categoryId || products.length) return;
-
-        const query = qs.stringify(
-          {
-            _where: {
-              _or: [
-                { "category.id": categoryId },
-                ...subCategories.map((subCategory) => ({
-                  "category.id": subCategory.id,
-                })),
-              ],
-            },
-            _limit: 10,
-            _start: currentPage * 10
+        const query = qs.stringify({
+          _where: {
+            _or: [
+              { 'category.id': categoryId },
+              ...subCategories.map((subCategory) => ({
+                'category.id': subCategory.id,
+              })),
+            ],
           },
-          { encode: false }
-        );
+          _limit: 10,
+          _start: (pagination.currentPage - 1) * 10,
+        })
 
-        dispatch(showProductsLoading());
-        const productsAmount: number = await request("/products/count", "GET");
-        const data: ProductDTO[] = await request(`/products?${query}`, "GET");
+        focusRef.current?.scrollIntoView({
+          block: 'start',
+          behavior: 'auto',
+          inline: 'start',
+        })
+        dispatch(showProductsLoading())
+        const products: ProductDTO[] = await request(
+          `/products?${query}`,
+          'GET'
+        )
 
-        dispatch(
-          data.length &&
+        products &&
+          products.length &&
+          dispatch(
             setProducts(
-              data.map((product) => ({
+              products.map((product) => ({
                 id: product.id,
                 imageUrl: getProductImage(product),
                 productName: product.name,
                 price: product.price,
               }))
             )
-        );
+          )
 
-        dispatch(hideProductsLoading());
-        productsAmount && setAmount(Math.ceil(productsAmount / 10));
+        dispatch(hideProductsLoading())
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-    };
+    }
 
-    getProducts();
-  }, [request, categoryId, dispatch, products.length, subCategories, currentPage]);
+    toggleProducts()
+  }
+
+  // useEffect(() => {
+  //   if (!pagination.currentPage) return
+
+  //   const toggleProducts = async () => {
+  //     try {
+  //       const query = qs.stringify({
+  //         _where: {
+  //           _or: [
+  //             { 'category.id': categoryId },
+  //             ...subCategories.map((subCategory) => ({
+  //               'category.id': subCategory.id,
+  //             })),
+  //           ],
+  //         },
+  //         _limit: 10,
+  //         _start: (pagination.currentPage - 1) * 10,
+  //       })
+
+  //       focusRef.current?.scrollIntoView({
+  //         block: 'start',
+  //         behavior: 'auto',
+  //         inline: 'start',
+  //       })
+  //       dispatch(showProductsLoading())
+  //       const products: ProductDTO[] = await request(
+  //         `/products?${query}`,
+  //         'GET'
+  //       )
+
+  //       products &&
+  //         products.length &&
+  //         dispatch(
+  //           setProducts(
+  //             products.map((product) => ({
+  //               id: product.id,
+  //               imageUrl: getProductImage(product),
+  //               productName: product.name,
+  //               price: product.price,
+  //             }))
+  //           )
+  //         )
+
+  //       dispatch(hideProductsLoading())
+  //     } catch (e) {
+  //       console.log(e)
+  //     }
+  //   }
+
+  //   toggleProducts()
+  // }, [pagination.currentPage, request, categoryId, dispatch, subCategories])
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        if (!categoryId || products.length) return
+
+        const query = qs.stringify(
+          {
+            _where: {
+              _or: [
+                { 'category.id': categoryId },
+                ...subCategories.map((subCategory) => ({
+                  'category.id': subCategory.id,
+                })),
+              ],
+            },
+          },
+          { encode: false }
+        )
+        dispatch(showProductsLoading())
+        const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
+
+        data.length &&
+          dispatch(
+            setPagination({
+              currentPage: 1,
+              pagesAmount: Math.ceil(data.length / 10),
+              productsAmount: data.length,
+            })
+          )
+
+        data.length &&
+          dispatch(
+            setProducts(
+              data.splice(0, 10).map((product) => ({
+                id: product.id,
+                imageUrl: getProductImage(product),
+                productName: product.name,
+                price: product.price,
+              }))
+            )
+          )
+
+        dispatch(hideProductsLoading())
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    getProducts()
+  }, [request, categoryId, dispatch, products.length, subCategories])
 
   return (
-    <div className="list__body">
+    <div className="list__body" ref={focusRef}>
       <div className="container">
         <div className="list__body__row">
           {!loading ? (
@@ -109,8 +212,8 @@ const ListSection: React.FC = () => {
               <div className="body__top">
                 <div className="top__items-count-info">
                   <div className="items-count-info__text">
-                    Items <span className="current">1-35</span> of
-                    <span className="all">61</span>
+                    Items <span className="current">1-10</span> of
+                    <span className="all">{pagination.productsAmount}</span>
                   </div>
                 </div>
                 <div className="top__sort-menu">
@@ -126,7 +229,7 @@ const ListSection: React.FC = () => {
                   <div className="top__show-amount__placeholder">
                     <div className="text">Show:</div>
                     <div className="selected">
-                      <span>20</span> per page
+                      <span>10</span> per page
                     </div>
                     <div className="arrow">
                       <img src={rightArrow} alt=" " />
@@ -134,14 +237,14 @@ const ListSection: React.FC = () => {
                   </div>
                 </div>
                 <div className="top__display-type-btns">
-                  <div className={isGrid ? "grid-type active" : "grid-type"}>
+                  <div className={isGrid ? 'grid-type active' : 'grid-type'}>
                     <img
                       src={gridIcon}
                       alt=""
                       onClick={() => !isGrid && setIsGrid(true)}
                     />
                   </div>
-                  <div className={!isGrid ? "line-type active" : "line-type"}>
+                  <div className={!isGrid ? 'line-type active' : 'line-type'}>
                     <img
                       src={lineIcon}
                       alt=""
@@ -194,10 +297,16 @@ const ListSection: React.FC = () => {
             <Loader />
           )}
         </div>
-        {amount && <Pagination pagesAmount={amount!} />}
+        {pagination.pagesAmount ? (
+          <Pagination
+            pagesAmount={pagination.pagesAmount}
+            switchPage={switchPageHandler}
+            currentPage={pagination.currentPage}
+          />
+        ) : null}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ListSection;
+export default ListSection

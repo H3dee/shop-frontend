@@ -1,23 +1,54 @@
-import React from "react";
-import { PaginationProps } from "../../interfaces/IPagintaion";
+import React from 'react'
+import { PaginationProps } from '../../redux/interfaces/IPagintaion'
 
-const Pagination: React.FC<PaginationProps> = ({ pagesAmount }) => {
-  console.log(pagesAmount);
+const Pagination: React.FC<PaginationProps> = ({
+  pagesAmount,
+  switchPage,
+  currentPage,
+}) => {
   return (
     <div className="pagination">
-      <div className="pagination__item">
+      <div
+        className={
+          currentPage && currentPage === 1
+            ? 'pagination__item disabled'
+            : 'pagination__item'
+        }
+        onClick={() =>
+          currentPage && currentPage !== 1 && switchPage(currentPage - 1)
+        }
+      >
         <span className="arrow">‹</span>
       </div>
       {Array.from({ length: pagesAmount }, (_, i) => (
-        <div className="pagination__item" key={String(i)}>
-          {++i}
+        <div
+          className={
+            currentPage === i + 1
+              ? 'pagination__item selected'
+              : 'pagination__item'
+          }
+          onClick={() => switchPage(i + 1)}
+          key={String(i)}
+        >
+          {i + 1}
         </div>
       ))}
-      <div className="pagination__item">
+      <div
+        className={
+          currentPage && currentPage === pagesAmount
+            ? 'pagination__item disabled'
+            : 'pagination__item'
+        }
+        onClick={() =>
+          currentPage &&
+          currentPage !== pagesAmount &&
+          switchPage(currentPage + 1)
+        }
+      >
         <span className="arrow">›</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

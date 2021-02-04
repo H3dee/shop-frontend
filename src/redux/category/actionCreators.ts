@@ -10,6 +10,8 @@ import {
   REMOVE_SUBCATEGORY_FILTER,
   RESET_CATEGORY,
   RESET_FILTERS,
+  RESET_PAGINATION,
+  SET_PAGINATION,
 } from './actionsTypes'
 import {
   Category as CategoryDTO,
@@ -28,9 +30,11 @@ import { PriceFilterItem } from '../interfaces/IPriceFilterItem'
 import { setProducts } from '../product/actionCreators'
 import { getProductImage } from '../../util/getImage'
 import { RootState } from '../interfaces/IRootState'
+import { PaginationPayload } from '../interfaces/IPagintaion'
 
 const qs = require('qs')
 
+//Categories
 interface SetAction {
   payload: {
     subCategoriesNames: subCategoriesName[]
@@ -78,6 +82,7 @@ export const resetCategory = (): Action => ({
   type: RESET_CATEGORY,
 })
 
+//Filters
 type Filter = subCategoriesName | PriceFilterItem
 
 interface SetFilterAction {
@@ -155,3 +160,21 @@ export const clearFilters = (): ThunkAction<
     })
     .catch((err) => console.log(err))
 }
+
+//Pagination
+interface SetPaginationAction {
+  payload: PaginationPayload
+}
+
+export type PaginationAction = Action & SetPaginationAction
+
+export const setPagination = (
+  options: PaginationPayload
+): PaginationAction => ({
+  type: SET_PAGINATION,
+  payload: { ...options },
+})
+
+export const resetPagination = (): Action => ({
+  type: RESET_PAGINATION
+})

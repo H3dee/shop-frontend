@@ -465,6 +465,11 @@
                       color: #ffffff;
                       background: #8C8C8C;
                     }
+                    &.disabled{
+                      opacity: 0.5;
+                      background: none;
+                      color: #8C8C8C;
+                    }
                     &.selected{
                       background: #EBEBEB;
                       border-color: #EBEBEB;
