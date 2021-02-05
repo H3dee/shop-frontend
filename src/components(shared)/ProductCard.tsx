@@ -3,6 +3,8 @@ import { ProductCardProps } from '../interfaces/IProductCard'
 import { useTypedDispatch } from '../redux/modules'
 import { addProduct } from '../redux/cart/actionCreators'
 import { useHistory } from 'react-router-dom'
+import { resetCategory, resetFilters } from '../redux/category/actionCreators'
+import { resetProducts } from '../redux/product/actionCreators'
 import stockIcon from '../assets/img/icons/Group 132stock-icon.svg'
 import cartIcon from '../assets/img/icons/Group 65cart-icon.svg'
 import mailIcon from '../assets/img/icons/Group 107mail.svg'
@@ -41,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <img src={star} alt="" />
     </div>
   ))
-
+  
   const featuresItems = Array.from({ length: 3 }, (_, i) => (
     <div className="features__item" key={String(i)}>
       <div className="item__name">{names[i]}</div>
@@ -72,10 +74,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
     )
   }
 
+  const showProductPageHandler = () => {
+    dispatch(resetFilters())
+    dispatch(resetCategory())
+    dispatch(resetProducts())
+    history.push(`/product/${id}`)
+  }
+
   return (
     <div
       className={isExpanded ? 'product-card expanded' : 'product-card'}
-      onClick={() => history.push(`/product/${id}`)}
+      onClick={showProductPageHandler}
     >
       <div className="product__status">
         <div className="status__icon">

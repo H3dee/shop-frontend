@@ -1,44 +1,50 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { RootState } from "../../redux/interfaces/IRootState";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { RootState } from '../../redux/interfaces/IRootState'
 import {
   applyFilters,
   clearFilters,
   resetCategory,
   resetFilters,
-} from "../../redux/category/actionCreators";
+} from '../../redux/category/actionCreators'
 
-import { resetProducts } from "../../redux/product/actionCreators";
-import { useTypedSelector } from "../../redux/modules";
-import rightArrow from "../../assets/img/icons/Vector 13right-pointer.svg";
-import BrandsBlock from "./BrandsBlock";
-import Filter from "./Filter";
+import { resetProducts } from '../../redux/product/actionCreators'
+import { useTypedSelector } from '../../redux/modules'
+import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
+import BrandsBlock from './BrandsBlock'
+import Filter from './Filter'
 
 const FiltersSection: React.FC = () => {
-  const filtersNames = ["Category", "Price"];
-  const prices: string[] = ["0 - 1000", "1000 - 5000", "5000 - 15000"];
+  const filtersNames = ['Category', 'Price']
+  const prices: string[] = [
+    '0 - 1000',
+    '1000 - 5000',
+    '5000 - 50000',
+    '50000 - 150000',
+  ]
   const categories = useTypedSelector(
     (state) => state.category.subCategoriesNames
-  );
+  )
   const { filtersBySubCategory, filtersByPrice } = useSelector(
     (state: RootState) => state.filters
-  );
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const filters = [...filtersBySubCategory, ...filtersByPrice];
+  )
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const filters = [...filtersBySubCategory, ...filtersByPrice]
+
   const backBtnHandler = () => {
-    dispatch(resetFilters());
-    dispatch(resetCategory());
-    dispatch(resetProducts());
-    history.push("/home");
-  };
+    dispatch(resetFilters())
+    dispatch(resetCategory())
+    dispatch(resetProducts())
+    history.push('/home')
+  }
 
   const applyBtnHandler = async () => {
-    if (!filters.length) return;
+    if (!filters.length) return
 
-    dispatch(applyFilters(false));
-  };
+    dispatch(applyFilters(false))
+  }
 
   return (
     <div className="list__filters-section">
@@ -86,7 +92,7 @@ const FiltersSection: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FiltersSection;
+export default FiltersSection

@@ -6,6 +6,8 @@ import HeaderMenu from './HeaderMenu'
 import Loader from '../Loader'
 import '../../scss/components/header.scss'
 
+// const qs = require('qs')
+
 const Header: React.FC = React.memo(() => {
   const [showTimetable, setShowTimetable] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
