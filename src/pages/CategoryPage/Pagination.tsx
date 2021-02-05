@@ -27,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({
               ? 'pagination__item selected'
               : 'pagination__item'
           }
-          onClick={() => switchPage(i + 1)}
+          onClick={() => currentPage !== i + 1 &&  switchPage(i + 1)}
           key={String(i)}
         >
           {i + 1}

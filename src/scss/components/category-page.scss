@@ -438,7 +438,7 @@
                 }
                 .pagination {
                   position: absolute;
-                  bottom: -5%;
+                  bottom: -6%;
                   left: 43%;
                   display: flex;
                   .pagination__item {
@@ -466,7 +466,7 @@
                       background: #8C8C8C;
                     }
                     &.disabled{
-                      opacity: 0.5;
+                      opacity: 0.3;
                       background: none;
                       color: #8C8C8C;
                     }
