@@ -6,7 +6,7 @@ import HeaderMenu from './HeaderMenu'
 import Loader from '../Loader'
 import '../../scss/components/header.scss'
 
-// const qs = require('qs')
+const qs = require('qs')
 
 const Header: React.FC = React.memo(() => {
   const [showTimetable, setShowTimetable] = useState<boolean>(false)
@@ -40,7 +40,15 @@ const Header: React.FC = React.memo(() => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const data = await request('/categories?_limit=5', 'GET')
+        const query = qs.stringify(
+          {
+            _where: { parent_null: true },
+            _limit: 5,
+          },
+          { encode: false }
+        )
+
+        const data = await request(`/categories?${query}`, 'GET')
         setCategories(data)
         setCurrentCategory(data[0])
       } catch (err) {

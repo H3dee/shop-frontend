@@ -25,9 +25,7 @@ export const cartReducer = (
         (product) => product.id === action.payload.id
       );
       return doesExist
-        ? {
-            ...state,
-          }
+        ? state
         : {
             ...state,
             products: [...state.products, action.payload],
