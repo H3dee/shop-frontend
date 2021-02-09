@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { MenuCategory, SubCategory } from "../../interfaces/IMenu";
 import { getMenuSubCategories } from "../../util/getMenuSubCategories";
-import { Product as ProductDTO } from "../../api/generated";
 import HeaderInfoSection from "./HeaderInfoSection";
 import HeaderMenu from "./HeaderMenu";
 import Loader from "../Loader";
@@ -71,20 +70,6 @@ const Header: React.FC = React.memo(() => {
           "GET"
         );
         
-        const productsQuery = qs.stringify({
-          _where: {
-            _or: [
-              ...parentCategories.map(parentCategory => ({
-                'category.id': parentCategory.id
-              }))
-            ]
-          }
-        })
-
-        const products: ProductDTO[] = await request(`/products?${productsQuery}`, 'GET')
-
-        console.log(products)
-
         setCategories(
           parentCategories.map((category) => ({
             id: category.id,

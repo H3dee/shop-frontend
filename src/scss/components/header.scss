@@ -366,7 +366,13 @@
               }
             }
             .menu__products {
+              flex: 1 1 auto;
               display: flex;
+              align-items: center;
+              justify-content: center;
+              .products__empty-placeholder {
+                font-size: 18px;
+              }
             }
           }
           .menu__empty-alert {
