@@ -63,7 +63,7 @@ const Footer: React.FC = React.memo(() => {
             </div>
             <div className="columns__item">
               <div className="item__title">Laptops</div>
-              <p>Evryday Use Notebooks</p>
+              <p>Everyday Use Notebooks</p>
               <p>MSI Workstation Series</p>
               <p>MSI Prestige Series</p>
               <p>Tablets and Pads</p>

@@ -1,5 +1,9 @@
 import React from "react";
 import { InfoSection } from "../../interfaces/IHeader";
+import { useHistory } from "react-router-dom";
+import { useTypedDispatch } from "../../redux/modules";
+import { resetFilters, resetCategory } from "../../redux/category/actionCreators";
+import { resetProducts } from "../../redux/product/actionCreators";
 import fbIcon from "../../assets/img/icons/fb-icon.svg";
 import instIcon from "../../assets/img/icons/inst_icon.svg";
 
@@ -7,6 +11,16 @@ const HeaderInfoSection: React.FC<InfoSection> = ({
   showTimetable,
   toggleTimetable,
 }) => {
+  const dispatch = useTypedDispatch()
+  const history = useHistory()
+
+  const showContactPageHandler = () => {
+    dispatch(resetFilters())
+    dispatch(resetCategory())
+    dispatch(resetProducts())
+    history.push('/contact')
+  }
+
   return (
     <div className="header__info-section">
       <div className="container">
@@ -63,7 +77,7 @@ const HeaderInfoSection: React.FC<InfoSection> = ({
             <span className="text">
               Visit our showroom in 1234 Street Adress City Address, 1234
             </span>
-            <span className="underlined">Contact Us</span>
+            <span className="underlined" onClick={showContactPageHandler}>Contact Us</span>
           </div>
           <div className="info-section__contacts">
             <div className="contacts__phone">Call Us: (00) 1234 5678</div>

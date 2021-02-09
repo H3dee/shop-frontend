@@ -189,12 +189,16 @@
                         line-height: 18px;
                         font-size: 13px;
                         font-weight: 600;
-                        a {
-                          padding-left: 2px;
-                          font-weight: 300;
+                        span {
+                          cursor: pointer;
+                          margin-left: 3px;
+                          font-weight: 400;
                           font-size: 12px;
                           color: #0156ff;
                           text-decoration: underline;
+                          &:hover{
+                            opacity: 0.6;
+                          }
                         }
                       }
                       .bottom__product-code {

@@ -1,8 +1,9 @@
-import React from "react";
-import BenefitsList from "../../components(shared)/BenefitsCards/BenefitsList";
-import Footer from "../../components(shared)/Footer/Footer";
-import Header from "../../components(shared)/Header/Header";
-import Sections from "./Sections";
+import React from 'react'
+import BenefitsList from '../../components(shared)/BenefitsCards/BenefitsList'
+import Footer from '../../components(shared)/Footer/Footer'
+import Header from '../../components(shared)/Header/Header'
+import FormsSection from './FormsSections'
+import InfoSection from './InfoSection'
 
 const ContactPage: React.FC = () => {
   return (
@@ -11,13 +12,16 @@ const ContactPage: React.FC = () => {
       <div className="Contact__content">
         <div className="Contact__container">
           <div className="Contact__title">Contact Us</div>
-          <Sections />
+          <div className="Contact__sections">
+            <FormsSection />
+            <InfoSection />
+          </div>
           <BenefitsList />
         </div>
       </div>
       <Footer />
     </>
-  );
-};
-  
-export default ContactPage;
+  )
+}
+
+export default ContactPage

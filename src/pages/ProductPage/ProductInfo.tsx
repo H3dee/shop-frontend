@@ -1,24 +1,32 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Product as ProductDTO } from "../../api/generated";
-import { useHttp } from "../../hooks/http.hook";
-import { Product } from "../../interfaces/IProductCard";
-import { getProductImage } from "../../util/getImage";
-import qs from "qs";
-import Loader from "../../components(shared)/Loader";
-import GeneralDetails from "./GeneralDetails";
-import Preview from "./Preview";
-
+import React, { useEffect, useMemo, useState } from 'react'
+import { Product as ProductDTO } from '../../api/generated'
+import { useHttp } from '../../hooks/http.hook'
+import { Product } from '../../interfaces/IProductCard'
+import { getProductImage } from '../../util/getImage'
+import {
+  resetFilters,
+  resetCategory,
+} from '../../redux/category/actionCreators'
+import { resetProducts } from '../../redux/product/actionCreators'
+import { useTypedDispatch } from '../../redux/modules'
+import { useHistory } from 'react-router-dom'
+import qs from 'qs'
+import Loader from '../../components(shared)/Loader'
+import GeneralDetails from './GeneralDetails'
+import Preview from './Preview'
 
 const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
-  const [product, setProduct] = useState<Product>();
-  const [typeOfContent, setTypeOfContent] = useState("about");
-  const { request, loading } = useHttp();
+  const [product, setProduct] = useState<Product>()
+  const [typeOfContent, setTypeOfContent] = useState('about')
+  const { request, loading } = useHttp()
+  const dispatch = useTypedDispatch()
+  const history = useHistory()
 
-  const setTypeHandler = (type: string) => setTypeOfContent(type.toLowerCase());
+  const setTypeHandler = (type: string) => setTypeOfContent(type.toLowerCase())
 
   const tabContent = useMemo((): JSX.Element => {
     switch (typeOfContent) {
-      case "specs":
+      case 'specs':
         return (
           <div className="description__specs">
             {product?.specs?.length ? (
@@ -34,8 +42,8 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
               </div>
             )}
           </div>
-        );
-      case "details":
+        )
+      case 'details':
         return (
           <div className="description__details">
             {product?.details?.length ? (
@@ -50,18 +58,25 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
               </div>
             )}
           </div>
-        );
+        )
       default:
-        return <div className="description__about">{product?.productName}</div>;
+        return <div className="description__about">{product?.productName}</div>
     }
-  }, [typeOfContent, product?.details, product?.productName, product?.specs]);
+  }, [typeOfContent, product?.details, product?.productName, product?.specs])
+
+  const showContactPageHandler = () => {
+    dispatch(resetFilters())
+    dispatch(resetCategory())
+    dispatch(resetProducts())
+    history.push('/contact')
+  }
 
   useEffect(() => {
     const getProduct = async () => {
       const query = qs.stringify({
         _where: { id: productId },
-      });
-      const data: ProductDTO[] = await request(`/products?${query}`, "GET");
+      })
+      const data: ProductDTO[] = await request(`/products?${query}`, 'GET')
 
       Array.isArray(data) &&
         data.length &&
@@ -72,11 +87,11 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
           price: data[0].price,
           details: data[0].details,
           specs: data[0].specs,
-        });
-    };
+        })
+    }
 
-    getProduct();
-  }, [productId, request]);
+    getProduct()
+  }, [productId, request])
 
   return (
     <>
@@ -121,7 +136,10 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
                         </div>
                         <div className="body__bottom">
                           <div className="bottom__question-ref">
-                            Have a Question? <a href="/home">Contact Us</a>
+                            Have a Question?
+                            <span onClick={showContactPageHandler}>
+                              Contact Us
+                            </span>
                           </div>
                           <div className="bottom__product-code">
                             SKU D5515AI
@@ -141,7 +159,7 @@ const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProductInfo;
+export default ProductInfo
