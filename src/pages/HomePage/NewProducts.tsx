@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import ProductCard from "../../components(shared)/ProductCard";
 import { Product } from "../../interfaces/IProductCard";
 import { useHttp } from "../../hooks/http.hook";
+import qs from 'qs';
 import Loader from "../../components(shared)/Loader";
-
-const qs = require('qs')
+import ProductCard from "../../components(shared)/ProductCard";
 
 const NewProducts: React.FC = React.memo(() => {
   const { loading, request } = useHttp();

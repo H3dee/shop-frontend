@@ -18,6 +18,8 @@ import {
 } from '../../redux/application/actionCreators'
 import { setProducts } from '../../redux/product/actionCreators'
 import { useTypedSelector } from '../../redux/modules'
+import { getFocus } from '../../util/getFocus'
+import qs from 'qs'
 import ProductCard from '../../components(shared)/ProductCard'
 import Loader from '../../components(shared)/Loader'
 import Pagination from './Pagination'
@@ -26,9 +28,6 @@ import lineIcon from '../../assets/img/icons/Frame 50line-type.svg'
 import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'
 import cancelIcon from '../../assets/img/icons/Group 108cancel.svg'
 import reserveImg from '../../assets/img/image 29test.png'
-import { getFocus } from '../../util/getFocus'
-
-const qs = require('qs')
 
 const ListSection: React.FC = () => {
   const [isGrid, setIsGrid] = useState(true)

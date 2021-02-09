@@ -7,12 +7,12 @@ import { useHttp } from "../../hooks/http.hook";
 import { getProductImage } from "../../util/getImage";
 import { useDispatch } from "react-redux";
 import { openCategory } from "../../redux/category/actionCreators";
+import qs from "qs";
 import ProductCard from "../../components(shared)/ProductCard";
 import Loader from "../../components(shared)/Loader";
 import testImg from "../../assets/img/image 29.png";
 import "../../scss/components/category.scss";
 
-const qs = require("qs");
 
 const Category: React.FC<PromotedCategoryProps> = (props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);

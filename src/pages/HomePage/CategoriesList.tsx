@@ -4,10 +4,10 @@ import { PromotedCategory } from "../../interfaces/IPromotedCategory";
 import { Category as CategoryDTO } from "../../api/generated/models/Category";
 import { getCategoryImage } from "../../util/getImage";
 import { getSubCategoriesNamesById } from "../../util/getSubCategoriesNamesById";
+import qs from "qs";
 import Category from "./Category";
 import Loader from "../../components(shared)/Loader";
 
-const qs = require("qs");
 
 const CategoriesList: React.FC = () => {
   const [promotedCategories, setPromotedCategories] = useState<PromotedCategory[]>([]);

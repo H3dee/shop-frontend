@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Product as ProductDTO } from "../../api/generated";
-import Loader from "../../components(shared)/Loader";
 import { useHttp } from "../../hooks/http.hook";
 import { Product } from "../../interfaces/IProductCard";
 import { getProductImage } from "../../util/getImage";
+import qs from "qs";
+import Loader from "../../components(shared)/Loader";
 import GeneralDetails from "./GeneralDetails";
 import Preview from "./Preview";
 
-const qs = require("qs");
 
 const ProductInfo: React.FC<{ productId: string }> = ({ productId }) => {
   const [product, setProduct] = useState<Product>();

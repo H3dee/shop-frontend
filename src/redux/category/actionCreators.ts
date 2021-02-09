@@ -32,8 +32,7 @@ import { getProductImage } from '../../util/getImage'
 import { PaginationPayload } from '../interfaces/IPagintaion'
 import { AppThunk } from '../modules'
 import { InitialFiltersState } from './reducers/filtersReducer'
-
-const qs = require('qs')
+import qs from 'qs'
 
 //Categories
 interface SetAction {

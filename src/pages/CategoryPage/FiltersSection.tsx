@@ -8,7 +8,6 @@ import {
   resetCategory,
   resetFilters,
 } from '../../redux/category/actionCreators'
-
 import { resetProducts } from '../../redux/product/actionCreators'
 import { useTypedSelector } from '../../redux/modules'
 import rightArrow from '../../assets/img/icons/Vector 13right-pointer.svg'

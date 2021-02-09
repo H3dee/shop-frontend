@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Details } from "../../interfaces/IDetails";
 import { useTypedDispatch } from "../../redux/modules";
+import { addProduct } from "../../redux/cart/actionCreators";
 import arrowIcon from "../../assets/img/icons/Vector 13right-pointer.svg";
 import paypalLogo from "../../assets/img/icons/Group 114paypal_logo.svg";
 import "../../scss/components/general-details.scss";
-import { addProduct } from "../../redux/cart/actionCreators";
 
 const GeneralDetails: React.FC<Details> = ({
   setTypeHandler: setType,

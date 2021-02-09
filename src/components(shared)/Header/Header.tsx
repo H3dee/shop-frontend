@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { MenuCategory, SubCategory } from "../../interfaces/IMenu";
 import { getMenuSubCategories } from "../../util/getMenuSubCategories";
+import qs from "qs";
 import HeaderInfoSection from "./HeaderInfoSection";
 import HeaderMenu from "./HeaderMenu";
 import Loader from "../Loader";
 import "../../scss/components/header.scss";
-
-
-const qs = require("qs");
 
 const Header: React.FC = React.memo(() => {
   const [showTimetable, setShowTimetable] = useState<boolean>(false);

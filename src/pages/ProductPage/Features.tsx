@@ -4,7 +4,7 @@ import rtx from '../../assets/img/features_images/Group 16rtx.png'
 import ssd from '../../assets/img/features_images/Group 15ssd-gen.png'
 import ddr from '../../assets/img/features_images/Group 14ddr4.png'
 
-export const Features: React.FC = () => {
+const Features: React.FC = () => {
   const features: Array<{ id: number; img: string; description: string }> = [
     {
       id: 1,
@@ -65,3 +65,5 @@ export const Features: React.FC = () => {
     </div>
   )
 }
+
+export default Features

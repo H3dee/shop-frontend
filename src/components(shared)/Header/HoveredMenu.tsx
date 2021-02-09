@@ -4,12 +4,11 @@ import { useHttp } from '../../hooks/http.hook'
 import { Product } from '../../interfaces/IProductCard'
 import { Product as ProductDTO } from '../../api/generated'
 import { getProductImage } from '../../util/getImage'
+import qs from 'qs'
 import CompaniesLogos from '../CompaniesLogos'
 import reservedImg from '../../assets/img/image 29test.png'
 import ProductCard from '../ProductCard'
 import Loader from '../Loader'
-
-const qs = require('qs')
 
 const HoveredMenu: React.FC<HoveredMenuProps> = ({ items: categories }) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([])
