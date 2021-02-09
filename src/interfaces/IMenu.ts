@@ -3,7 +3,7 @@ export interface SubCategory{
       image: string | null,
       name: string,
       parent: number | null,
-      sub_category: null,
+      subCategories: null,
       updated_at: string
 }
 
@@ -19,4 +19,4 @@ export interface MenuCategory {
 
 export interface HoveredMenuProps {
       items: SubCategory[] | null | undefined
-}
+}  

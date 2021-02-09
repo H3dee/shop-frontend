@@ -1,0 +1,10 @@
+.Contact__page{
+      flex: 1 1 auto;
+      .Contact__container{
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 0px 10px;
+            display: flex;
+            flex-direction: column;
+      }
+}

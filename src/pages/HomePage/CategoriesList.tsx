@@ -3,7 +3,7 @@ import { useHttp } from "../../hooks/http.hook";
 import { PromotedCategory } from "../../interfaces/IPromotedCategory";
 import { Category as CategoryDTO } from "../../api/generated/models/Category";
 import { getCategoryImage } from "../../util/getImage";
-import { getSubCategoriesById } from "../../util/getSubCategories";
+import { getSubCategoriesNamesById } from "../../util/getSubCategoriesNamesById";
 import Category from "./Category";
 import Loader from "../../components(shared)/Loader";
 
@@ -40,7 +40,7 @@ const CategoriesList: React.FC = () => {
                 name: category.name,
                 imgUrl: getCategoryImage(category),
               },
-              subcategoriesNames: getSubCategoriesById(
+              subcategoriesNames: getSubCategoriesNamesById(
                 subCategories,
                 category.id
               ).map((subCategory) => ({

@@ -1,0 +1,23 @@
+import React from "react";
+import BenefitsList from "../../components(shared)/BenefitsCards/BenefitsList";
+import Footer from "../../components(shared)/Footer/Footer";
+import Header from "../../components(shared)/Header/Header";
+import Sections from "./Sections";
+
+const ContactPage: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <div className="Contact__content">
+        <div className="Contact__container">
+          <div className="Contact__title">Contact Us</div>
+          <Sections />
+          <BenefitsList />
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+  
+export default ContactPage;
