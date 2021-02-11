@@ -1,82 +1,158 @@
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
 .Contact__content {
-  flex: 1 1 auto;
-  .Contact__container {
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 0px 10px;
-    display: flex;
-    flex-direction: column;
-    .Contact__title {
-      font-weight: 600;
-      font-size: 32px;
-      line-height: 48px;
-      margin: 58px 0px 12px 0px;
-    }
-    .Contact__sections {
-      display: flex;
-      justify-content: space-between;
-      .Forms-section {
-        flex: 1 1 72%;
-      }
-      .Info-section {
-        margin-left: 11px;
-        flex: 1 1 28%;
-        background: #f5f9ff;
-        .Info-section__container {
-          padding: 25px 25px;
-          .Info-section-item {
-            margin-bottom: 19px;
-            .section-item__content {
-              padding-left: 38px;
-              .content__title {
-                font-weight: 600;
-                font-size: 16px;
-                line-height: 27px;
-                margin-bottom: 3px;
-              }
-              .content__text {
-                font-size: 12px;
-                line-height: 19px;
-                p {
-                  line-height: 19px;
-                }
-                a {
-                  color: #0156ff;
-                  font-size: 13px;
-                  line-height: 19px;
-                  &:hover {
-                    text-decoration: underline;
-                  }
-                }
-              }
-            }
-          }
-          div:first-child {
-            .section-item__content {
-              background: url("../../assets/img/icons/Vectormap-dot.svg") 2px
-                1px/20px 24px no-repeat;
-            }
-          }
-          div:nth-child(2) {
-            .section-item__content {
-              background: url("../../assets/img/icons/bx_bx-timephone.svg") -4px
-                0/30px 30px no-repeat;
-            }
-          }
-          div:nth-child(3) {
-            .section-item__content {
-              background: url("../../assets/img/icons/bx_bx-timetime-icon.svg") -4px
-                0/30px 30px no-repeat;
-            }
-          }
-          div:last-child {
-            .section-item__content {
-              background: url("../../assets/img/icons/bx_bx-timemail.svg") -4px 0/30px
-                30px no-repeat;
-            }
-          }
+    flex: 1 1 auto;
+    .Contact__container {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        .Contact__title {
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 48px;
+            margin: 58px 0px 12px 0px;
         }
-      }
+        .Contact__sections {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 120px;
+            .Forms-section {
+                flex: 1 1 72%;
+                .Forms-section__container {
+                    padding-right: 49px;
+                    .Forms-section__text {
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 30px;
+                        max-width: 86%;
+                        margin-bottom: 21px;
+                    }
+                    .Forms-section__forms {
+                        display: flex;
+                        flex-direction: column;
+                        %formContainer {
+                            label {
+                                font-weight: 600;
+                                font-size: 13px;
+                                line-height: 27px;
+                                margin-bottom: 8px;
+                                .star {
+                                    color: #c94d3f;
+                                }
+                            }
+                            input {
+                                border: 1px solid #8c8c8c;
+                                border-radius: 4px;
+                                padding: 12px 8px 12px 17px;
+                                @include placeholder() {
+                                    color: #8c8c8c;
+                                }
+                            }
+                        }
+                        .forms__contacts {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            div {
+                                flex: 0 1 48%;
+                                display: flex;
+                                flex-direction: column;
+                                margin-bottom: 15px;
+                                &:last-child {
+                                    margin: 0;
+                                }
+                                @extend %formContainer;
+                            }
+                        }
+                        .forms__feedback {
+                          margin-top: 20px;
+                          display: flex;
+                          flex-direction: column;
+                          @extend %formContainer;
+                          input{
+                            flex: 1 1 237px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-start;
+                          }
+                        }
+                    }
+                }
+            }
+            .Info-section {
+                margin-left: 11px;
+                flex: 1 1 28%;
+                background: #f5f9ff;
+                .Info-section__container {
+                    padding: 25px 25px 45px 25px;
+                    .Info-section-item {
+                        margin-bottom: 19px;
+                        .section-item__content {
+                            padding-left: 38px;
+                            .content__title {
+                                font-weight: 600;
+                                font-size: 16px;
+                                line-height: 27px;
+                                margin-bottom: 3px;
+                            }
+                            .content__text {
+                                font-size: 12px;
+                                line-height: 19px;
+                                p {
+                                    line-height: 19px;
+                                }
+                                a {
+                                    color: #0156ff;
+                                    font-size: 13px;
+                                    line-height: 19px;
+                                    &:hover {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    div:first-child {
+                        .section-item__content {
+                            background: url('../../assets/img/icons/Vectormap-dot.svg')
+                                2px 1px/20px 24px no-repeat;
+                        }
+                    }
+                    div:nth-child(2) {
+                        .section-item__content {
+                            background: url('../../assets/img/icons/bx_bx-timephone.svg') -4px
+                                0/30px 30px no-repeat;
+                        }
+                    }
+                    div:nth-child(3) {
+                        .section-item__content {
+                            background: url('../../assets/img/icons/bx_bx-timetime-icon.svg') -4px
+                                0/30px 30px no-repeat;
+                        }
+                    }
+                    div:last-child {
+                        .section-item__content {
+                            background: url('../../assets/img/icons/bx_bx-timemail.svg') -4px
+                                0/30px 30px no-repeat;
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
 }
