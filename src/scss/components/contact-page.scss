@@ -1,10 +1,82 @@
-.Contact__page{
-      flex: 1 1 auto;
-      .Contact__container{
-            max-width: 1220px;
-            margin: 0 auto;
-            padding: 0px 10px;
-            display: flex;
-            flex-direction: column;
+.Contact__content {
+  flex: 1 1 auto;
+  .Contact__container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    .Contact__title {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 48px;
+      margin: 58px 0px 12px 0px;
+    }
+    .Contact__sections {
+      display: flex;
+      justify-content: space-between;
+      .Forms-section {
+        flex: 1 1 72%;
       }
+      .Info-section {
+        margin-left: 11px;
+        flex: 1 1 28%;
+        background: #f5f9ff;
+        .Info-section__container {
+          padding: 25px 25px;
+          .Info-section-item {
+            margin-bottom: 19px;
+            .section-item__content {
+              padding-left: 38px;
+              .content__title {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 27px;
+                margin-bottom: 3px;
+              }
+              .content__text {
+                font-size: 12px;
+                line-height: 19px;
+                p {
+                  line-height: 19px;
+                }
+                a {
+                  color: #0156ff;
+                  font-size: 13px;
+                  line-height: 19px;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+          }
+          div:first-child {
+            .section-item__content {
+              background: url("../../assets/img/icons/Vectormap-dot.svg") 2px
+                1px/20px 24px no-repeat;
+            }
+          }
+          div:nth-child(2) {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timephone.svg") -4px
+                0/30px 30px no-repeat;
+            }
+          }
+          div:nth-child(3) {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timetime-icon.svg") -4px
+                0/30px 30px no-repeat;
+            }
+          }
+          div:last-child {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timemail.svg") -4px 0/30px
+                30px no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
 }

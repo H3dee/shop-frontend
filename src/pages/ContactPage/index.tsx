@@ -1,9 +1,10 @@
-import React from 'react'
-import BenefitsList from '../../components(shared)/BenefitsCards/BenefitsList'
-import Footer from '../../components(shared)/Footer/Footer'
-import Header from '../../components(shared)/Header/Header'
-import FormsSection from './FormsSections'
-import InfoSection from './InfoSection'
+import React from "react";
+import BenefitsList from "../../components(shared)/BenefitsCards/BenefitsList";
+import Footer from "../../components(shared)/Footer/Footer";
+import Header from "../../components(shared)/Header/Header";
+import FormsSection from "./FormsSections";
+import InfoSection from "./InfoSection";
+import "../../scss/components/contact-page.scss";
 
 const ContactPage: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const ContactPage: React.FC = () => {
       </div>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ContactPage
+export default ContactPage;

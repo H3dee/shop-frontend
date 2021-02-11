@@ -43,7 +43,7 @@ const Header: React.FC = React.memo(() => {
         const categoriesQuery = qs.stringify(
           {
             _where: { parent_null: true },
-            _limit: 5,
+            _limit: 6,
           },
           { encode: false }
         );

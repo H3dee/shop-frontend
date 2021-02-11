@@ -1,13 +1,13 @@
 import React from 'react'
 
 const FormsSection: React.FC = () => (
-  <div className="Forms__section">
-    <div className="Forms__section__container">
-      <div className="Forms__section__text">
+  <div className="Forms-section">
+    <div className="Forms-section__container">
+      <div className="Forms-section__text">
         We love hearing from you, our Shop customers. Please contact us and we
         will make sure to get back to you as soon as we possibly can.
       </div>
-      <div className="Forms__section__forms">
+      <div className="Forms-section__forms">
         <div className="forms__contacts">
           <div className="contacts__name-input">
             <label htmlFor="name">
