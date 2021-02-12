@@ -12,6 +12,10 @@ const ContactPage: React.FC = () => {
       <Header />
       <div className="Contact__content">
         <div className="Contact__container">
+          <div className="Contact__path">
+            <div className="path__item">Home</div>
+            <div className="path__item">Contact Us</div>
+          </div>
           <div className="Contact__title">Contact Us</div>
           <div className="Contact__sections">
             <FormsSection />

@@ -53,11 +53,11 @@
                           background: #0156ff;
                         }
                         &::before {
-                          top: 4px;
+                          top: 6px;
                           transform: rotate(60deg);
                         }
                         &::after {
-                          top: 6px;
+                          top: 8px;
                           transform: rotate(-60deg);
                         }
                         &:last-child {
