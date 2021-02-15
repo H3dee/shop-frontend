@@ -1,158 +1,230 @@
+@import "../templates/btn.scss";
+
 @mixin placeholder {
-    &::-webkit-input-placeholder {
-        @content;
-    }
-    &:-moz-placeholder {
-        @content;
-    }
-    &::-moz-placeholder {
-        @content;
-    }
-    &:-ms-input-placeholder {
-        @content;
-    }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
 }
 
 .Contact__content {
-    flex: 1 1 auto;
-    .Contact__container {
-        max-width: 1220px;
-        margin: 0 auto;
-        padding: 0px 10px;
-        display: flex;
-        flex-direction: column;
-        .Contact__title {
-            font-weight: 600;
-            font-size: 32px;
-            line-height: 48px;
-            margin: 58px 0px 12px 0px;
+  flex: 1 1 auto;
+  .Contact__container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    .Contact__path {
+      margin-top: 21px;
+      display: flex;
+      div {
+        position: relative;
+        font-size: 12px;
+        margin-right: 6px;
+        padding-right: 10px;
+        font-weight: 600;
+        line-height: 18px;
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 3px;
+          height: 1px;
+          right: 0px;
+          background: #0156ff;
         }
-        .Contact__sections {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 120px;
-            .Forms-section {
-                flex: 1 1 72%;
-                .Forms-section__container {
-                    padding-right: 49px;
-                    .Forms-section__text {
-                        font-weight: 300;
-                        font-size: 16px;
-                        line-height: 30px;
-                        max-width: 86%;
-                        margin-bottom: 21px;
-                    }
-                    .Forms-section__forms {
-                        display: flex;
-                        flex-direction: column;
-                        %formContainer {
-                            label {
-                                font-weight: 600;
-                                font-size: 13px;
-                                line-height: 27px;
-                                margin-bottom: 8px;
-                                .star {
-                                    color: #c94d3f;
-                                }
-                            }
-                            input {
-                                border: 1px solid #8c8c8c;
-                                border-radius: 4px;
-                                padding: 12px 8px 12px 17px;
-                                @include placeholder() {
-                                    color: #8c8c8c;
-                                }
-                            }
-                        }
-                        .forms__contacts {
-                            display: flex;
-                            flex-wrap: wrap;
-                            justify-content: space-between;
-                            div {
-                                flex: 0 1 48%;
-                                display: flex;
-                                flex-direction: column;
-                                margin-bottom: 15px;
-                                &:last-child {
-                                    margin: 0;
-                                }
-                                @extend %formContainer;
-                            }
-                        }
-                        .forms__feedback {
-                          margin-top: 20px;
-                          display: flex;
-                          flex-direction: column;
-                          @extend %formContainer;
-                          input{
-                            flex: 1 1 237px;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: flex-start;
-                          }
-                        }
-                    }
-                }
-            }
-            .Info-section {
-                margin-left: 11px;
-                flex: 1 1 28%;
-                background: #f5f9ff;
-                .Info-section__container {
-                    padding: 25px 25px 45px 25px;
-                    .Info-section-item {
-                        margin-bottom: 19px;
-                        .section-item__content {
-                            padding-left: 38px;
-                            .content__title {
-                                font-weight: 600;
-                                font-size: 16px;
-                                line-height: 27px;
-                                margin-bottom: 3px;
-                            }
-                            .content__text {
-                                font-size: 12px;
-                                line-height: 19px;
-                                p {
-                                    line-height: 19px;
-                                }
-                                a {
-                                    color: #0156ff;
-                                    font-size: 13px;
-                                    line-height: 19px;
-                                    &:hover {
-                                        text-decoration: underline;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    div:first-child {
-                        .section-item__content {
-                            background: url('../../assets/img/icons/Vectormap-dot.svg')
-                                2px 1px/20px 24px no-repeat;
-                        }
-                    }
-                    div:nth-child(2) {
-                        .section-item__content {
-                            background: url('../../assets/img/icons/bx_bx-timephone.svg') -4px
-                                0/30px 30px no-repeat;
-                        }
-                    }
-                    div:nth-child(3) {
-                        .section-item__content {
-                            background: url('../../assets/img/icons/bx_bx-timetime-icon.svg') -4px
-                                0/30px 30px no-repeat;
-                        }
-                    }
-                    div:last-child {
-                        .section-item__content {
-                            background: url('../../assets/img/icons/bx_bx-timemail.svg') -4px
-                                0/30px 30px no-repeat;
-                        }
-                    }
-                }
-            }
+        &::before {
+          top: 8px;
+          transform: rotate(60deg);
         }
+        &::after {
+          top: 10px;
+          transform: rotate(-60deg);
+        }
+        &:last-child {
+          margin: 0;
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
     }
+    .Contact__title {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 48px;
+      margin: 19px 0px 12px 0px;
+    }
+    .Contact__sections {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 120px;
+      .Forms-section {
+        flex: 1 1 72%;
+        .Forms-section__container {
+          padding-right: 49px;
+          .Forms-section__text {
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 30px;
+            max-width: 86%;
+            margin-bottom: 21px;
+          }
+          .Forms-section__forms {
+            display: flex;
+            flex-direction: column;
+            %formContainer {
+              label {
+                order: -1;
+                align-self: flex-start;
+                font-weight: 600;
+                font-size: 13px;
+                line-height: 27px;
+                margin-bottom: 8px;
+                transition: color 0.15s ease-in;
+                .star {
+                  color: #c94d3f;
+                }
+              }
+              input {
+                border: 1px solid #8c8c8c;
+                border-radius: 4px;
+                padding: 12px 8px 12px 17px;
+                transition: border-color 0.15s ease-in;
+                @include placeholder() {
+                  color: #8c8c8c;
+                }
+                &:focus {
+                  border-color: #0156ff;
+                }
+              }
+              input:focus + label {
+                color: #0156ff;
+                .star {
+                  display: none;
+                }
+              }
+            }
+            .forms__contacts {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              div {
+                flex: 0 1 48%;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+                &:last-child {
+                  margin: 0;
+                }
+                @extend %formContainer;
+              }
+            }
+            .forms__feedback {
+              margin-top: 20px;
+              display: flex;
+              flex-direction: column;
+              @extend %formContainer;
+              input {
+                flex: 1 1 237px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+              }
+            }
+            .forms__submit-btn {
+              margin-top: 16px;
+              align-self: flex-start;
+              position: relative;
+              button {
+                @extend %btnTemplate;
+                position: absolute;
+                color: #f5f9ff;
+                background: #0156ff;
+                font-weight: 600;
+                line-height: 21px;
+                padding: 13px 73px;
+                transition: 0.1s ease-in;
+                &:hover {
+                  opacity: 0.8;
+                }
+                &:active {
+                  padding: 12px 72px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .Info-section {
+        margin-left: 11px;
+        flex: 1 1 28%;
+        .Info-section__container {
+          background: #f5f9ff;
+          padding: 25px 25px 45px 25px;
+          .Info-section-item {
+            margin-bottom: 19px;
+            .section-item__content {
+              padding-left: 38px;
+              .content__title {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 27px;
+                margin-bottom: 3px;
+              }
+              .content__text {
+                font-size: 12px;
+                line-height: 19px;
+                p {
+                  line-height: 19px;
+                }
+                a {
+                  color: #0156ff;
+                  font-size: 13px;
+                  line-height: 19px;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+          }
+          div:first-child {
+            .section-item__content {
+              background: url("../../assets/img/icons/Vectormap-dot.svg") 2px
+                1px/20px 24px no-repeat;
+            }
+          }
+          div:nth-child(2) {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timephone.svg") -4px
+                0/30px 30px no-repeat;
+            }
+          }
+          div:nth-child(3) {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timetime-icon.svg") -4px
+                0/30px 30px no-repeat;
+            }
+          }
+          div:last-child {
+            .section-item__content {
+              background: url("../../assets/img/icons/bx_bx-timemail.svg") -4px 0/30px
+                30px no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
 }
