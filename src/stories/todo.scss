@@ -1,0 +1,61 @@
+.list__item {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    &.large {
+        max-width: 1000px;
+    }
+    &.medium {
+        max-width: 700px;
+    }
+    &.small {
+        max-width: 400px;
+    }
+    &:last-child {
+        margin: 0;
+    }
+    &.completed {
+        .item__status {
+            background: url('https://www.flaticon.com/svg/vstatic/svg/390/390973.svg?token=exp=1613468985~hmac=d8437da5649438dc40b22aa98027f1ed')
+                50% 50% /10px 10px no-repeat;
+        }
+        .item__text {
+            text-decoration: line-through;
+        }
+    }
+    &:hover {
+        .item__remove-icon {
+            display: block;
+        }
+    }
+    .item__status {
+        border-radius: 5px;
+        flex-shrink: 0;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #64fd94;
+    }
+    .item__text {
+        align-self: center;
+        padding: 0 7px;
+    }
+    .item__remove-icon {
+        display: none;
+        position: absolute;
+        right: 1%;
+        top: 42%;
+        width: 10px;
+        height: 10px;
+        opacity: 0.7;
+        transition: opacity 0.1s ease-in;
+        background: url('https://www.flaticon.com/svg/vstatic/svg/491/491721.svg?token=exp=1613468888~hmac=560777a3c8a275020696702acdc79ecb')
+            0 0 / contain no-repeat;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
