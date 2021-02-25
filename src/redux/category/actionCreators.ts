@@ -50,7 +50,7 @@ export const openCategory = (
   const query = qs.stringify(
     {
       _where: [{ 'parent.id': id }],
-      _limit: 12,
+      _limit: 10,
     },
     { encode: false }
   )
