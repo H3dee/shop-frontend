@@ -7,10 +7,10 @@ import { useHttp } from "../../hooks/http.hook";
 import { getProductImage } from "../../util/getImage";
 import { useDispatch } from "react-redux";
 import { openCategory } from "../../redux/category/actionCreators";
-import qs from "qs";
 import ProductCard from "../../components(shared)/ProductCard";
-import Loader from "../../components(shared)/Loader";
 import testImg from "../../assets/img/image 29.png";
+import Loader from "../../components(shared)/Loader";
+import qs from "qs";
 import "../../scss/components/category.scss";
 
 
@@ -32,7 +32,6 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
     let isMounted = true;
 
     const getProducts = async () => {
-      setCurrentProducts([]);
       const query = qs.stringify({
         _where: [
           {
@@ -73,6 +72,7 @@ const Category: React.FC<PromotedCategoryProps> = (props) => {
         {props.subcategoriesNames &&
           props.subcategoriesNames.map((item, i) => (
             <div
+              role="tab"
               key={item.id}
               className={
                 (!currentSubCategoryId && i === 0) ||

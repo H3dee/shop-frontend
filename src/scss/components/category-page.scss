@@ -428,12 +428,16 @@
                           opacity: 0.75;
                         }
                       }
-                    }
+                    } 
+                    
                   }
                   .body__products {
                     margin-top: 5px;
                     display: flex;
                     flex-wrap: wrap;
+                    @media (max-width: 1495px) {
+                      justify-content: space-around;
+                    }
                   }
                 }
                 .pagination {
